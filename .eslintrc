@@ -34,7 +34,6 @@
         "tsx": "never",
         "js": "never",
         "jsx": "never",
-        "mjs": "never"
       }
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -59,5 +58,8 @@
     "react": {
       "version": "detect"
     }
+  },
+  "resolve": {
+    "extensions": [".tsx", ".ts", ".js"]
   }
 }
