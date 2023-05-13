@@ -58,8 +58,5 @@
     "react": {
       "version": "detect"
     }
-  },
-  "resolve": {
-    "extensions": [".tsx", ".ts", ".js"]
   }
 }

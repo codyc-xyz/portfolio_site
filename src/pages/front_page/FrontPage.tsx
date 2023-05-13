@@ -1,5 +1,5 @@
-import Header from '@/components/general/Header';
-import IntroText from '@/components/front_page/IntroText';
+import Header from '../../components/general/Header';
+import IntroText from '../../components/front_page/IntroText';
 
 const FrontPage = () => {
   return (
