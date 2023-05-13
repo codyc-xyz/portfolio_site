@@ -17,14 +17,21 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
         os: false,
         stream: false,
         path: false,
+        buffer: false,
+        zlib: false
       },
       alias: {
         process: 'process/browser',
+        buffer: 'buffer'
       },
     },
     plugins: [
       new webpack.ProvidePlugin({
         process: 'process/browser',
+        dns: 'empty',
+      }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
       }),
     ],
   });

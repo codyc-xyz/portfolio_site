@@ -33,7 +33,7 @@
         "ts": "never",
         "tsx": "never",
         "js": "never",
-        "jsx": "never",
+        "jsx": "never"
       }
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
