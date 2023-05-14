@@ -1,33 +1,28 @@
-import express from 'express';
-import { Sequelize, Model, DataTypes } from 'sequelize';
-import dotenv from 'dotenv';
-import cors from 'cors';
+'use strict';
+
+const express = require(`express`);
+const { Sequelize, DataTypes } = require(`sequelize`);
+const dotenv = require(`dotenv`);
+const cors = require(`cors`);
+const FrontImage = require(`./src/types/ImageAttributes.ts`);
 
 dotenv.config();
 const app = express();
 app.use(cors());
-const dbUrl: string = process.env.DB_URL || ``;
+
+let dbUrl;
+if (process.env.DB_URL) {
+  dbUrl = process.env.DB_URL;
+} else {
+  dbUrl = `default_db_url`;
+}
 
 const db = new Sequelize(dbUrl, {
   host: `localhost`,
   dialect: `postgres`,
 });
 
-export interface ImageAttributes {
-  image_uid: string;
-  title: string;
-  image_url: string;
-  text: string;
-}
-
-class Image extends Model<ImageAttributes> implements ImageAttributes {
-  public image_uid!: string;
-  public title!: string;
-  public image_url!: string;
-  public text!: string;
-}
-
-Image.init(
+FrontImage.init(
   {
     image_uid: {
       type: DataTypes.UUID,
@@ -50,13 +45,18 @@ Image.init(
   { sequelize: db, modelName: `image` },
 );
 
-export async function getImages(): Promise<ImageAttributes[]> {
-  const images = await Image.findAll({
-    attributes: [`title`, `image_url`, `text`],
-  });
-  return images;
-}
-module.exports = { getImages };
+app.get(`/images`, async (req: typeof Request, res: typeof Response) => {
+  try {
+    const images = await FrontImage.findAll({
+      attributes: [`image_uid`, `title`, `image_url`, `text`],
+    });
+    console.log(images);
+    (res as any).status(200).send(images);
+  } catch (error) {
+    console.error(error);
+    (res as any).status(500).send(`Internal Server Error`);
+  }
+});
 
 app.listen(3001, () => {
   console.log(`Server is running on port 3001`);
