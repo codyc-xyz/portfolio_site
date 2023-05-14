@@ -12,8 +12,6 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
         fs: false,
         assert: false,
         crypto: false,
-        http: false,
-        https: false,
         os: false,
         stream: false,
         path: false,
@@ -22,7 +20,9 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
       },
       alias: {
         process: 'process/browser',
-        buffer: 'buffer'
+        buffer: 'buffer',
+        stream: "stream-browserify",
+        http: "stream-http"
       },
     },
     plugins: [

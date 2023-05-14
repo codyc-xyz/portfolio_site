@@ -1,9 +1,11 @@
 import express from 'express';
 import { Sequelize, Model, DataTypes } from 'sequelize';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
+app.use(cors());
 const dbUrl: string = process.env.DB_URL || ``;
 
 const db = new Sequelize(dbUrl, {
@@ -11,7 +13,7 @@ const db = new Sequelize(dbUrl, {
   dialect: `postgres`,
 });
 
-interface ImageAttributes {
+export interface ImageAttributes {
   image_uid: string;
   title: string;
   image_url: string;
@@ -49,7 +51,9 @@ Image.init(
 );
 
 export async function getImages(): Promise<ImageAttributes[]> {
-  const images = await Image.findAll({ attributes: [`title`, `image_url`] });
+  const images = await Image.findAll({
+    attributes: [`title`, `image_url`, `text`],
+  });
   return images;
 }
 module.exports = { getImages };
