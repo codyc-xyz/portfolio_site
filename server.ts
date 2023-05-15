@@ -42,13 +42,14 @@ FrontImage.init(
       allowNull: false,
     },
   },
-  { sequelize: db, modelName: `image` },
+  { sequelize: db, modelName: `front_page_image` },
 );
 
 app.get(`/images`, async (req: typeof Request, res: typeof Response) => {
   try {
     const images = await FrontImage.findAll({
       attributes: [`image_uid`, `title`, `image_url`, `text`],
+      tableName: `front_page_image`,
     });
     console.log(images);
     (res as any).status(200).send(images);
