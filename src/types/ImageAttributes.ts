@@ -1,9 +1,9 @@
 import { Model } from 'sequelize';
 
 export type ImageAttributes = {
-  imageUid: string;
+  image_uid: string;
   title: string;
-  imageUrl: string;
+  image_url: string;
   text: string;
 };
 

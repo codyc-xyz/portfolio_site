@@ -26,10 +26,19 @@ const FrontPage: React.FC = () => {
     <div>
       <Header />
       <IntroText />
-      <div className="grid grid-cols-5 gap-4" style={{ marginTop: `48px` }}>
-        {images.map((image) => (
-          <ImageCard key={image.imageUid} {...image} />
-        ))}
+      <div className="grid grid-cols-4 gap-4" style={{ marginTop: `48px` }}>
+        {images.map((image) => {
+          console.log(image);
+          console.log(image.image_uid);
+          return (
+            <ImageCard
+              key={image.image_uid}
+              title={image.title}
+              imageUrl={image.image_url}
+              text={image.text}
+            />
+          );
+        })}
       </div>
     </div>
   );

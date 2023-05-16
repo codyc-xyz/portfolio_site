@@ -1,7 +1,10 @@
 import React from 'react';
-import { ImageAttributes } from '../../types/ImageAttributes';
 
-interface ImageCardProps extends ImageAttributes {}
+interface ImageCardProps {
+  title: string;
+  imageUrl: string;
+  text: string;
+}
 
 const ImageCard: React.FC<ImageCardProps> = ({ title, imageUrl, text }) => {
   return (
