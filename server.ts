@@ -24,7 +24,7 @@ const db = new Sequelize(dbUrl, {
 
 FrontImage.init(
   {
-    image_uid: {
+    imageUid: {
       type: DataTypes.UUID,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
@@ -33,7 +33,7 @@ FrontImage.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image_url: {
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
     },

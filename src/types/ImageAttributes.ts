@@ -1,12 +1,12 @@
-'use strict';
+import { Model } from 'sequelize';
 
-const { Model } = require(`sequelize`);
-
-type ImageAttributes = {
-  image_uid: string;
+export type ImageAttributes = {
+  imageUid: string;
   title: string;
-  image_url: string;
+  imageUrl: string;
   text: string;
 };
 
-module.exports = class FrontImage extends Model<ImageAttributes> {};
+class FrontImage extends Model<ImageAttributes> {}
+
+module.exports = FrontImage;

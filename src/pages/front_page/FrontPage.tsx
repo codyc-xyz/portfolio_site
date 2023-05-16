@@ -2,13 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/general/Header';
 import IntroText from '../../components/front_page/IntroText';
 import axios from 'axios';
-
-interface ImageAttributes {
-  image_uid: string;
-  title: string;
-  image_url: string;
-  text: string;
-}
+import ImageCard from '../../components/front_page/ImageCard';
+import { ImageAttributes } from '../../types/ImageAttributes';
 
 const FrontPage: React.FC = () => {
   const [images, setImages] = useState<ImageAttributes[]>([]);
@@ -31,9 +26,9 @@ const FrontPage: React.FC = () => {
     <div>
       <Header />
       <IntroText />
-      <div>
+      <div className="grid grid-cols-5 gap-4" style={{ marginTop: `48px` }}>
         {images.map((image) => (
-          <img src={image.image_url} alt={image.title} key={image.image_uid} />
+          <ImageCard key={image.imageUid} {...image} />
         ))}
       </div>
     </div>

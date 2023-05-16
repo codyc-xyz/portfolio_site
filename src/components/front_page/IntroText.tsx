@@ -4,7 +4,7 @@ const IntroText = () => {
       <div className="grid grid-cols-12 grid-rows-12">
         <div
           className="col-start-1 col-end-10 text-3xl p-24"
-          style={{ marginTop: `72px` }}
+          style={{ marginTop: `40px` }}
         >
           <p>Hi.</p>
           <p style={{ marginTop: `12px` }}>
