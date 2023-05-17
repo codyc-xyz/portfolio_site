@@ -6,6 +6,7 @@ const dotenv = require(`dotenv`);
 const cors = require(`cors`);
 const FrontImage = require(`./src/types/ImageAttributes.ts`);
 const Movie = require(`./src/types/MovieAttributes`);
+const Director = require(`./src/types/DirectorAttributes`);
 
 dotenv.config();
 const app = express();
@@ -72,10 +73,47 @@ Movie.init(
     director_uid: {
       type: DataTypes.STRING,
       allowNull: false,
+      foreignKey: true,
     },
   },
-  { sequelize: db, modelName: `movie` },
+  { sequelize: db, modelName: `movie`, timestamps: false },
 );
+
+Director.init(
+  {
+    director_uid: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    director_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    director_biography: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    date_director_born: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    date_director_deceased: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    director_country_of_birth: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    director_image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  { sequelize: db, modelName: `director`, timestamps: false },
+);
+
+Movie.belongsTo(Director, { foreignKey: `director_uid` });
 
 FrontImage.init(
   {
@@ -100,9 +138,31 @@ FrontImage.init(
   { sequelize: db, modelName: `front_page_image` },
 );
 
+app.get(`/directors`, async (req: typeof Request, res: typeof Response) => {
+  try {
+    const directors = await Director.findAll({
+      attributes: [
+        `director_uid`,
+        `director_name`,
+        `director_biography`,
+        `date_director_born`,
+        `date_director_deceased`,
+        `director_country_of_birth`,
+        `director_image`,
+      ],
+      tableName: `director`,
+    });
+    (res as any).status(200).json(directors);
+  } catch (error) {
+    console.error(error);
+    (res as any).status(500).send(`Internal Server Error`);
+  }
+});
+
 app.get(`/movies`, async (req: typeof Request, res: typeof Response) => {
   try {
     const movies = await Movie.findAll({
+      include: [Director],
       attributes: [
         `movie_uid`,
         `movie_title`,

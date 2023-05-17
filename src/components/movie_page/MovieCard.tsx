@@ -4,12 +4,14 @@ interface MovieCardProps {
   title: string;
   imageUrl: string;
   originCountry: string;
+  directorName: string;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({
   title,
   imageUrl,
   originCountry,
+  directorName,
 }) => {
   return (
     <div className="flex flex-col">
@@ -19,7 +21,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
         className="w-full h-auto"
         style={{ objectFit: `cover`, height: `250px` }}
       />
-      <p>{title}</p>
+      <p>{directorName}</p>
       <p>{originCountry}</p>
     </div>
   );
