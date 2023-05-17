@@ -3,7 +3,7 @@ import Header from '../components/general/Header';
 
 const Movies: React.FC = () => {
   return (
-    <div>
+    <div className="container">
       <Header />
     </div>
   );
