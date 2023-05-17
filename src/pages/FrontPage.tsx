@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../components/general/Header';
-import IntroText from '../../components/front_page/IntroText';
+import Header from '../components/general/Header';
+import IntroText from '../components/front_page/IntroText';
 import axios from 'axios';
-import ImageCard from '../../components/front_page/ImageCard';
-import { ImageAttributes } from '../../types/ImageAttributes';
+import ImageCard from '../components/front_page/ImageCard';
+import { ImageAttributes } from '../types/ImageAttributes';
 
 const FrontPage: React.FC = () => {
   const [images, setImages] = useState<ImageAttributes[]>([]);

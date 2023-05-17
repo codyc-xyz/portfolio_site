@@ -22,6 +22,7 @@ const config: GatsbyConfig = {
         tailwind: true,
       },
     },
+    `gatsby-plugin-typescript`,
   ],
   jsxRuntime: `automatic`,
 };
