@@ -59,8 +59,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     reporter.panicOnBuild('Error while running GraphQL query.');
     return;
   }
-  console.log(result.data.allMovies)
-  const movies = result.data.allMovies;
+  const movies = result.data.segments.allMovies;
 
   if (movies) {
     movies.forEach((movie: any) => {
@@ -69,6 +68,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
         component: path.resolve('./src/templates/MoviePage.tsx'),
         context: {
           movieUid: movie.movie_uid,
+          movieTitle: movie.movie_title,
         },
       });
     });

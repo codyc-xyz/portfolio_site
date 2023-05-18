@@ -1,21 +1,18 @@
-/* eslint-disable camelcase */
 import React from 'react';
 
 interface MoviePageProps {
-  data: {
-    movie: {
-      movie_title: string;
-      movie_uid: string;
-    };
+  pageContext: {
+    movieUid: string;
+    movieTitle: string;
   };
 }
 
-const MoviePage: React.FC<MoviePageProps> = ({ data }) => {
-  const { movie_title } = data.movie;
+const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
+  const { movieTitle } = pageContext;
 
   return (
     <div>
-      <h1>{movie_title}</h1>
+      <h1>{movieTitle}</h1>
     </div>
   );
 };
