@@ -51,10 +51,21 @@ export const createPages: GatsbyNode['createPages'] = async ({
       allMovies {
         movie_uid
         movie_title
+        movie_description
+        length_in_minutes
+        date_movie_released
+        movie_genres
+        movie_poster
+        letterboxd_link
+        screenshot_links
+        country_of_origin
+        content_warnings
+        director_uid
       }
     }
   }
   `);
+
   if (result.errors) {
     reporter.panicOnBuild('Error while running GraphQL query.');
     return;
@@ -64,11 +75,21 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (movies) {
     movies.forEach((movie: any) => {
       createPage({
-        path: movie.movie_title,
+        path: `movies/${movie.movie_title}`,
         component: path.resolve('./src/templates/MoviePage.tsx'),
         context: {
           movieUid: movie.movie_uid,
           movieTitle: movie.movie_title,
+          movieDescription: movie.movie_description,
+          lengthInMinutes: movie.length_in_minutes,
+          dateMovieReleased: movie.date_movie_released,
+          movieGenres: movie.movie_genres,
+          moviePoster: movie.movie_poster,
+          letterboxdLink: movie.letterboxd_link,
+          screenshotLinks: movie.screenshot_links,
+          countryOfOrigin: movie.country_of_origin,
+          contentWarnings: movie.content_warnings,
+          directorUid: movie.director_uid,
         },
       });
     });

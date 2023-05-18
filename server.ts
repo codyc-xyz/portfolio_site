@@ -22,7 +22,7 @@ const schema = buildSchema(`
     letterboxd_link: String!
     screenshot_links: [String!]!
     country_of_origin: String!
-    content_warnings: [String!]!
+    content_warnings: [String!]
     director_uid: String!
   }
 
