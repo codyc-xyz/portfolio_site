@@ -23,6 +23,14 @@ const config: GatsbyConfig = {
       },
     },
     `gatsby-plugin-typescript`,
+    {
+      resolve: `gatsby-source-graphql`,
+      options: {
+        typeName: `segments`,
+        fieldName: `segments`,
+        url: `http://localhost:3001/graphql`,
+      },
+    },
   ],
   jsxRuntime: `automatic`,
 };

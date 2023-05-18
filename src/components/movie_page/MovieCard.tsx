@@ -5,6 +5,7 @@ interface MovieCardProps {
   imageUrl: string;
   originCountry: string;
   directorName: string;
+  moviePageUrl: string;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({
@@ -12,17 +13,22 @@ const MovieCard: React.FC<MovieCardProps> = ({
   imageUrl,
   originCountry,
   directorName,
+  moviePageUrl,
 }) => {
   return (
     <div className="flex flex-col">
-      <img
-        src={imageUrl}
-        alt={title}
-        className="w-full h-auto"
-        style={{ objectFit: `cover`, height: `250px` }}
-      />
-      <p>{directorName}</p>
-      <p>{originCountry}</p>
+      <a href={moviePageUrl}>
+        <img
+          src={imageUrl}
+          alt={title}
+          className="w-full h-auto"
+          style={{ objectFit: `cover`, height: `250px` }}
+        />
+      </a>
+      <div className="font-medium text-text">
+        <p>{directorName}</p>
+        <p>{originCountry}</p>
+      </div>
     </div>
   );
 };

@@ -50,6 +50,7 @@
     "gatsby-plugin-postcss": "6.9.0",
     "gatsby-plugin-purgecss": "6.2.1",
     "gatsby-plugin-typescript": "5.10.0",
+    "gatsby-source-graphql": "5.10.0",
     "graphql": "16.6.0",
     "graphql-http": "1.18.0",
     "graphql-tools": "8.3.20",

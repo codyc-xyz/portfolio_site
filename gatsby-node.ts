@@ -1,6 +1,7 @@
 import type { GatsbyNode } from 'gatsby';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 const webpack = require('webpack');
+import path from 'path';
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
   actions,
@@ -35,4 +36,41 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
       }),
     ],
   });
+};
+
+export const createPages: GatsbyNode['createPages'] = async ({
+  actions,
+  graphql,
+  reporter,
+}) => {
+  const { createPage } = actions;
+
+  const result = await graphql<any>(`
+  {
+    segments {
+      allMovies {
+        movie_uid
+        movie_title
+      }
+    }
+  }
+  `);
+  if (result.errors) {
+    reporter.panicOnBuild('Error while running GraphQL query.');
+    return;
+  }
+  console.log(result.data.allMovies)
+  const movies = result.data.allMovies;
+
+  if (movies) {
+    movies.forEach((movie: any) => {
+      createPage({
+        path: movie.movie_title,
+        component: path.resolve('./src/templates/MoviePage.tsx'),
+        context: {
+          movieUid: movie.movie_uid,
+        },
+      });
+    });
+  }
 };
