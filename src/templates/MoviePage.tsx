@@ -111,7 +111,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
               key={index}
               src={screenshot}
               alt={`Screenshot ${index + 1}`}
-              className="w-full"
+              className="w-full h-full"
             />
           ))}
         </div>

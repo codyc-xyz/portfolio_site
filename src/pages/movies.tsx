@@ -34,7 +34,7 @@ const Movies: React.FC = () => {
           return (
             <MovieCard
               key={movie.movie_uid}
-              moviePageUrl={`${movie.movie_title}`}
+              moviePageUrl={`${movie.movie_uid}`}
               directorName={movie.director.director_name}
               title={movie.movie_title}
               imageUrl={movie.movie_poster}

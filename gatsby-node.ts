@@ -80,7 +80,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (movies) {
     movies.forEach((movie: any) => {
       createPage({
-        path: `movies/${movie.movie_title}`,
+        path: `movies/${movie.movie_uid}`,
         component: path.resolve(`./src/templates/MoviePage.tsx`),
         context: {
           movieUid: movie.movie_uid,
