@@ -60,7 +60,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
           screenshot_links
           country_of_origin
           content_warnings
-          director_uid
           director {
             director_name
           }
@@ -83,7 +82,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
         path: `movies/${movie.movie_uid}`,
         component: path.resolve(`./src/templates/MoviePage.tsx`),
         context: {
-          movieUid: movie.movie_uid,
           movieTitle: movie.movie_title,
           movieDescription: movie.movie_description,
           lengthInMinutes: movie.length_in_minutes,
@@ -94,7 +92,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
           screenshotLinks: movie.screenshot_links,
           countryOfOrigin: movie.country_of_origin,
           contentWarnings: movie.content_warnings,
-          directorUid: movie.director_uid,
           directorName: movie.director.director_name,
         },
       });

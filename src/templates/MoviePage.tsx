@@ -14,7 +14,6 @@ interface MoviePageProps {
     screenshotLinks: string[];
     countryOfOrigin: string;
     contentWarnings: string[];
-    directorUid: string;
     directorName: string;
   };
 }

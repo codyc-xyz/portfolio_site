@@ -24,7 +24,7 @@ const schema = buildSchema(`
     country_of_origin: String!
     content_warnings: [String!]
     director_uid: String!
-    director: Director
+    director: Director!
   }
 
   type Director {
