@@ -1,5 +1,5 @@
 'use strict';
-
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 const express = require(`express`);
 const { Sequelize, DataTypes } = require(`sequelize`);
 const dotenv = require(`dotenv`);
@@ -24,6 +24,7 @@ const schema = buildSchema(`
     country_of_origin: String!
     content_warnings: [String!]
     director_uid: String!
+    director: Director
   }
 
   type Director {
@@ -229,6 +230,11 @@ app.use(
     graphiql: true,
   }),
 );
+
+export const client = new ApolloClient({
+  uri: `http://localhost:3001/graphql`, // GraphQL endpoint URL
+  cache: new InMemoryCache(),
+});
 
 app.get(`/directors`, async (req: typeof Request, res: typeof Response) => {
   try {

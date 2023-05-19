@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
 import { MovieAttributes } from '../types/MovieAttributes';
-import axios from 'axios';
 import MovieCard from '../components/movie_page/MovieCard';
+import axios from 'axios';
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
@@ -20,7 +20,6 @@ const Movies: React.FC = () => {
     }
     fetchMovies();
   }, []);
-
   return (
     <div className="container">
       <Header />

@@ -1,7 +1,7 @@
 import type { GatsbyNode } from 'gatsby';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-const webpack = require('webpack');
 import path from 'path';
+const webpack = require(`webpack`);
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
   actions,
@@ -17,22 +17,22 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
         stream: false,
         path: false,
         buffer: false,
-        zlib: false
+        zlib: false,
       },
       alias: {
-        process: 'process/browser',
-        buffer: 'buffer',
-        stream: "stream-browserify",
-        http: "stream-http"
+        process: `process/browser`,
+        buffer: `buffer`,
+        stream: `stream-browserify`,
+        http: `stream-http`,
       },
     },
     plugins: [
       new webpack.ProvidePlugin({
-        process: 'process/browser',
-        dns: 'empty',
+        process: `process/browser`,
+        dns: `empty`,
       }),
       new webpack.ProvidePlugin({
-        Buffer: ['buffer', 'Buffer'],
+        Buffer: [`buffer`, `Buffer`],
       }),
     ],
   });
@@ -46,28 +46,33 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const { createPage } = actions;
 
   const result = await graphql<any>(`
-  {
-    segments {
-      allMovies {
-        movie_uid
-        movie_title
-        movie_description
-        length_in_minutes
-        date_movie_released
-        movie_genres
-        movie_poster
-        letterboxd_link
-        screenshot_links
-        country_of_origin
-        content_warnings
-        director_uid
+    {
+      segments {
+        allMovies {
+          movie_uid
+          movie_title
+          movie_description
+          length_in_minutes
+          date_movie_released
+          movie_genres
+          movie_poster
+          letterboxd_link
+          screenshot_links
+          country_of_origin
+          content_warnings
+          director_uid
+          director {
+            director_name
+          }
+        }
       }
     }
-  }
   `);
 
   if (result.errors) {
-    reporter.panicOnBuild('Error while running GraphQL query.');
+    reporter.panicOnBuild(
+      `Error while running GraphQL query: ${console.log(result.errors)}`,
+    );
     return;
   }
   const movies = result.data.segments.allMovies;
@@ -76,7 +81,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     movies.forEach((movie: any) => {
       createPage({
         path: `movies/${movie.movie_title}`,
-        component: path.resolve('./src/templates/MoviePage.tsx'),
+        component: path.resolve(`./src/templates/MoviePage.tsx`),
         context: {
           movieUid: movie.movie_uid,
           movieTitle: movie.movie_title,
@@ -90,6 +95,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
           countryOfOrigin: movie.country_of_origin,
           contentWarnings: movie.content_warnings,
           directorUid: movie.director_uid,
+          directorName: movie.director.director_name,
         },
       });
     });
