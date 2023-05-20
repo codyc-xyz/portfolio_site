@@ -79,6 +79,21 @@ export const createPages: GatsbyNode['createPages'] = async ({
             movie_poster
           }
         }
+        allBooks {
+          book_uid
+          book_title
+          book_description
+          pages
+          date_book_published
+          book_subjects
+          book_cover_image
+          goodreads_link
+          isbn
+          author_uid
+          author {
+            author_name
+          }
+        }
       }
     }
   `);
@@ -91,6 +106,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   }
   const movies = result.data.segments.allMovies;
   const directors = result.data.segments.allDirectors;
+  const books = result.data.segments.allBooks;
 
   if (movies) {
     movies.forEach((movie: any) => {
@@ -132,6 +148,27 @@ export const createPages: GatsbyNode['createPages'] = async ({
             movie_title: movie.movie_title,
             movie_poster: movie.movie_poster,
           })),
+        },
+      });
+    });
+  }
+
+  if (books) {
+    books.forEach((book: any) => {
+      createPage({
+        path: `philosophy/${book.book_uid}`,
+        component: path.resolve(`./src/templates/BookPage.tsx`),
+        context: {
+          bookTitle: book.book_title,
+          bookDescription: book.book_description,
+          pages: book.pages,
+          datePublished: book.date_book_published,
+          subjects: book.book_subjects,
+          coverImage: book.book_cover_image,
+          goodreads_link: book.goodreads_link,
+          isbn: book.isbn,
+          author_uid: book.author_uid,
+          authorName: book.author.author_name,
         },
       });
     });
