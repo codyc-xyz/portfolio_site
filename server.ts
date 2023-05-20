@@ -7,6 +7,7 @@ const cors = require(`cors`);
 const FrontImage = require(`./src/types/ImageAttributes.ts`);
 const Movie = require(`./src/types/MovieAttributes`);
 const Director = require(`./src/types/DirectorAttributes`);
+const Book = require(`./src/types/BookAttributes`);
 const { graphqlHTTP } = require(`express-graphql`);
 const { buildSchema } = require(`graphql`);
 
@@ -109,6 +110,53 @@ const db = new Sequelize(dbUrl, {
   host: `localhost`,
   dialect: `postgres`,
 });
+
+Book.init(
+  {
+    book_uid: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    book_title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    book_description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    date_book_published: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    pages: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    book_subjects: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
+    isbn: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    book_cover_image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    goodreads_link: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    author_uid: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      foreignKey: true,
+    },
+  },
+  { sequelize: db, modelName: `book`, timestamps: false },
+);
 
 Movie.init(
   {
@@ -235,8 +283,32 @@ app.use(
 );
 
 export const client = new ApolloClient({
-  uri: `http://localhost:3001/graphql`, // GraphQL endpoint URL
+  uri: `http://localhost:3001/graphql`,
   cache: new InMemoryCache(),
+});
+
+app.get(`/books`, async (req: Request, res: Response) => {
+  try {
+    const books = await Book.findAll({
+      attributes: [
+        `book_uid`,
+        `book_title`,
+        `book_description`,
+        `date_book_published`,
+        `pages`,
+        `book_subjects`,
+        `isbn`,
+        `book_cover_image`,
+        `goodreads_link`,
+        `author_uid`,
+      ],
+      tableName: `book`,
+    });
+    (res as any).status(200).json(books);
+  } catch (error) {
+    console.error(error);
+    (res as any).status(500).send(`Internal Server Error`);
+  }
 });
 
 app.get(`/directors`, async (req: typeof Request, res: typeof Response) => {
