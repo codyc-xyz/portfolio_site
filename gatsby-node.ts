@@ -165,9 +165,9 @@ export const createPages: GatsbyNode['createPages'] = async ({
           datePublished: book.date_book_published,
           subjects: book.book_subjects,
           coverImage: book.book_cover_image,
-          goodreads_link: book.goodreads_link,
+          goodreadsLink: book.goodreads_link,
           isbn: book.isbn,
-          author_uid: book.author_uid,
+          authorUid: book.author_uid,
           authorName: book.author.author_name,
         },
       });
