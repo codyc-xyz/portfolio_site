@@ -126,9 +126,9 @@ export const createPages: GatsbyNode['createPages'] = async ({
           birthCountry: director.director_country_of_birth,
           directorImage: director.director_image,
           movies: director.movies.map((movie: any) => ({
-            movieUid: movie.movie_uid,
-            movieTitle: movie.movie_title,
-            moviePoster: movie.movie_poster,
+            movie_uid: movie.movie_uid,
+            movie_title: movie.movie_title,
+            movie_poster: movie.movie_poster,
           })),
         },
       });

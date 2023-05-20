@@ -24,7 +24,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
     directorImage,
     movies,
   } = pageContext;
-
+  console.log(movies);
   return (
     <div className="container font-medium text-text">
       <Header />
@@ -35,15 +35,11 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
             <p className="text-sm">
               <strong>Born:</strong> {directorBorn}
             </p>
-            directorDeceased &&{` `}
-            {
+            {directorDeceased && (
               <p className="text-sm">
                 <strong>Deceased:</strong> {directorDeceased}
               </p>
-            }
-            <p className="text-sm">
-              <strong>By:</strong> {directorName}
-            </p>
+            )}
             <p className="text-sm">
               <strong>From:</strong> {birthCountry}
             </p>
@@ -51,24 +47,32 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
           <h2 className="text-xl mt-4">About</h2>
           <p className="text-sm mt-2">{directorBiography}</p>
         </div>
-        <div className="w-1/3 pl-4">
-          <img src={directorImage} alt="Director Image" className="w-full" />
+        <div className="w-1/3 pl-4 flex justify-end">
+          <img
+            src={directorImage}
+            alt="Director Image"
+            className="w-full"
+            style={{ height: `450px`, width: `300px` }}
+          />
         </div>
       </div>
-      <div className="mt-8">
-        <h2 className="text-xl">Movies</h2>
-        <div
-          className="grid grid-cols-2 gap-4 mt-4"
-          style={{ marginBottom: `24px` }}
-        >
+      <div className="mt-8" style={{ marginBottom: `24px` }}>
+        <h2 className="text-xl">My Favorite Movies</h2>
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {movies.map((movie) => (
-            <a key={movie.movie_uid} href={`movies/${movie.movie_uid}`}>
-              <img
-                src={movie.movie_poster}
-                alt={`Movie ${movie.movie_uid}`}
-                className="w-full h-full"
-              />
-            </a>
+            <div
+              className="bg-white shadow-lg rounded-lg overflow-hidden"
+              key={movie.movie_uid}
+            >
+              <a key={movie.movie_uid} href={`/movies/${movie.movie_uid}`}>
+                <img
+                  key={movie.movie_uid}
+                  src={movie.movie_poster}
+                  alt={`Movie ${movie.movie_title}`}
+                  className="w-full h-full"
+                />
+              </a>
+            </div>
           ))}
         </div>
       </div>

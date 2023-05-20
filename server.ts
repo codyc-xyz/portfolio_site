@@ -200,6 +200,7 @@ Director.init(
 );
 
 Movie.belongsTo(Director, { foreignKey: `director_uid` });
+Director.hasMany(Movie, { foreignKey: `director_uid` });
 
 FrontImage.init(
   {
