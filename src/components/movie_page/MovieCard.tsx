@@ -17,13 +17,15 @@ const MovieCard: React.FC<MovieCardProps> = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <a href={moviePageUrl}>
-        <img
-          src={imageUrl}
-          alt={title}
-          className="w-full h-auto"
-          style={{ objectFit: `cover`, height: `250px` }}
-        />
+      <a href={moviePageUrl} className="relative">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full h-auto"
+            style={{ objectFit: `cover`, height: `250px` }}
+          />
+        </div>
       </a>
       <div className="font-medium text-text">
         <p>{directorName}</p>

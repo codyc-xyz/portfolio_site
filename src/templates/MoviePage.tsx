@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 interface MoviePageProps {
   pageContext: {
-    movieUid: string;
     movieTitle: string;
     movieDescription: string;
     lengthInMinutes: number;
@@ -75,25 +74,27 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
           </div>
           <h2 className="text-xl mt-4">About</h2>
           <p className="text-sm mt-2">{movieDescription}</p>
-          <div className="mt-4">
-            <button
-              className="text-sm underline text-blue-500"
-              onClick={toggleContentWarnings}
-            >
-              {showContentWarnings
-                ? `Hide Content Warnings`
-                : `Show Content Warnings`}
-            </button>
-            {showContentWarnings && (
-              <ul className="list-disc list-inside mt-2">
-                {contentWarnings.map((warning, index) => (
-                  <li key={index} className="text-sm">
-                    {warning}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+          {contentWarnings && (
+            <div className="mt-4">
+              <button
+                className="text-sm underline text-blue-500"
+                onClick={toggleContentWarnings}
+              >
+                {showContentWarnings
+                  ? `Hide Content Warnings`
+                  : `Show Content Warnings`}
+              </button>
+              {showContentWarnings && (
+                <ul className="list-disc list-inside mt-2">
+                  {contentWarnings.map((warning, index) => (
+                    <li key={index} className="text-sm">
+                      {warning}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
         </div>
         <div className="w-1/3 pl-4">
           <img src={moviePoster} alt="Movie Poster" className="w-full" />
