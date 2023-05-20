@@ -23,7 +23,10 @@ const Movies: React.FC = () => {
   return (
     <div className="container">
       <Header />
-      <h1 className="text-center text-3xl" style={{ marginTop: `24px` }}>
+      <h1
+        className="text-center text-3xl"
+        style={{ marginTop: `24px`, marginBottom: `24px` }}
+      >
         Movies I Love
       </h1>
       <div

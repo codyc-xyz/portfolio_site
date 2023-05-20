@@ -9,7 +9,7 @@ const IntroText = () => {
           <p>Hi.</p>
           <p style={{ marginTop: `12px` }}>
             My name is Cody, I am a full-stack developer passionate about
-            movies, books and code.
+            movies, philosophy and code.
           </p>
           <p style={{ marginTop: `12px` }}>
             This website is a continuously updating passion project meant to

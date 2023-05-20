@@ -3,14 +3,12 @@ import React from 'react';
 interface BookCardProps {
   title: string;
   imageUrl: string;
-  authorName: string;
   bookPageUrl: string;
 }
 
 const BookCard: React.FC<BookCardProps> = ({
   title,
   imageUrl,
-  authorName,
   bookPageUrl,
 }) => {
   return (
@@ -25,9 +23,7 @@ const BookCard: React.FC<BookCardProps> = ({
           />
         </div>
       </a>
-      <div className="font-medium text-text">
-        <p>{authorName}</p>
-      </div>
+      <div className="font-medium text-text"></div>
     </div>
   );
 };

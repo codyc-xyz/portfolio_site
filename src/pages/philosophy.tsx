@@ -4,7 +4,7 @@ import { BookAttributes } from '../types/BookAttributes';
 import BookCard from '../components/book_page/BookCard';
 import axios from 'axios';
 
-const Movies: React.FC = () => {
+const Books: React.FC = () => {
   const [books, setBooks] = useState<BookAttributes[]>([]);
 
   useEffect(() => {
@@ -23,18 +23,20 @@ const Movies: React.FC = () => {
   return (
     <div className="container">
       <Header />
-      <h1 className="text-center text-3xl" style={{ marginTop: `24px` }}>
+      <h1
+        className="text-center text-3xl"
+        style={{ marginTop: `24px`, marginBottom: `24px` }}
+      >
         Books I Find Interesting
       </h1>
       <div
-        className="grid grid-cols-6 grid-rows-2 gap-4"
+        className="grid grid-cols-6 grid-rows-1 gap-4"
         style={{ marginTop: `16px` }}
       >
         {books.map((book) => {
           return (
             <BookCard
               key={book.book_uid}
-              authorName={book.author.author_name}
               bookPageUrl={`${book.book_uid}`}
               title={book.book_title}
               imageUrl={book.book_cover_image}
@@ -46,4 +48,4 @@ const Movies: React.FC = () => {
   );
 };
 
-export default Movies;
+export default Books;

@@ -1,12 +1,12 @@
 const Header = () => {
   return (
     <header className="flex items-center justify-between py-4 px-8">
-      <div className="w-1/3">
+      <div className="w-1/4">
         <a className="text-xl text-text hover:text-gray-600" href="/">
           Home
         </a>
       </div>
-      <nav className="w-1/3 flex items-center justify-between">
+      <nav className="w-2/4 flex items-center justify-between">
         <a
           className="text-xl font-medium text-text hover:text-gray-800 mx-3"
           href="/about"
@@ -27,9 +27,9 @@ const Header = () => {
         </a>
         <a
           className="text-xl font-medium text-text hover:text-gray-800 mx-3"
-          href="/books"
+          href="/philosophy"
         >
-          Books
+          Philosophy
         </a>
         <a
           className="text-xl font-medium text-text hover:text-gray-800 mx-3"
@@ -39,7 +39,7 @@ const Header = () => {
         </a>
       </nav>
 
-      <div className="w-1/3 flex items-center justify-end">
+      <div className="w-1/4 flex items-center justify-end">
         <div className="mr-8">
           <a
             className="text-xl font-medium text-text hover:text-gray-800"

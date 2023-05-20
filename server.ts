@@ -52,6 +52,15 @@ const schema = buildSchema(`
     author_uid: String!
     author: Author!
   }
+  type Author {
+    author_uid: String!
+    author_name: String!
+    author_biography: String!
+    date_author_born: String!
+    date_author_deceased: String
+    author_image: String!
+    books: [Book!]!
+  }
 
   type Query {
     allDirectors: [Director!]!
@@ -177,7 +186,7 @@ Author.init(
       allowNull: false,
     },
   },
-  { sequelize: db, modelName: `director`, timestamps: false },
+  { sequelize: db, modelName: `author`, timestamps: false },
 );
 
 Book.init(
@@ -361,6 +370,7 @@ export const client = new ApolloClient({
 app.get(`/books`, async (req: Request, res: Response) => {
   try {
     const books = await Book.findAll({
+      include: [Author],
       attributes: [
         `book_uid`,
         `book_title`,
