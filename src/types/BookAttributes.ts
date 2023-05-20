@@ -1,6 +1,7 @@
 import { Model } from 'sequelize';
 
 export type BookAttributes = {
+  author: any;
   book_uid: string;
   book_title: string;
   book_description: string;

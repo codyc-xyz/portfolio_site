@@ -8,6 +8,7 @@ const FrontImage = require(`./src/types/ImageAttributes.ts`);
 const Movie = require(`./src/types/MovieAttributes`);
 const Director = require(`./src/types/DirectorAttributes`);
 const Book = require(`./src/types/BookAttributes`);
+const Author = require(`./src/types/AuthorAttributes`);
 const { graphqlHTTP } = require(`express-graphql`);
 const { buildSchema } = require(`graphql`);
 
@@ -38,10 +39,24 @@ const schema = buildSchema(`
     director_image: String!
     movies: [Movie!]!
   }
+  type Book {
+    book_uid: String!
+    book_title: String!
+    book_description: String!
+    pages: Int!
+    date_book_published: String!
+    book_subjects: [String!]!
+    book_cover_image: String!
+    goodreads_link: String!
+    isbn: String!
+    author_uid: String!
+    author: Author!
+  }
 
   type Query {
     allDirectors: [Director!]!
     allMovies: [Movie!]!
+    allBooks: [Book!]!
   }
 `);
 
@@ -93,6 +108,30 @@ const root = {
       throw new Error(`Internal Server Error`);
     }
   },
+  allBooks: async () => {
+    try {
+      const books = await Book.findAll({
+        include: [Author],
+        attributes: [
+          `book_uid`,
+          `book_title`,
+          `book_description`,
+          `pages`,
+          `date_book_published`,
+          `book_subjects`,
+          `book_cover_image`,
+          `goodreads_link`,
+          `isbn`,
+          `author_uid`,
+        ],
+        tableName: `book`,
+      });
+      return books;
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Internal Server Error`);
+    }
+  },
 };
 
 dotenv.config();
@@ -110,6 +149,36 @@ const db = new Sequelize(dbUrl, {
   host: `localhost`,
   dialect: `postgres`,
 });
+
+Author.init(
+  {
+    author_uid: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    author_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    author_biography: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    date_author_born: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    date_author_deceased: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    author_image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  { sequelize: db, modelName: `director`, timestamps: false },
+);
 
 Book.init(
   {
@@ -249,6 +318,8 @@ Director.init(
 
 Movie.belongsTo(Director, { foreignKey: `director_uid` });
 Director.hasMany(Movie, { foreignKey: `director_uid` });
+Book.belongsTo(Author, { foreignKey: `author_uid` });
+Author.hasMany(Book, { foreignKey: `author_uid` });
 
 FrontImage.init(
   {
