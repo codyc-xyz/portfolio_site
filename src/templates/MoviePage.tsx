@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 interface MoviePageProps {
   pageContext: {
+    directorUid: string;
     movieTitle: string;
     movieDescription: string;
     lengthInMinutes: number;
@@ -19,6 +20,7 @@ interface MoviePageProps {
 
 const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
   const {
+    directorUid,
     movieTitle,
     movieDescription,
     lengthInMinutes,
@@ -37,7 +39,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
   const toggleContentWarnings = () => {
     setShowContentWarnings(!showContentWarnings);
   };
-
+  console.log(pageContext);
   return (
     <div className="container font-medium text-text">
       <Header />
@@ -52,7 +54,14 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
               <strong>Released:</strong> {dateMovieReleased}
             </p>
             <p className="text-sm">
-              <strong>By:</strong> {directorName}
+              <strong>By: </strong>
+              <a
+                href={`/directors/${directorUid}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {directorName}
+              </a>
             </p>
             <p className="text-sm">
               <strong>From:</strong> {countryOfOrigin}
@@ -62,7 +71,6 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
             </p>
             <p className="text-sm">
               <strong>Letterboxd:</strong>
-              {` `}
               <a
                 href={letterboxdLink}
                 target="_blank"

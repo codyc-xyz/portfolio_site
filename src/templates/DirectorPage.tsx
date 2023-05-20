@@ -24,7 +24,6 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
     directorImage,
     movies,
   } = pageContext;
-  console.log(movies);
   return (
     <div className="container font-medium text-text">
       <Header />
@@ -56,7 +55,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
           />
         </div>
       </div>
-      <div className="mt-8" style={{ marginBottom: `24px` }}>
+      <div style={{ marginBottom: `24px`, marginTop: `24px` }}>
         <h2 className="text-xl">My Favorite Movies</h2>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {movies.map((movie) => (
