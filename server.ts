@@ -35,6 +35,7 @@ const schema = buildSchema(`
     date_director_deceased: String
     director_country_of_birth: String!
     director_image: String!
+    movies: [Movie!]!
   }
 
   type Query {
@@ -56,6 +57,7 @@ const root = {
           `director_country_of_birth`,
           `director_image`,
         ],
+        include: [Movie],
         tableName: `director`,
       });
       return directors;

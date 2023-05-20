@@ -64,6 +64,20 @@ export const createPages: GatsbyNode['createPages'] = async ({
             director_name
           }
         }
+        allDirectors {
+          director_uid
+          director_name
+          director_biography
+          date_director_born
+          date_director_deceased
+          director_country_of_birth
+          director_image
+          movies {
+            movie_uid
+            movie_title
+            movie_poster
+          }
+        }
       }
     }
   `);
@@ -75,6 +89,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     return;
   }
   const movies = result.data.segments.allMovies;
+  const directors = result.data.segments.allDirectors;
 
   if (movies) {
     movies.forEach((movie: any) => {
@@ -93,6 +108,28 @@ export const createPages: GatsbyNode['createPages'] = async ({
           countryOfOrigin: movie.country_of_origin,
           contentWarnings: movie.content_warnings,
           directorName: movie.director.director_name,
+        },
+      });
+    });
+  }
+
+  if (directors) {
+    directors.forEach((director: any) => {
+      createPage({
+        path: `directors/${director.director_uid}`,
+        component: path.resolve(`./src/templates/DirectorPage.tsx`),
+        context: {
+          directorName: director.director_name,
+          directorBiography: director.director_biography,
+          directorBorn: director.date_director_born,
+          directorDeceased: director.date_director_deceased,
+          birthCountry: director.director_country_of_birth,
+          directorImage: director.director_image,
+          movies: director.movies.map((movie: any) => ({
+            movieUid: movie.movie_uid,
+            movieTitle: movie.movie_title,
+            moviePoster: movie.movie_poster,
+          })),
         },
       });
     });
