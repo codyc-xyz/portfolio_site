@@ -66,6 +66,7 @@ const schema = buildSchema(`
     allDirectors: [Director!]!
     allMovies: [Movie!]!
     allBooks: [Book!]!
+    allAuthors: [Author!]!
   }
 `);
 
@@ -427,6 +428,26 @@ app.get(`/directors`, async (req: typeof Request, res: typeof Response) => {
       tableName: `director`,
     });
     (res as any).status(200).json(directors);
+  } catch (error) {
+    console.error(error);
+    (res as any).status(500).send(`Internal Server Error`);
+  }
+});
+
+app.get(`/authors`, async (req: typeof Request, res: typeof Response) => {
+  try {
+    const authors = await Author.findAll({
+      attributes: [
+        `author_uid`,
+        `author_name`,
+        `author_biography`,
+        `date_author_born`,
+        `date_author_deceased`,
+        `author_image`,
+      ],
+      tableName: `author`,
+    });
+    (res as any).status(200).json(authors);
   } catch (error) {
     console.error(error);
     (res as any).status(500).send(`Internal Server Error`);

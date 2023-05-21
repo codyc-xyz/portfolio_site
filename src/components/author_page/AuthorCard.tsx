@@ -19,7 +19,7 @@ const AuthorCard: React.FC<AuthorCardProps> = ({
             src={imageUrl}
             alt={authorName}
             className="w-full h-auto"
-            style={{ objectFit: `cover`, height: `250px` }}
+            style={{ objectFit: `cover`, height: `350px` }}
           />
         </div>
       </a>

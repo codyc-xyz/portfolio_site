@@ -4,7 +4,7 @@ import { AuthorAttributes } from '../types/AuthorAttributes';
 import AuthorCard from '../components/author_page/AuthorCard';
 import axios from 'axios';
 
-const Movies: React.FC = () => {
+const Authors: React.FC = () => {
   const [authors, setAuthors] = useState<AuthorAttributes[]>([]);
 
   useEffect(() => {
@@ -13,6 +13,7 @@ const Movies: React.FC = () => {
         const response = await axios.get<AuthorAttributes[]>(
           `http://localhost:3001/authors`,
         );
+        console.log(response.data);
         setAuthors(response.data);
       } catch (error) {
         console.error(error);
@@ -30,7 +31,7 @@ const Movies: React.FC = () => {
         Authors I Find Interesting
       </h1>
       <div
-        className="grid grid-cols-6 grid-rows-2 gap-4"
+        className="grid grid-cols-4 grid-rows-2 gap-4"
         style={{ marginTop: `16px` }}
       >
         {authors.map((author) => {
@@ -48,4 +49,4 @@ const Movies: React.FC = () => {
   );
 };
 
-export default Movies;
+export default Authors;
