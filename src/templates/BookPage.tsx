@@ -53,10 +53,10 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
               </a>
             </p>
             <p className="text-sm">
-              <strong>Subjects:</strong> {subjects.join(`, `)}
+              <strong>Subjects: </strong> {subjects.join(`, `)}
             </p>
             <p className="text-sm">
-              <strong>Goodreads::</strong>
+              <strong>Goodreads: </strong>
               <a href={goodreadsLink} target="_blank" rel="noopener noreferrer">
                 {goodreadsLink}
               </a>
@@ -69,10 +69,15 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
           <p className="text-sm mt-2">{bookDescription}</p>
         </div>
         <div className="w-1/3 pl-4">
-          <img src={coverImage} alt="Book Poster" className="w-full" />
+          <img
+            src={coverImage}
+            alt="Book Poster"
+            className="w-full"
+            style={{ height: `450px`, width: `300px` }}
+          />
         </div>
       </div>
-      <div className="mt-8">
+      <div style={{ marginTop: `24px` }}>
         <h2 className="text-xl">Excerpts</h2>
         <div
           className="grid grid-cols-2 gap-4 mt-4"

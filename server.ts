@@ -141,6 +141,26 @@ const root = {
       throw new Error(`Internal Server Error`);
     }
   },
+  allAuthors: async () => {
+    try {
+      const authors = await Author.findAll({
+        include: [Book],
+        attributes: [
+          `author_uid`,
+          `author_name`,
+          `author_biography`,
+          `date_author_born`,
+          `date_author_deceased`,
+          `author_image`,
+        ],
+        tableName: `author`,
+      });
+      return authors;
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Internal Server Error`);
+    }
+  },
 };
 
 dotenv.config();

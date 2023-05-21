@@ -94,6 +94,19 @@ export const createPages: GatsbyNode['createPages'] = async ({
             author_name
           }
         }
+        allAuthors {
+          author_uid
+          author_name
+          author_biography
+          date_author_born
+          date_author_deceased
+          author_image
+          books {
+            book_uid
+            book_title
+            book_cover_image
+          }
+        }
       }
     }
   `);
@@ -107,6 +120,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const movies = result.data.segments.allMovies;
   const directors = result.data.segments.allDirectors;
   const books = result.data.segments.allBooks;
+  const authors = result.data.segments.allAuthors;
 
   if (movies) {
     movies.forEach((movie: any) => {
@@ -169,6 +183,28 @@ export const createPages: GatsbyNode['createPages'] = async ({
           isbn: book.isbn,
           authorUid: book.author_uid,
           authorName: book.author.author_name,
+        },
+      });
+    });
+  }
+
+  if (authors) {
+    authors.forEach((author: any) => {
+      createPage({
+        path: `authors/${author.author_uid}`,
+        component: path.resolve(`./src/templates/AuthorPage.tsx`),
+        context: {
+          authorUid: author.author_uid,
+          authorName: author.author_name,
+          authorBiography: author.author_biography,
+          dateBorn: author.date_author_born,
+          dateDeceased: author.date_author_deceased,
+          authorImage: author.author_image,
+          books: author.books.map((book: any) => ({
+            book_uid: book.book_uid,
+            book_title: book.book_title,
+            book_cover_image: book.book_cover_image,
+          })),
         },
       });
     });
