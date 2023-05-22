@@ -1,4 +1,5 @@
 import Header from '../components/general/Header';
+import { ExcerptAttributes } from '../types/ExcerptAttributes';
 import React from 'react';
 
 interface BookPageProps {
@@ -13,6 +14,7 @@ interface BookPageProps {
     isbn: string;
     authorUid: string;
     authorName: string;
+    excerpts: ExcerptAttributes[];
   };
 }
 
@@ -28,7 +30,9 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
     isbn,
     authorUid,
     authorName,
+    excerpts,
   } = pageContext;
+  console.log(excerpts);
   return (
     <div className="container font-medium text-text">
       <Header />

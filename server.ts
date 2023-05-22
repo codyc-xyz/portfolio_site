@@ -8,6 +8,7 @@ const FrontImage = require(`./src/types/ImageAttributes.ts`);
 const Movie = require(`./src/types/MovieAttributes`);
 const Director = require(`./src/types/DirectorAttributes`);
 const Book = require(`./src/types/BookAttributes`);
+const Excerpt = require(`./src/types/ExcerptAttributes`);
 const Author = require(`./src/types/AuthorAttributes`);
 const { graphqlHTTP } = require(`express-graphql`);
 const { buildSchema } = require(`graphql`);
@@ -51,6 +52,7 @@ const schema = buildSchema(`
     isbn: String!
     author_uid: String!
     author: Author!
+    excerpts: [Excerpt]
   }
   type Author {
     author_uid: String!
@@ -60,6 +62,15 @@ const schema = buildSchema(`
     date_author_deceased: String
     author_image: String!
     books: [Book!]!
+  }
+
+  type Excerpt {
+    excerpt_uid: String!
+    text: String!
+    page_number: Int!
+    chapter: String
+    section: String
+    book_uid: String!
   }
 
   type Query {
@@ -121,7 +132,7 @@ const root = {
   allBooks: async () => {
     try {
       const books = await Book.findAll({
-        include: [Author],
+        include: [Author, Excerpt],
         attributes: [
           `book_uid`,
           `book_title`,
@@ -179,6 +190,37 @@ const db = new Sequelize(dbUrl, {
   host: `localhost`,
   dialect: `postgres`,
 });
+
+Excerpt.init(
+  {
+    excerpt_uid: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    text: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    page_number: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    chapter: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    section: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    book_uid: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      foreignKey: true,
+    },
+  },
+  { sequelize: db, modelName: `excerpt`, timestamps: false },
+);
 
 Author.init(
   {
@@ -350,6 +392,8 @@ Movie.belongsTo(Director, { foreignKey: `director_uid` });
 Director.hasMany(Movie, { foreignKey: `director_uid` });
 Book.belongsTo(Author, { foreignKey: `author_uid` });
 Author.hasMany(Book, { foreignKey: `author_uid` });
+Book.hasMany(Excerpt, { foreignKey: `book_uid` });
+Excerpt.belongsTo(Book, { foreignKey: `book_uid` });
 
 FrontImage.init(
   {
@@ -386,6 +430,27 @@ app.use(
 export const client = new ApolloClient({
   uri: `http://localhost:3001/graphql`,
   cache: new InMemoryCache(),
+});
+
+app.get(`/excerpts`, async (req: Request, res: Response) => {
+  try {
+    const excerpts = await Excerpt.findAll({
+      include: [Book],
+      attributes: [
+        `excerpt_uid`,
+        `text`,
+        `page_number`,
+        `chapter`,
+        `section`,
+        `book_uid`,
+      ],
+      tableName: `excerpt`,
+    });
+    (res as any).status(200).json(excerpts);
+  } catch (error) {
+    console.error(error);
+    (res as any).status(500).send(`Internal Server Error`);
+  }
 });
 
 app.get(`/books`, async (req: Request, res: Response) => {
