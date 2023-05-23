@@ -34,8 +34,8 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
   } = pageContext;
 
   const [currentExcerptIndex, setCurrentExcerptIndex] = useState(0);
+  const [inputExcerptIndex, setInputExcerptIndex] = useState(``);
   const currentExcerpt = excerpts[currentExcerptIndex];
-  console.log(currentExcerpt);
   const handlePreviousExcerpt = () => {
     if (currentExcerptIndex > 0) {
       setCurrentExcerptIndex(currentExcerptIndex - 1);
@@ -46,6 +46,24 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
     if (currentExcerptIndex < excerpts.length - 1) {
       setCurrentExcerptIndex(currentExcerptIndex + 1);
     }
+  };
+
+  const handleChange = (event: any) => {
+    setInputExcerptIndex(event.target.value);
+  };
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const newIndex = parseInt(inputExcerptIndex, 10) - 1;
+    if (newIndex >= 0 && newIndex < excerpts.length) {
+      setCurrentExcerptIndex(newIndex);
+    }
+    setInputExcerptIndex(``);
+  };
+
+  const handleRandomExcerpt = () => {
+    const randomIndex = Math.floor(Math.random() * excerpts.length);
+    setCurrentExcerptIndex(randomIndex);
   };
 
   return (
@@ -97,12 +115,29 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
         </div>
       </div>
       <div style={{ marginTop: `24px` }}>
-        {` `}
-        <h2 className="text-xl">Excerpts</h2>
-      </div>
-      <div className="flex flex-col items-center mt-8">
-        <div>
-          <div className="flex items-center justify-center mt-4">
+        <h2 className="text-xl">Excerpts I Find Interesting</h2>
+        <div className="grid grid-cols-12">
+          <div className="col-start-1 col-span-4 flex items-center justify-start mt-4">
+            <form onSubmit={handleSubmit} className="flex items-center">
+              <input
+                className="border border-gray-100 rounded p-2"
+                type="text"
+                value={inputExcerptIndex}
+                onChange={handleChange}
+                placeholder={(currentExcerptIndex + 1).toString()}
+                style={{ width: `50px`, height: `30px` }}
+              />
+              {` `} / {excerpts.length}
+              <button
+                type="submit"
+                className="text-primary"
+                style={{ marginLeft: `8px` }}
+              >
+                Go
+              </button>
+            </form>
+          </div>
+          <div className="col-start-5 col-span-4 flex items-center justify-center mt-4">
             <button
               className="text-2xl text-gray-500"
               onClick={handlePreviousExcerpt}
@@ -111,12 +146,22 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
               &lt;
             </button>
             <div className="mx-4 text-lg">
-              <p>Page: {currentExcerpt.page_number}</p>
-              {currentExcerpt.chapter && (
-                <p>Chapter: {currentExcerpt.chapter}</p>
-              )}
+              <p>
+                Page: {currentExcerpt.page_number} / {pages}
+              </p>
               {currentExcerpt.section && (
-                <p>Section: {currentExcerpt.section}</p>
+                <p>
+                  <span className="font-semibold">Section:</span>
+                  {` `}
+                  {currentExcerpt.section}
+                </p>
+              )}
+              {currentExcerpt.chapter && (
+                <p>
+                  <span className="font-semibold">Chapter:</span>
+                  {` `}
+                  {currentExcerpt.chapter}
+                </p>
               )}
             </div>
             <button
@@ -127,13 +172,18 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
               &gt;
             </button>
           </div>
+          <div className="col-start-12 col-span-1 flex items-center justify-end mt-4">
+            <button
+              className="text-xl text-primary"
+              onClick={handleRandomExcerpt}
+            >
+              Random
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="grid grid-cols-6">
-        {currentExcerptIndex + 1} / {excerpts.length + 1}
         <div
-          className="col-start-2 col-span-4"
-          style={{ marginTop: `24px`, marginBottom: `48px` }}
+          className="col-start-4 col-span-6 flex justify-center"
+          style={{ marginTop: `24px`, marginBottom: `72px` }}
         >
           <p>{currentExcerpt.text}</p>
         </div>
