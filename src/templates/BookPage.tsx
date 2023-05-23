@@ -1,6 +1,6 @@
 import Header from '../components/general/Header';
 import { ExcerptAttributes } from '../types/ExcerptAttributes';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface BookPageProps {
   pageContext: {
@@ -32,7 +32,22 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
     authorName,
     excerpts,
   } = pageContext;
-  console.log(excerpts);
+
+  const [currentExcerptIndex, setCurrentExcerptIndex] = useState(0);
+  const currentExcerpt = excerpts[currentExcerptIndex];
+  console.log(currentExcerpt);
+  const handlePreviousExcerpt = () => {
+    if (currentExcerptIndex > 0) {
+      setCurrentExcerptIndex(currentExcerptIndex - 1);
+    }
+  };
+
+  const handleNextExcerpt = () => {
+    if (currentExcerptIndex < excerpts.length - 1) {
+      setCurrentExcerptIndex(currentExcerptIndex + 1);
+    }
+  };
+
   return (
     <div className="container font-medium text-text">
       <Header />
@@ -72,7 +87,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
           <h2 className="text-xl mt-4">About</h2>
           <p className="text-sm mt-2">{bookDescription}</p>
         </div>
-        <div className="w-1/3 pl-4">
+        <div className="w-1/3 pl-4 flex justify-end">
           <img
             src={coverImage}
             alt="Book Poster"
@@ -82,22 +97,49 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
         </div>
       </div>
       <div style={{ marginTop: `24px` }}>
+        {` `}
         <h2 className="text-xl">Excerpts</h2>
+      </div>
+      <div className="flex flex-col items-center mt-8">
+        <div>
+          <div className="flex items-center justify-center mt-4">
+            <button
+              className="text-2xl text-gray-500"
+              onClick={handlePreviousExcerpt}
+              disabled={currentExcerptIndex === 0}
+            >
+              &lt;
+            </button>
+            <div className="mx-4 text-lg">
+              <p>Page: {currentExcerpt.page_number}</p>
+              {currentExcerpt.chapter && (
+                <p>Chapter: {currentExcerpt.chapter}</p>
+              )}
+              {currentExcerpt.section && (
+                <p>Section: {currentExcerpt.section}</p>
+              )}
+            </div>
+            <button
+              className="text-2xl text-gray-500"
+              onClick={handleNextExcerpt}
+              disabled={currentExcerptIndex === excerpts.length - 1}
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-6">
+        {currentExcerptIndex + 1} / {excerpts.length + 1}
         <div
-          className="grid grid-cols-2 gap-4 mt-4"
-          style={{ marginBottom: `24px` }}
+          className="col-start-2 col-span-4"
+          style={{ marginTop: `24px`, marginBottom: `48px` }}
         >
-          {/* {screenshotLinks.map((screenshot, index) => (
-            <img
-              key={index}
-              src={screenshot}
-              alt={`Screenshot ${index + 1}`}
-              className="w-full h-full"
-            />
-          ))} */}
+          <p>{currentExcerpt.text}</p>
         </div>
       </div>
     </div>
   );
 };
+
 export default BookPage;

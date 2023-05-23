@@ -43,9 +43,9 @@ const Header = () => {
         <div className="mr-8">
           <a
             className="text-xl font-medium text-text hover:text-gray-800"
-            href="/over-under-game"
+            href="/projects"
           >
-            Over/Under Game
+            Projects
           </a>
         </div>
       </div>

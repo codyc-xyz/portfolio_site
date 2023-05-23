@@ -191,11 +191,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
           authorUid: book.author_uid,
           authorName: book.author.author_name,
           excerpts: book.excerpts.map((excerpt: any) => ({
-            excerptUid: excerpt.excerpt_uid,
-            excerptText: excerpt.text,
-            excerptPageNumber: excerpt.page_number,
-            excerptChapter: excerpt.chapter,
-            excerptSection: excerpt.section,
+            excerpt_uid: excerpt.excerpt_uid,
+            text: excerpt.text,
+            page_number: excerpt.page_number,
+            chapter: excerpt.chapter,
+            section: excerpt.section,
           })),
         },
       });

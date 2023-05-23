@@ -104,7 +104,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
             </div>
           )}
         </div>
-        <div className="w-1/3 pl-4">
+        <div className="w-1/3 pl-4 flex justify-end">
           <img src={moviePoster} alt="Movie Poster" className="w-full" />
         </div>
       </div>

@@ -30,7 +30,7 @@ const Books: React.FC = () => {
         Books I Find Interesting
       </h1>
       <div
-        className="grid grid-cols-6 grid-rows-1 gap-4"
+        className="grid grid-cols-6 grid-rows-2 gap-4"
         style={{ marginTop: `16px` }}
       >
         {books.map((book) => {
