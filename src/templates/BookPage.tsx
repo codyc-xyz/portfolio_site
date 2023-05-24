@@ -120,12 +120,12 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
           <div className="col-start-1 col-span-4 flex items-center justify-start mt-4">
             <form onSubmit={handleSubmit} className="flex items-center">
               <input
-                className="border border-gray-100 rounded p-2"
+                className="rounded p-2"
                 type="text"
                 value={inputExcerptIndex}
                 onChange={handleChange}
                 placeholder={(currentExcerptIndex + 1).toString()}
-                style={{ width: `50px`, height: `30px` }}
+                style={{ width: `50px`, height: `15px` }}
               />
               {` `} / {excerpts.length}
               <button
@@ -145,7 +145,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
             >
               &lt;
             </button>
-            <div className="mx-4 text-lg">
+            <div className="mx-4 text-xs">
               <p>
                 Page: {currentExcerpt.page_number} / {pages}
               </p>

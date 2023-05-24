@@ -7,7 +7,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <body className="bg-background">
+    <body>
       <header>
         <nav>
           <ul>
@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </ul>
         </nav>
       </header>
-      <main className="bg-background">
+      <main>
         <div className="container">{children}</div>
       </main>
     </body>

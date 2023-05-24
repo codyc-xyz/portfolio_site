@@ -39,7 +39,6 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
   const toggleContentWarnings = () => {
     setShowContentWarnings(!showContentWarnings);
   };
-  console.log(pageContext);
   return (
     <div className="container font-medium text-text">
       <Header />

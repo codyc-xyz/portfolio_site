@@ -47,12 +47,12 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
             src={authorImage}
             alt="Director Image"
             className="w-full"
-            style={{ height: `450px`, width: `300px` }}
+            style={{ height: `350px`, width: `250px` }}
           />
         </div>
       </div>
       <div style={{ marginBottom: `24px`, marginTop: `24px` }}>
-        <h2 className="text-xl">My Favorite Movies</h2>
+        <h2 className="text-xl">Books I Found Interesting</h2>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {books.map((book) => (
             <div

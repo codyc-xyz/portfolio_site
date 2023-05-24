@@ -50,8 +50,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
           <img
             src={directorImage}
             alt="Director Image"
-            className="w-full"
-            style={{ height: `450px`, width: `300px` }}
+            style={{ height: `480px`, width: `320px` }}
           />
         </div>
       </div>
