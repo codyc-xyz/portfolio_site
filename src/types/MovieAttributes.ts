@@ -2,7 +2,6 @@ import { Model } from 'sequelize';
 
 export type MovieAttributes = {
   director: any;
-  Director: any;
   movie_uid: string;
   movie_title: string;
   movie_description: string;

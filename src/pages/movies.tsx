@@ -8,6 +8,8 @@ const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
   const [isSortExpanded, setSortExpanded] = useState(false);
   const [isFilterExpanded, setFilterExpanded] = useState(false);
+  const [selectedSortOption, setSelectedSortOption] =
+    useState<string>(`Title (A-Z)`);
 
   useEffect(() => {
     async function fetchMovies() {
@@ -15,13 +17,43 @@ const Movies: React.FC = () => {
         const response = await axios.get<MovieAttributes[]>(
           `http://localhost:3001/movies`,
         );
-        setMovies(response.data);
+        const sortedMovies = response.data;
+        if (selectedSortOption === `Title (A-Z)`) {
+          sortedMovies.sort((a, b) =>
+            a.movie_title.localeCompare(b.movie_title),
+          );
+        } else if (selectedSortOption === `Title (Z-A)`) {
+          sortedMovies.sort((a, b) =>
+            b.movie_title.localeCompare(a.movie_title),
+          );
+        } else if (selectedSortOption === `Release Date Ascending`) {
+          sortedMovies.sort(
+            (a, b) =>
+              new Date(a.date_movie_released).getTime() -
+              new Date(b.date_movie_released).getTime(),
+          );
+        } else if (selectedSortOption === `Release Date Descending`) {
+          sortedMovies.sort(
+            (a, b) =>
+              new Date(b.date_movie_released).getTime() -
+              new Date(a.date_movie_released).getTime(),
+          );
+        } else if (selectedSortOption === `Director (A-Z)`) {
+          sortedMovies.sort((a, b) =>
+            a.director.director_name.localeCompare(b.director.director_name),
+          );
+        } else if (selectedSortOption === `Director (Z-A)`) {
+          sortedMovies.sort((a, b) =>
+            b.director.director_name.localeCompare(a.director.director_name),
+          );
+        }
+        setMovies(sortedMovies);
       } catch (error) {
         console.error(error);
       }
     }
     fetchMovies();
-  }, []);
+  }, [selectedSortOption]);
 
   return (
     <div className="container">
@@ -54,17 +86,139 @@ const Movies: React.FC = () => {
             </button>
             {isSortExpanded && (
               <div className="bg-gray-50 p-2 rounded">
-                {/* Add sort options */}
-                <button className="block w-full text-left hover:bg-gray-100">
-                  Sort by Title
+                <button
+                  className={`block w-full text-left hover:bg-gray-100 ${
+                    selectedSortOption === `Title (A-Z)` ? `bg-blue-200` : ``
+                  }`}
+                  onClick={() => setSelectedSortOption(`Title (A-Z)`)}
+                >
+                  Title (A-Z)
+                  {selectedSortOption === `Title (A-Z)` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
                 </button>
-                <button className="block w-full text-left hover:bg-gray-100">
-                  Sort by Release Date
+                <button
+                  className={`block w-full text-left hover:bg-gray-100 ${
+                    selectedSortOption === `Title (Z-A)` ? `bg-blue-200` : ``
+                  }`}
+                  onClick={() => setSelectedSortOption(`Title (Z-A)`)}
+                >
+                  Title (Z-A)
+                  {selectedSortOption === `Title (Z-A)` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
+                </button>
+                <button
+                  className={`block w-full text-left hover:bg-gray-100 ${
+                    selectedSortOption === `Director (A-Z)` ? `bg-blue-200` : ``
+                  }`}
+                  onClick={() => setSelectedSortOption(`Director (A-Z)`)}
+                >
+                  Director (A-Z)
+                  {selectedSortOption === `Director (A-Z)` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
+                </button>
+
+                <button
+                  className={`block w-full text-left hover:bg-gray-100 ${
+                    selectedSortOption === `Director (Z-A)` ? `bg-blue-200` : ``
+                  }`}
+                  onClick={() => setSelectedSortOption(`Director (Z-A)`)}
+                >
+                  Director (Z-A)
+                  {selectedSortOption === `Director (Z-A)` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
+                </button>
+
+                <button
+                  className={`block w-full text-left hover:bg-gray-100 ${
+                    selectedSortOption === `Release Date Ascending`
+                      ? `bg-blue-200`
+                      : ``
+                  }`}
+                  onClick={() =>
+                    setSelectedSortOption(`Release Date Ascending`)
+                  }
+                >
+                  Release Date Ascending
+                  {selectedSortOption === `Release Date Ascending` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
+                </button>
+                <button
+                  className={`block w-full text-left hover:bg-gray-100 ${
+                    selectedSortOption === `Release Date Descending`
+                      ? `bg-blue-200`
+                      : ``
+                  }`}
+                  onClick={() =>
+                    setSelectedSortOption(`Release Date Descending`)
+                  }
+                >
+                  Release Date Descending
+                  {selectedSortOption === `Release Date Descending` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
                 </button>
               </div>
             )}
           </div>
-
           <div className="w-3/4">
             <button
               className={`w-full py-2 px-4 rounded-lg bg-white shadow-sm transition-colors ${
@@ -105,21 +259,21 @@ const Movies: React.FC = () => {
         <div>
           <div className="w-full flex items-center">
             <div className="w-1/4 flex">
-              <input
-                type="text"
-                placeholder="Search"
-                className="border border-gray-300 rounded-lg px-4 py-2 mr-2 w-full"
-              />
-              <button type="submit" className="text-primary text-l">
-                Go
+              <button className="text-xl bg-blue-500 hover:bg-blue-700 text-primary py-2 pr-0 rounded">
+                Random
               </button>
             </div>
             <h1 className="text-center text-3xl flex-grow flex-shrink-0 ml-auto mr-auto w-1/2">
               Movies I Love
             </h1>
             <div className="w-1/4 flex justify-end">
-              <button className="text-xl bg-blue-500 hover:bg-blue-700 text-primary py-2 pr-0 rounded">
-                Random
+              <input
+                type="text"
+                placeholder="Search"
+                className="border border-gray-300 rounded-lg px-4 py-2 mr-2 w-full h-1/3"
+              />
+              <button type="submit" className="text-primary text-l">
+                Go
               </button>
             </div>
           </div>
