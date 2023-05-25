@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require(`tailwindcss/colors`);
+
 module.exports = {
   mode: `jit`,
   content: [`./src/**/*.{js,jsx,ts,tsx}`, `./public/index.html`],
@@ -26,7 +28,19 @@ module.exports = {
     fontFamily: {
       sans: [`Merriweather`, `sans-serif`],
     },
-    extend: {},
+    extend: {
+      colors: {
+        transparent: `transparent`,
+        current: `currentColor`,
+        black: colors.black,
+        white: colors.white,
+        gray: colors.gray,
+        emerald: colors.emerald,
+        indigo: colors.indigo,
+        yellow: colors.yellow,
+        blue: colors.blue,
+      },
+    },
   },
   plugins: [],
 };

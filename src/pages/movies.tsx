@@ -11,6 +11,11 @@ const Movies: React.FC = () => {
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>(`Title (A-Z)`);
 
+  const handleSortOptionClick = (option) => {
+    setSortExpanded(!isSortExpanded);
+    setSelectedSortOption(option);
+  };
+
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -46,7 +51,16 @@ const Movies: React.FC = () => {
           sortedMovies.sort((a, b) =>
             b.director.director_name.localeCompare(a.director.director_name),
           );
+        } else if (selectedSortOption === `Country (A-Z)`) {
+          sortedMovies.sort((a, b) =>
+            a.country_of_origin.localeCompare(b.country_of_origin),
+          );
+        } else if (selectedSortOption === `Director (Z-A)`) {
+          sortedMovies.sort((a, b) =>
+            b.country_of_origin.localeCompare(a.country_of_origin),
+          );
         }
+
         setMovies(sortedMovies);
       } catch (error) {
         console.error(error);
@@ -56,18 +70,16 @@ const Movies: React.FC = () => {
   }, [selectedSortOption]);
 
   return (
-    <div className="container">
+    <div className="container text-text">
       <Header />
 
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">
-          <div className="w-1/4">
+          <div className="w-1/4 relative">
             <button
-              className={`w-full py-2 px-4 rounded-lg bg-white shadow-sm transition-colors ${
-                isSortExpanded
-                  ? `bg-blue-500 text-white`
-                  : `bg-gray-100 text-gray-800`
-              } border border-gray-300 outline-none mb-2`}
+              className={`w-full py-2 px-4 ${
+                isSortExpanded ? `rounded-t-lg` : `rounded-lg`
+              } bg-white shadow-sm border border-gray-300`}
               onClick={() => setSortExpanded(!isSortExpanded)}
             >
               Sort{` `}
@@ -85,12 +97,10 @@ const Movies: React.FC = () => {
               </svg>
             </button>
             {isSortExpanded && (
-              <div className="bg-gray-50 p-2 rounded">
+              <div className="bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full">
                 <button
-                  className={`block w-full text-left hover:bg-gray-100 ${
-                    selectedSortOption === `Title (A-Z)` ? `bg-blue-200` : ``
-                  }`}
-                  onClick={() => setSelectedSortOption(`Title (A-Z)`)}
+                  className={`block w-full text-left hover:bg-gray-100`}
+                  onClick={() => handleSortOptionClick(`Title (A-Z)`)}
                 >
                   Title (A-Z)
                   {selectedSortOption === `Title (A-Z)` && (
@@ -107,10 +117,8 @@ const Movies: React.FC = () => {
                   )}
                 </button>
                 <button
-                  className={`block w-full text-left hover:bg-gray-100 ${
-                    selectedSortOption === `Title (Z-A)` ? `bg-blue-200` : ``
-                  }`}
-                  onClick={() => setSelectedSortOption(`Title (Z-A)`)}
+                  className={`block w-full text-left hover:bg-gray-100`}
+                  onClick={() => handleSortOptionClick(`Title (Z-A)`)}
                 >
                   Title (Z-A)
                   {selectedSortOption === `Title (Z-A)` && (
@@ -127,10 +135,8 @@ const Movies: React.FC = () => {
                   )}
                 </button>
                 <button
-                  className={`block w-full text-left hover:bg-gray-100 ${
-                    selectedSortOption === `Director (A-Z)` ? `bg-blue-200` : ``
-                  }`}
-                  onClick={() => setSelectedSortOption(`Director (A-Z)`)}
+                  className={`block w-full text-left hover:bg-gray-100`}
+                  onClick={() => handleSortOptionClick(`Director (A-Z)`)}
                 >
                   Director (A-Z)
                   {selectedSortOption === `Director (A-Z)` && (
@@ -146,12 +152,9 @@ const Movies: React.FC = () => {
                     </svg>
                   )}
                 </button>
-
                 <button
-                  className={`block w-full text-left hover:bg-gray-100 ${
-                    selectedSortOption === `Director (Z-A)` ? `bg-blue-200` : ``
-                  }`}
-                  onClick={() => setSelectedSortOption(`Director (Z-A)`)}
+                  className={`block w-full text-left hover:bg-gray-100`}
+                  onClick={() => handleSortOptionClick(`Director (Z-A)`)}
                 >
                   Director (Z-A)
                   {selectedSortOption === `Director (Z-A)` && (
@@ -167,15 +170,47 @@ const Movies: React.FC = () => {
                     </svg>
                   )}
                 </button>
+                <button
+                  className={`block w-full text-left hover:bg-gray-100`}
+                  onClick={() => handleSortOptionClick(`Country (A-Z)`)}
+                >
+                  Country (A-Z)
+                  {selectedSortOption === `Country (A-Z)` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
+                </button>
+                <button
+                  className={`block w-full text-left hover:bg-gray-100`}
+                  onClick={() => handleSortOptionClick(`Country (Z-A)`)}
+                >
+                  Country (Z-A)
+                  {selectedSortOption === `Country (Z-A)` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
+                </button>
 
                 <button
-                  className={`block w-full text-left hover:bg-gray-100 ${
-                    selectedSortOption === `Release Date Ascending`
-                      ? `bg-blue-200`
-                      : ``
-                  }`}
+                  className={`block w-full text-left hover:bg-gray-100`}
                   onClick={() =>
-                    setSelectedSortOption(`Release Date Ascending`)
+                    handleSortOptionClick(`Release Date Ascending`)
                   }
                 >
                   Release Date Ascending
@@ -193,13 +228,9 @@ const Movies: React.FC = () => {
                   )}
                 </button>
                 <button
-                  className={`block w-full text-left hover:bg-gray-100 ${
-                    selectedSortOption === `Release Date Descending`
-                      ? `bg-blue-200`
-                      : ``
-                  }`}
+                  className={`block w-full text-left hover:bg-gray-100`}
                   onClick={() =>
-                    setSelectedSortOption(`Release Date Descending`)
+                    handleSortOptionClick(`Release Date Descending`)
                   }
                 >
                   Release Date Descending
@@ -259,22 +290,27 @@ const Movies: React.FC = () => {
         <div>
           <div className="w-full flex items-center">
             <div className="w-1/4 flex">
-              <button className="text-xl bg-blue-500 hover:bg-blue-700 text-primary py-2 pr-0 rounded">
+              <button className="text-xl hover:text-opacity-50 text-primary py-2 pr-0 rounded">
                 Random
               </button>
             </div>
             <h1 className="text-center text-3xl flex-grow flex-shrink-0 ml-auto mr-auto w-1/2">
               Movies I Love
             </h1>
-            <div className="w-1/4 flex justify-end">
-              <input
-                type="text"
-                placeholder="Search"
-                className="border border-gray-300 rounded-lg px-4 py-2 mr-2 w-full h-1/3"
-              />
-              <button type="submit" className="text-primary text-l">
-                Go
-              </button>
+            <div className="w-1/4 flex text-right justify-end">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="border border-gray-300 rounded-lg px-4 py-2 mr-2 w-3/4 h-3/4 mt-1"
+                />
+                <button
+                  type="submit"
+                  className="text-primary text-l hover:text-opacity-50"
+                >
+                  Go
+                </button>
+              </form>
             </div>
           </div>
           <div className="grid grid-cols-6 gap-4" style={{ marginTop: `16px` }}>
