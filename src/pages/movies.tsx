@@ -27,50 +27,74 @@ const Movies: React.FC = () => {
     <div className="container">
       <Header />
 
-      <div className="flex gap-4">
-        <div className="w-1/6">
-          <div className="mt-4">
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-4">
+          <div className="w-1/4">
             <button
-              className={`w-full py-2 px-4 rounded bg-white shadow-lg ${
-                isSortExpanded ? `bg-blue-500 text-white` : `bg-gray-100`
+              className={`w-full py-2 px-4 rounded-lg bg-white shadow-sm transition-colors ${
+                isSortExpanded
+                  ? `bg-blue-500 text-white`
+                  : `bg-gray-100 text-gray-800`
               } border border-gray-300 outline-none mb-2`}
               onClick={() => setSortExpanded(!isSortExpanded)}
             >
               Sort{` `}
-              <span className={`float-right transform`}>
-                {isSortExpanded ? `▼` : `►`}
-              </span>
+              <svg
+                className={`float-right inline-block transform ${
+                  isSortExpanded ? `rotate-180` : ``
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 12 12"
+                fill="currentColor"
+              >
+                <path d="M3.672 4h4.656L6 7.58z" />
+              </svg>
             </button>
             {isSortExpanded && (
-              <div className="bg-gray-200 p-2">
-                {/* Add sort options  */}
-                <button className="block w-full text-left">
+              <div className="bg-gray-50 p-2 rounded">
+                {/* Add sort options */}
+                <button className="block w-full text-left hover:bg-gray-100">
                   Sort by Title
                 </button>
-                <button className="block w-full text-left">
+                <button className="block w-full text-left hover:bg-gray-100">
                   Sort by Release Date
                 </button>
               </div>
             )}
+          </div>
 
+          <div className="w-3/4">
             <button
-              className={`w-full py-2 px-4 rounded bg-white shadow-lg ${
-                isFilterExpanded ? `bg-blue-500 text-white` : `bg-gray-100`
+              className={`w-full py-2 px-4 rounded-lg bg-white shadow-sm transition-colors ${
+                isFilterExpanded
+                  ? `bg-blue-500 text-white`
+                  : `bg-gray-100 text-gray-800`
               } border border-gray-300 outline-none mb-2`}
               onClick={() => setFilterExpanded(!isFilterExpanded)}
             >
               Filter{` `}
-              <span className={`float-right transform`}>
-                {isFilterExpanded ? `▼` : `►`}
-              </span>
+              <svg
+                className={`float-right inline-block transform ${
+                  isFilterExpanded ? `rotate-180` : ``
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 12 12"
+                fill="currentColor"
+              >
+                <path d="M3.672 4h4.656L6 7.58z" />
+              </svg>
             </button>
             {isFilterExpanded && (
-              <div className="bg-gray-200 p-2">
+              <div className="bg-gray-50 p-2 rounded">
                 {/* Add filter options */}
-                <button className="block w-full text-left">
+                <button className="block w-full text-left hover:bg-gray-100">
                   Filter by Genre
                 </button>
-                <button className="block w-full text-left">
+                <button className="block w-full text-left hover:bg-gray-100">
                   Filter by Rating
                 </button>
               </div>
@@ -78,9 +102,28 @@ const Movies: React.FC = () => {
           </div>
         </div>
 
-        <div className="w-3/4">
-          <h1 className="text-center text-3xl mt-4 mb-4">Movies I Love</h1>
-          <div className="grid grid-cols-5 gap-4" style={{ marginTop: `16px` }}>
+        <div>
+          <div className="w-full flex items-center">
+            <div className="w-1/4 flex">
+              <input
+                type="text"
+                placeholder="Search"
+                className="border border-gray-300 rounded-lg px-4 py-2 mr-2 w-full"
+              />
+              <button type="submit" className="text-primary text-l">
+                Go
+              </button>
+            </div>
+            <h1 className="text-center text-3xl flex-grow flex-shrink-0 ml-auto mr-auto w-1/2">
+              Movies I Love
+            </h1>
+            <div className="w-1/4 flex justify-end">
+              <button className="text-xl bg-blue-500 hover:bg-blue-700 text-primary py-2 pr-0 rounded">
+                Random
+              </button>
+            </div>
+          </div>
+          <div className="grid grid-cols-6 gap-4" style={{ marginTop: `16px` }}>
             {movies.map((movie) => (
               <MovieCard
                 key={movie.movie_uid}
