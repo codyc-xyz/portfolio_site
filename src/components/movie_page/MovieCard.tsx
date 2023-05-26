@@ -18,7 +18,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
   return (
     <div className="flex flex-col">
       <a href={moviePageUrl} className="relative">
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm">
           <img
             src={imageUrl}
             alt={title}

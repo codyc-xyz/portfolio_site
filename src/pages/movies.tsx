@@ -12,7 +12,8 @@ const Movies: React.FC = () => {
   const [isDecadeExpanded, setDecadeExpanded] = useState(false);
   const [isRuntimeExpanded, setRuntimeExpanded] = useState(false);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  const [filteredMovies, setFilteredMovies] = useState(movies);
+  const [availableGenres, setAvailableGenres] = useState<string[]>([]);
+  const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
 
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>(`Title (A-Z)`);
@@ -28,23 +29,12 @@ const Movies: React.FC = () => {
       : [...selectedGenres, genre];
 
     setSelectedGenres(updatedGenres);
-
     setFilteredMovies(
-      filteredMovies.filter((movie) =>
-        movie.movie_genres.some((g) => updatedGenres.includes(g)),
+      movies.filter((movie) =>
+        updatedGenres.every((genre) => movie.movie_genres.includes(genre)),
       ),
     );
   };
-
-  const uniqueGenres: string[] = movies.reduce((genres: string[], movie) => {
-    movie.movie_genres.forEach((genre) => {
-      if (!genres.includes(genre)) {
-        genres.push(genre);
-      }
-    });
-    return genres;
-  }, []);
-  console.log(uniqueGenres);
 
   useEffect(() => {
     async function fetchMovies() {
@@ -90,7 +80,6 @@ const Movies: React.FC = () => {
             b.country_of_origin.localeCompare(a.country_of_origin),
           );
         }
-
         setMovies(sortedMovies);
       } catch (error) {
         console.error(error);
@@ -99,6 +88,25 @@ const Movies: React.FC = () => {
     fetchMovies();
   }, [selectedSortOption]);
 
+  useEffect(() => {
+    setFilteredMovies(movies);
+  }, [movies]);
+
+  useEffect(() => {
+    const uniqueGenres = filteredMovies.reduce((genres: string[], movie) => {
+      movie.movie_genres.forEach((genre) => {
+        if (!genres.includes(genre)) {
+          genres.push(genre);
+        }
+      });
+      return genres;
+    }, []);
+
+    setAvailableGenres(uniqueGenres);
+  }, [filteredMovies]);
+
+  console.log(availableGenres);
+  console.log(filteredMovies);
   return (
     <div className="container text-text">
       <Header />
@@ -324,12 +332,12 @@ const Movies: React.FC = () => {
 
                 {isGenreExpanded && (
                   <div className="mt-1">
-                    {uniqueGenres.map((genre: string) => (
+                    {availableGenres.map((genre: string) => (
                       <React.Fragment key={genre}>
                         <button
                           className={`px-1 py-1 rounded-md ${
                             selectedGenres.includes(genre)
-                              ? `text-gray-100`
+                              ? `text-primary opacity-50`
                               : ` text-primary hover:opacity-50`
                           }`}
                           onClick={() => handleGenreClick(genre)}
