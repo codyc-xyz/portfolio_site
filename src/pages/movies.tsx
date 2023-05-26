@@ -37,6 +37,11 @@ const Movies: React.FC = () => {
     );
   };
 
+  const handleFilterClear = () => {
+    setFilteredMovies(movies);
+    setSelectedGenres([]);
+  };
+
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -44,50 +49,49 @@ const Movies: React.FC = () => {
           `http://localhost:3001/movies`,
         );
         const sortedMovies = response.data;
-        if (selectedSortOption === `Title (A-Z)`) {
-          sortedMovies.sort((a, b) =>
-            a.movie_title.localeCompare(b.movie_title),
-          );
-        } else if (selectedSortOption === `Title (Z-A)`) {
-          sortedMovies.sort((a, b) =>
-            b.movie_title.localeCompare(a.movie_title),
-          );
-        } else if (selectedSortOption === `Release Date Ascending`) {
-          sortedMovies.sort(
-            (a, b) =>
-              new Date(a.date_movie_released).getTime() -
-              new Date(b.date_movie_released).getTime(),
-          );
-        } else if (selectedSortOption === `Release Date Descending`) {
-          sortedMovies.sort(
-            (a, b) =>
-              new Date(b.date_movie_released).getTime() -
-              new Date(a.date_movie_released).getTime(),
-          );
-        } else if (selectedSortOption === `Director (A-Z)`) {
-          sortedMovies.sort((a, b) =>
-            a.director.director_name.localeCompare(b.director.director_name),
-          );
-        } else if (selectedSortOption === `Director (Z-A)`) {
-          sortedMovies.sort((a, b) =>
-            b.director.director_name.localeCompare(a.director.director_name),
-          );
-        } else if (selectedSortOption === `Country (A-Z)`) {
-          sortedMovies.sort((a, b) =>
-            a.country_of_origin.localeCompare(b.country_of_origin),
-          );
-        } else if (selectedSortOption === `Country (Z-A)`) {
-          sortedMovies.sort((a, b) =>
-            b.country_of_origin.localeCompare(a.country_of_origin),
-          );
-        }
         setMovies(sortedMovies);
       } catch (error) {
         console.error(error);
       }
     }
     fetchMovies();
-  }, [selectedSortOption]);
+  }, []);
+
+  useEffect(() => {
+    if (selectedSortOption === `Title (A-Z)`) {
+      filteredMovies.sort((a, b) => a.movie_title.localeCompare(b.movie_title));
+    } else if (selectedSortOption === `Title (Z-A)`) {
+      filteredMovies.sort((a, b) => b.movie_title.localeCompare(a.movie_title));
+    } else if (selectedSortOption === `Release Date Ascending`) {
+      filteredMovies.sort(
+        (a, b) =>
+          new Date(a.date_movie_released).getTime() -
+          new Date(b.date_movie_released).getTime(),
+      );
+    } else if (selectedSortOption === `Release Date Descending`) {
+      filteredMovies.sort(
+        (a, b) =>
+          new Date(b.date_movie_released).getTime() -
+          new Date(a.date_movie_released).getTime(),
+      );
+    } else if (selectedSortOption === `Director (A-Z)`) {
+      filteredMovies.sort((a, b) =>
+        a.director.director_name.localeCompare(b.director.director_name),
+      );
+    } else if (selectedSortOption === `Director (Z-A)`) {
+      filteredMovies.sort((a, b) =>
+        b.director.director_name.localeCompare(a.director.director_name),
+      );
+    } else if (selectedSortOption === `Country (A-Z)`) {
+      filteredMovies.sort((a, b) =>
+        a.country_of_origin.localeCompare(b.country_of_origin),
+      );
+    } else if (selectedSortOption === `Country (Z-A)`) {
+      filteredMovies.sort((a, b) =>
+        b.country_of_origin.localeCompare(a.country_of_origin),
+      );
+    }
+  }, [filteredMovies, selectedSortOption]);
 
   useEffect(() => {
     if (!isInitialMoviesSet) {
@@ -110,9 +114,6 @@ const Movies: React.FC = () => {
 
     setAvailableGenres(uniqueGenres);
   }, [filteredMovies]);
-
-  console.log(availableGenres);
-  console.log(filteredMovies);
   return (
     <div className="container text-text">
       <Header />
@@ -391,10 +392,10 @@ const Movies: React.FC = () => {
                     <path d="M3.672 4h4.656L6 7.58z" />
                   </svg>
                 </button>
-                <button className="m-1 mb-0 float-right text-primary hover:opacity-50">
-                  Submit
-                </button>
-                <button className="m-1 mb-0 float-right text-primary hover:opacity-50">
+                <button
+                  className="m-1 mb-0 float-right text-primary hover:opacity-50"
+                  onClick={() => handleFilterClear()}
+                >
                   Clear
                 </button>
               </div>
@@ -429,7 +430,7 @@ const Movies: React.FC = () => {
             </div>
           </div>
           <div className="grid grid-cols-6 gap-4" style={{ marginTop: `16px` }}>
-            {movies.map((movie) => (
+            {filteredMovies.map((movie) => (
               <MovieCard
                 key={movie.movie_uid}
                 moviePageUrl={`${movie.movie_uid}`}
