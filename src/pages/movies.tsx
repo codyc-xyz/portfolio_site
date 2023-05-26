@@ -58,41 +58,44 @@ const Movies: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const sortedMovies = [...filteredMovies];
+
     if (selectedSortOption === `Title (A-Z)`) {
-      filteredMovies.sort((a, b) => a.movie_title.localeCompare(b.movie_title));
+      sortedMovies.sort((a, b) => a.movie_title.localeCompare(b.movie_title));
     } else if (selectedSortOption === `Title (Z-A)`) {
-      filteredMovies.sort((a, b) => b.movie_title.localeCompare(a.movie_title));
+      sortedMovies.sort((a, b) => b.movie_title.localeCompare(a.movie_title));
     } else if (selectedSortOption === `Release Date Ascending`) {
-      filteredMovies.sort(
+      sortedMovies.sort(
         (a, b) =>
           new Date(a.date_movie_released).getTime() -
           new Date(b.date_movie_released).getTime(),
       );
     } else if (selectedSortOption === `Release Date Descending`) {
-      filteredMovies.sort(
+      sortedMovies.sort(
         (a, b) =>
           new Date(b.date_movie_released).getTime() -
           new Date(a.date_movie_released).getTime(),
       );
     } else if (selectedSortOption === `Director (A-Z)`) {
-      filteredMovies.sort((a, b) =>
+      sortedMovies.sort((a, b) =>
         a.director.director_name.localeCompare(b.director.director_name),
       );
     } else if (selectedSortOption === `Director (Z-A)`) {
-      filteredMovies.sort((a, b) =>
+      sortedMovies.sort((a, b) =>
         b.director.director_name.localeCompare(a.director.director_name),
       );
     } else if (selectedSortOption === `Country (A-Z)`) {
-      filteredMovies.sort((a, b) =>
+      sortedMovies.sort((a, b) =>
         a.country_of_origin.localeCompare(b.country_of_origin),
       );
     } else if (selectedSortOption === `Country (Z-A)`) {
-      filteredMovies.sort((a, b) =>
+      sortedMovies.sort((a, b) =>
         b.country_of_origin.localeCompare(a.country_of_origin),
       );
     }
-  }, [filteredMovies, selectedSortOption]);
 
+    setFilteredMovies(sortedMovies);
+  }, [selectedSortOption, filteredMovies]);
   useEffect(() => {
     if (!isInitialMoviesSet) {
       setFilteredMovies(movies);
@@ -338,7 +341,7 @@ const Movies: React.FC = () => {
                 </button>
 
                 {isGenreExpanded && (
-                  <div className="mt-1">
+                  <div>
                     {availableGenres.map((genre: string) => (
                       <React.Fragment key={genre}>
                         <button
