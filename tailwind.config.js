@@ -6,6 +6,7 @@ module.exports = {
   content: [`./src/**/*.{js,jsx,ts,tsx}`, `./public/index.html`],
   theme: {
     spacing: {
+      0: `0px`,
       1: `8px`,
       2: `12px`,
       3: `16px`,

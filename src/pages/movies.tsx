@@ -8,13 +8,43 @@ const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
   const [isSortExpanded, setSortExpanded] = useState(false);
   const [isFilterExpanded, setFilterExpanded] = useState(false);
+  const [isGenreExpanded, setGenreExpanded] = useState(false);
+  const [isDecadeExpanded, setDecadeExpanded] = useState(false);
+  const [isRuntimeExpanded, setRuntimeExpanded] = useState(false);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [filteredMovies, setFilteredMovies] = useState(movies);
+
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>(`Title (A-Z)`);
 
-  const handleSortOptionClick = (option) => {
+  const handleSortOptionClick = (option: string) => {
     setSortExpanded(!isSortExpanded);
     setSelectedSortOption(option);
   };
+
+  const handleGenreClick = (genre: string) => {
+    const updatedGenres = selectedGenres.includes(genre)
+      ? selectedGenres.filter((g) => g !== genre)
+      : [...selectedGenres, genre];
+
+    setSelectedGenres(updatedGenres);
+
+    setFilteredMovies(
+      filteredMovies.filter((movie) =>
+        movie.movie_genres.some((g) => updatedGenres.includes(g)),
+      ),
+    );
+  };
+
+  const uniqueGenres: string[] = movies.reduce((genres: string[], movie) => {
+    movie.movie_genres.forEach((genre) => {
+      if (!genres.includes(genre)) {
+        genres.push(genre);
+      }
+    });
+    return genres;
+  }, []);
+  console.log(uniqueGenres);
 
   useEffect(() => {
     async function fetchMovies() {
@@ -55,7 +85,7 @@ const Movies: React.FC = () => {
           sortedMovies.sort((a, b) =>
             a.country_of_origin.localeCompare(b.country_of_origin),
           );
-        } else if (selectedSortOption === `Director (Z-A)`) {
+        } else if (selectedSortOption === `Country (Z-A)`) {
           sortedMovies.sort((a, b) =>
             b.country_of_origin.localeCompare(a.country_of_origin),
           );
@@ -77,7 +107,7 @@ const Movies: React.FC = () => {
         <div className="flex gap-4">
           <div className="w-1/4 relative">
             <button
-              className={`w-full py-2 px-4 ${
+              className={`w-full py-2 px-2 ${
                 isSortExpanded ? `rounded-t-lg` : `rounded-lg`
               } bg-white shadow-sm border border-gray-300`}
               onClick={() => setSortExpanded(!isSortExpanded)}
@@ -250,13 +280,11 @@ const Movies: React.FC = () => {
               </div>
             )}
           </div>
-          <div className="w-3/4">
+          <div className="w-3/4 relative">
             <button
-              className={`w-full py-2 px-4 rounded-lg bg-white shadow-sm transition-colors ${
-                isFilterExpanded
-                  ? `bg-blue-500 text-white`
-                  : `bg-gray-100 text-gray-800`
-              } border border-gray-300 outline-none mb-2`}
+              className={`w-full ${
+                isFilterExpanded ? `rounded-t-lg` : `rounded-lg`
+              } bg-white shadow-sm border border-gray-300 p-2`}
               onClick={() => setFilterExpanded(!isFilterExpanded)}
             >
               Filter{` `}
@@ -274,13 +302,86 @@ const Movies: React.FC = () => {
               </svg>
             </button>
             {isFilterExpanded && (
-              <div className="bg-gray-50 p-2 rounded">
-                {/* Add filter options */}
-                <button className="block w-full text-left hover:bg-gray-100">
-                  Filter by Genre
+              <div className="bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full $">
+                <button
+                  className="block w-full text-left hover:bg-gray-100"
+                  onClick={() => setGenreExpanded(!isGenreExpanded)}
+                >
+                  Genre
+                  <svg
+                    className={`float-right inline-block transform ${
+                      isGenreExpanded ? `rotate-180` : ``
+                    }`}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                  >
+                    <path d="M3.672 4h4.656L6 7.58z" />
+                  </svg>
                 </button>
-                <button className="block w-full text-left hover:bg-gray-100">
-                  Filter by Rating
+
+                {isGenreExpanded && (
+                  <div className="mt-1">
+                    {uniqueGenres.map((genre: string) => (
+                      <React.Fragment key={genre}>
+                        <button
+                          className={`px-1 py-1 rounded-md ${
+                            selectedGenres.includes(genre)
+                              ? `text-gray-100`
+                              : ` text-primary hover:opacity-50`
+                          }`}
+                          onClick={() => handleGenreClick(genre)}
+                        >
+                          {genre}
+                        </button>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                )}
+
+                <button
+                  className="block w-full text-left hover:bg-gray-100"
+                  onClick={() => setDecadeExpanded(!isDecadeExpanded)}
+                >
+                  Decade
+                  <svg
+                    className={`float-right inline-block transform ${
+                      isDecadeExpanded ? `rotate-180` : ``
+                    }`}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                  >
+                    <path d="M3.672 4h4.656L6 7.58z" />
+                  </svg>
+                </button>
+                <button
+                  className="block w-full text-left hover:bg-gray-100"
+                  onClick={() => setRuntimeExpanded(!isRuntimeExpanded)}
+                >
+                  Runtime
+                  <svg
+                    className={`float-right inline-block transform ${
+                      isRuntimeExpanded ? `rotate-180` : ``
+                    }`}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                  >
+                    <path d="M3.672 4h4.656L6 7.58z" />
+                  </svg>
+                </button>
+                <button className="m-1 mb-0 float-right text-primary hover:opacity-50">
+                  Submit
+                </button>
+                <button className="m-1 mb-0 float-right text-primary hover:opacity-50">
+                  Clear
                 </button>
               </div>
             )}
@@ -289,8 +390,8 @@ const Movies: React.FC = () => {
 
         <div>
           <div className="w-full flex items-center">
-            <div className="w-1/4 flex">
-              <button className="text-xl hover:text-opacity-50 text-primary py-2 pr-0 rounded">
+            <div className="w-1/4 flex text-center">
+              <button className="text-xl hover:text-opacity-50 text-primary rounded">
                 Random
               </button>
             </div>
