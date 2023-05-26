@@ -11,6 +11,7 @@ const Movies: React.FC = () => {
   const [isGenreExpanded, setGenreExpanded] = useState(false);
   const [isDecadeExpanded, setDecadeExpanded] = useState(false);
   const [isRuntimeExpanded, setRuntimeExpanded] = useState(false);
+  const [isInitialMoviesSet, setIsInitialMoviesSet] = useState(false);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [availableGenres, setAvailableGenres] = useState<string[]>([]);
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
@@ -89,8 +90,13 @@ const Movies: React.FC = () => {
   }, [selectedSortOption]);
 
   useEffect(() => {
-    setFilteredMovies(movies);
-  }, [movies]);
+    if (!isInitialMoviesSet) {
+      setFilteredMovies(movies);
+      setIsInitialMoviesSet(true);
+    } else if (filteredMovies.length === 0) {
+      setIsInitialMoviesSet(false);
+    }
+  }, [movies, isInitialMoviesSet, filteredMovies]);
 
   useEffect(() => {
     const uniqueGenres = filteredMovies.reduce((genres: string[], movie) => {
