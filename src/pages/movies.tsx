@@ -479,7 +479,7 @@ const Movies: React.FC = () => {
             {isFilterExpanded && (
               <div className="bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full $">
                 <button
-                  className="block w-full text-left hover:bg-gray-100"
+                  className="block w-full text-left hover:bg-gray-100 p-1"
                   onClick={() => setGenreExpanded(!isGenreExpanded)}
                 >
                   Genre
@@ -517,7 +517,7 @@ const Movies: React.FC = () => {
                 )}
 
                 <button
-                  className="block w-full text-left hover:bg-gray-100"
+                  className="block w-full text-left hover:bg-gray-100 p-1"
                   onClick={() => setDecadeExpanded(!isDecadeExpanded)}
                 >
                   Decade
@@ -554,7 +554,7 @@ const Movies: React.FC = () => {
                   </div>
                 )}
                 <button
-                  className="block w-full text-left hover:bg-gray-100"
+                  className="block w-full text-left hover:bg-gray-100 p-1"
                   onClick={() => setRuntimeExpanded(!isRuntimeExpanded)}
                 >
                   Length
@@ -596,6 +596,9 @@ const Movies: React.FC = () => {
                 >
                   Clear
                 </button>
+                <p className="float-left mt-3 ml-1 text-xs">
+                  {filteredMovies.length} / {movies.length}
+                </p>
               </div>
             )}
           </div>
