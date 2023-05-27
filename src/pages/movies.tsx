@@ -16,6 +16,8 @@ const Movies: React.FC = () => {
   const [availableGenres, setAvailableGenres] = useState<string[]>([]);
   const [selectedDecade, setSelectedDecade] = useState<number | null>(null);
   const [availableDecades, setAvailableDecades] = useState<number[]>([]);
+  const [selectedLength, setSelectedLength] = useState<string | null>(null);
+  const [availableLengths, setAvailableLengths] = useState<string[]>([]);
 
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
 
@@ -40,7 +42,8 @@ const Movies: React.FC = () => {
 
         return (
           (selectedDecade === null || movieDecade === selectedDecade) &&
-          updatedGenres.every((genre) => movie.movie_genres.includes(genre))
+          updatedGenres.every((genre) => movie.movie_genres.includes(genre)) &&
+          (selectedLength === null || checkMovieLength(movie, selectedLength))
         );
       }),
     );
@@ -48,28 +51,78 @@ const Movies: React.FC = () => {
 
   const handleDecadeClick = (decade: number) => {
     if (selectedDecade === decade) {
+      setSelectedDecade(null);
+
       setFilteredMovies(
         movies.filter((movie) =>
           selectedGenres.every((genre) => movie.movie_genres.includes(genre)),
         ),
       );
-      setSelectedDecade(null);
     } else {
+      setSelectedDecade(decade);
+
       setFilteredMovies(
         movies.filter((movie) => {
           const movieYear = new Date(movie.date_movie_released).getFullYear();
           const movieDecade = Math.floor(movieYear / 10) * 10;
-          return movieDecade === decade;
+          return (
+            movieDecade === decade &&
+            selectedGenres.every((genre) =>
+              movie.movie_genres.includes(genre),
+            ) &&
+            (selectedLength === null || checkMovieLength(movie, selectedLength))
+          );
         }),
       );
-      setSelectedDecade(decade);
     }
   };
 
+  const handleRuntimeClick = (length: string) => {
+    if (selectedLength === length) {
+      setFilteredMovies(
+        movies.filter((movie) => {
+          const movieYear = new Date(movie.date_movie_released).getFullYear();
+          const movieDecade = Math.floor(movieYear / 10) * 10;
+
+          return (
+            (selectedDecade === null || movieDecade === selectedDecade) &&
+            selectedGenres.every((genre) => movie.movie_genres.includes(genre))
+          );
+        }),
+      );
+      setSelectedLength(null);
+    } else {
+      setFilteredMovies(
+        filteredMovies.filter((movie) => {
+          return checkMovieLength(movie, length);
+        }),
+      );
+      setSelectedLength(length);
+    }
+  };
+
+  const checkMovieLength = (movie: MovieAttributes, length: string) => {
+    const movieLength = movie.length_in_minutes;
+
+    if (length === `0-30`) {
+      return movieLength <= 30;
+    } else if (length === `31-60`) {
+      return movieLength > 30 && movieLength <= 60;
+    } else if (length === `61-90`) {
+      return movieLength > 60 && movieLength <= 90;
+    } else if (length === `91-120`) {
+      return movieLength > 90 && movieLength <= 120;
+    } else if (length === `121-180`) {
+      return movieLength > 120 && movieLength <= 180;
+    } else {
+      return movieLength > 180;
+    }
+  };
   const handleFilterClear = () => {
     setFilteredMovies(movies);
     setSelectedGenres([]);
     setSelectedDecade(null);
+    setSelectedLength(null);
   };
 
   useEffect(() => {
@@ -160,6 +213,62 @@ const Movies: React.FC = () => {
     const sortedDecades = uniqueDecades.sort((a, b) => a - b);
     setAvailableDecades(sortedDecades);
   }, [filteredMovies]);
+
+  useEffect(() => {
+    const uniqueLengths = filteredMovies.reduce((lengths: string[], movie) => {
+      const currLength = movie.length_in_minutes;
+      if (currLength <= 30 && !lengths.includes(`0-30`)) {
+        lengths.push(`0-30`);
+      } else if (
+        currLength > 30 &&
+        currLength <= 60 &&
+        !lengths.includes(`31-60`)
+      ) {
+        lengths.push(`31-60`);
+      } else if (
+        currLength > 60 &&
+        currLength <= 90 &&
+        !lengths.includes(`61-90`)
+      ) {
+        lengths.push(`61-90`);
+      } else if (
+        currLength > 90 &&
+        currLength <= 120 &&
+        !lengths.includes(`91-120`)
+      ) {
+        lengths.push(`91-120`);
+      } else if (
+        currLength > 120 &&
+        currLength <= 180 &&
+        !lengths.includes(`121-180`)
+      ) {
+        lengths.push(`121-180`);
+      } else if (currLength > 180 && !lengths.includes(`181+`)) {
+        lengths.push(`181+`);
+      }
+      return lengths;
+    }, []);
+    const sortedLengths = uniqueLengths.sort((a, b) => {
+      if (a === `181+`) {
+        return 1;
+      } else if (b === `181+`) {
+        return -1;
+      } else {
+        const aNum = parseInt(a, 10);
+        const bNum = parseInt(b, 10);
+
+        if (aNum < bNum) {
+          return -1;
+        } else if (aNum > bNum) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    });
+    setAvailableLengths(sortedLengths);
+  }, [filteredMovies]);
+
   return (
     <div className="container text-text">
       <Header />
@@ -443,7 +552,7 @@ const Movies: React.FC = () => {
                   className="block w-full text-left hover:bg-gray-100"
                   onClick={() => setRuntimeExpanded(!isRuntimeExpanded)}
                 >
-                  Runtime
+                  Length
                   <svg
                     className={`float-right inline-block transform ${
                       isRuntimeExpanded ? `rotate-180` : ``
@@ -457,6 +566,25 @@ const Movies: React.FC = () => {
                     <path d="M3.672 4h4.656L6 7.58z" />
                   </svg>
                 </button>
+                {isRuntimeExpanded && (
+                  <div>
+                    {availableLengths.map((length: string) => (
+                      <React.Fragment key={length}>
+                        <button
+                          className={`px-1 py-1 rounded-md ${
+                            selectedLength === length
+                              ? `text-primary opacity-50`
+                              : ` text-primary hover:opacity-50`
+                          }`}
+                          onClick={() => handleRuntimeClick(length)}
+                        >
+                          {length} minutes
+                        </button>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                )}
+
                 <button
                   className="m-1 mb-0 float-right text-primary hover:opacity-50"
                   onClick={() => handleFilterClear()}
