@@ -14,6 +14,9 @@ const Movies: React.FC = () => {
   const [isInitialMoviesSet, setIsInitialMoviesSet] = useState(false);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [availableGenres, setAvailableGenres] = useState<string[]>([]);
+  const [selectedDecade, setSelectedDecade] = useState<number | null>(null);
+  const [availableDecades, setAvailableDecades] = useState<number[]>([]);
+
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
 
   const [selectedSortOption, setSelectedSortOption] =
@@ -37,9 +40,30 @@ const Movies: React.FC = () => {
     );
   };
 
+  const handleDecadeClick = (decade: number) => {
+    if (selectedDecade === decade) {
+      setFilteredMovies(
+        movies.filter((movie) =>
+          selectedGenres.every((genre) => movie.movie_genres.includes(genre)),
+        ),
+      );
+      setSelectedDecade(null);
+    } else {
+      setFilteredMovies(
+        movies.filter((movie) => {
+          const movieYear = new Date(movie.date_movie_released).getFullYear();
+          const movieDecade = Math.floor(movieYear / 10) * 10;
+          return movieDecade === decade;
+        }),
+      );
+      setSelectedDecade(decade);
+    }
+  };
+
   const handleFilterClear = () => {
     setFilteredMovies(movies);
     setSelectedGenres([]);
+    setSelectedDecade(null);
   };
 
   useEffect(() => {
@@ -116,6 +140,19 @@ const Movies: React.FC = () => {
     }, []);
 
     setAvailableGenres(uniqueGenres);
+  }, [filteredMovies]);
+
+  useEffect(() => {
+    const uniqueDecades = filteredMovies.reduce((decades: number[], movie) => {
+      const movieYear = new Date(movie.date_movie_released).getFullYear();
+      const movieDecade = Math.floor(movieYear / 10) * 10;
+      if (!decades.includes(movieDecade)) {
+        decades.push(movieDecade);
+      }
+      return decades;
+    }, []);
+    const sortedDecades = uniqueDecades.sort((a, b) => a - b);
+    setAvailableDecades(sortedDecades);
   }, [filteredMovies]);
   return (
     <div className="container text-text">
@@ -377,6 +414,25 @@ const Movies: React.FC = () => {
                     <path d="M3.672 4h4.656L6 7.58z" />
                   </svg>
                 </button>
+
+                {isDecadeExpanded && (
+                  <div>
+                    {availableDecades.map((decade: number) => (
+                      <React.Fragment key={decade}>
+                        <button
+                          className={`px-1 py-1 rounded-md ${
+                            selectedDecade === decade
+                              ? `text-primary opacity-50`
+                              : ` text-primary hover:opacity-50`
+                          }`}
+                          onClick={() => handleDecadeClick(decade)}
+                        >
+                          {decade}s
+                        </button>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                )}
                 <button
                   className="block w-full text-left hover:bg-gray-100"
                   onClick={() => setRuntimeExpanded(!isRuntimeExpanded)}
