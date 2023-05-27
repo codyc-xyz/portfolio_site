@@ -34,9 +34,15 @@ const Movies: React.FC = () => {
 
     setSelectedGenres(updatedGenres);
     setFilteredMovies(
-      movies.filter((movie) =>
-        updatedGenres.every((genre) => movie.movie_genres.includes(genre)),
-      ),
+      movies.filter((movie) => {
+        const movieYear = new Date(movie.date_movie_released).getFullYear();
+        const movieDecade = Math.floor(movieYear / 10) * 10;
+
+        return (
+          (selectedDecade === null || movieDecade === selectedDecade) &&
+          updatedGenres.every((genre) => movie.movie_genres.includes(genre))
+        );
+      }),
     );
   };
 
