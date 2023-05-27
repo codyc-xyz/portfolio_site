@@ -54,15 +54,20 @@ const Movies: React.FC = () => {
       setSelectedDecade(null);
 
       setFilteredMovies(
-        movies.filter((movie) =>
-          selectedGenres.every((genre) => movie.movie_genres.includes(genre)),
+        movies.filter(
+          (movie) =>
+            selectedGenres.every((genre) =>
+              movie.movie_genres.includes(genre),
+            ) &&
+            (selectedLength === null ||
+              checkMovieLength(movie, selectedLength)),
         ),
       );
     } else {
       setSelectedDecade(decade);
 
       setFilteredMovies(
-        movies.filter((movie) => {
+        filteredMovies.filter((movie) => {
           const movieYear = new Date(movie.date_movie_released).getFullYear();
           const movieDecade = Math.floor(movieYear / 10) * 10;
           return (
@@ -79,6 +84,7 @@ const Movies: React.FC = () => {
 
   const handleRuntimeClick = (length: string) => {
     if (selectedLength === length) {
+      setSelectedLength(null);
       setFilteredMovies(
         movies.filter((movie) => {
           const movieYear = new Date(movie.date_movie_released).getFullYear();
@@ -90,7 +96,6 @@ const Movies: React.FC = () => {
           );
         }),
       );
-      setSelectedLength(null);
     } else {
       setFilteredMovies(
         filteredMovies.filter((movie) => {
