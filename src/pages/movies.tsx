@@ -170,6 +170,10 @@ const Movies: React.FC = () => {
       sortedMovies.sort((a, b) =>
         a.country_of_origin.localeCompare(b.country_of_origin),
       );
+    } else if (selectedSortOption === `Length Ascending`) {
+      sortedMovies.sort((a, b) => a.length_in_minutes - b.length_in_minutes);
+    } else if (selectedSortOption === `Length Descending`) {
+      sortedMovies.sort((a, b) => b.length_in_minutes - a.length_in_minutes);
     }
 
     setFilteredMovies(sortedMovies);
@@ -335,6 +339,42 @@ const Movies: React.FC = () => {
                 >
                   Country (A-Z)
                   {selectedSortOption === `Country (A-Z)` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
+                </button>
+                <button
+                  className={`block w-full text-left hover:bg-gray-100`}
+                  onClick={() => handleSortOptionClick(`Length Ascending`)}
+                >
+                  Length Ascending
+                  {selectedSortOption === `Length Ascending` && (
+                    <svg
+                      className="float-right inline-block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
+                    </svg>
+                  )}
+                </button>
+                <button
+                  className={`block w-full text-left hover:bg-gray-100`}
+                  onClick={() => handleSortOptionClick(`Length Descending`)}
+                >
+                  Length Descending
+                  {selectedSortOption === `Length Descending` && (
                     <svg
                       className="float-right inline-block"
                       xmlns="http://www.w3.org/2000/svg"
