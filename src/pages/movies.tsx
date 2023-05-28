@@ -56,23 +56,38 @@ const Movies: React.FC = () => {
   };
 
   const handleGenreClick = (genre: string) => {
-    const updatedGenres = selectedGenres.includes(genre)
-      ? selectedGenres.filter((g) => g !== genre)
-      : [...selectedGenres, genre];
+    let updatedGenres: string[];
 
+    if (selectedGenres.includes(genre)) {
+      updatedGenres = selectedGenres.filter((g) => g !== genre);
+      setFilteredMovies(
+        movies.filter((movie) => {
+          const movieYear = new Date(movie.date_movie_released).getFullYear();
+          const movieDecade = Math.floor(movieYear / 10) * 10;
+
+          return (
+            (selectedDecade === null || movieDecade === selectedDecade) &&
+            updatedGenres.every((genre) =>
+              movie.movie_genres.includes(genre),
+            ) &&
+            (selectedLength === null ||
+              checkMovieLength(movie, selectedLength)) &&
+            (searchValue === `` ||
+              movie.movie_title.includes(searchValue) ||
+              movie.country_of_origin.includes(searchValue) ||
+              movie.director.director_name.includes(searchValue))
+          );
+        }),
+      );
+    } else {
+      updatedGenres = [...selectedGenres, genre];
+      setFilteredMovies(
+        filteredMovies.filter((movie) =>
+          updatedGenres.every((genre) => movie.movie_genres.includes(genre)),
+        ),
+      );
+    }
     setSelectedGenres(updatedGenres);
-    setFilteredMovies(
-      movies.filter((movie) => {
-        const movieYear = new Date(movie.date_movie_released).getFullYear();
-        const movieDecade = Math.floor(movieYear / 10) * 10;
-
-        return (
-          (selectedDecade === null || movieDecade === selectedDecade) &&
-          updatedGenres.every((genre) => movie.movie_genres.includes(genre)) &&
-          (selectedLength === null || checkMovieLength(movie, selectedLength))
-        );
-      }),
-    );
   };
 
   const handleDecadeClick = (decade: number) => {
@@ -80,14 +95,19 @@ const Movies: React.FC = () => {
       setSelectedDecade(null);
 
       setFilteredMovies(
-        movies.filter(
-          (movie) =>
+        movies.filter((movie) => {
+          return (
             selectedGenres.every((genre) =>
               movie.movie_genres.includes(genre),
             ) &&
             (selectedLength === null ||
-              checkMovieLength(movie, selectedLength)),
-        ),
+              checkMovieLength(movie, selectedLength)) &&
+            (searchValue === `` ||
+              movie.movie_title.includes(searchValue) ||
+              movie.country_of_origin.includes(searchValue) ||
+              movie.director.director_name.includes(searchValue))
+          );
+        }),
       );
     } else {
       setSelectedDecade(decade);
@@ -117,8 +137,14 @@ const Movies: React.FC = () => {
           const movieDecade = Math.floor(movieYear / 10) * 10;
 
           return (
-            (selectedDecade === null || movieDecade === selectedDecade) &&
-            selectedGenres.every((genre) => movie.movie_genres.includes(genre))
+            ((selectedDecade === null || movieDecade === selectedDecade) &&
+              selectedGenres.every((genre) =>
+                movie.movie_genres.includes(genre),
+              ) &&
+              searchValue === ``) ||
+            movie.movie_title.includes(searchValue) ||
+            movie.country_of_origin.includes(searchValue) ||
+            movie.director.director_name.includes(searchValue)
           );
         }),
       );
@@ -154,6 +180,7 @@ const Movies: React.FC = () => {
     setSelectedGenres([]);
     setSelectedDecade(null);
     setSelectedLength(null);
+    setSearchValue(``);
   };
 
   useEffect(() => {
@@ -204,7 +231,13 @@ const Movies: React.FC = () => {
 
     setFilteredMovies(sortedMovies);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSortOption]);
+  }, [
+    selectedSortOption,
+    selectedDecade,
+    selectedGenres,
+    selectedLength,
+    searchValue,
+  ]);
 
   useEffect(() => {
     if (movies.length > 0) {
