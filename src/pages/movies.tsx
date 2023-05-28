@@ -150,8 +150,6 @@ const Movies: React.FC = () => {
 
     if (selectedSortOption === `Title (A-Z)`) {
       sortedMovies.sort((a, b) => a.movie_title.localeCompare(b.movie_title));
-    } else if (selectedSortOption === `Title (Z-A)`) {
-      sortedMovies.sort((a, b) => b.movie_title.localeCompare(a.movie_title));
     } else if (selectedSortOption === `Release Date Ascending`) {
       sortedMovies.sort(
         (a, b) =>
@@ -168,17 +166,9 @@ const Movies: React.FC = () => {
       sortedMovies.sort((a, b) =>
         a.director.director_name.localeCompare(b.director.director_name),
       );
-    } else if (selectedSortOption === `Director (Z-A)`) {
-      sortedMovies.sort((a, b) =>
-        b.director.director_name.localeCompare(a.director.director_name),
-      );
     } else if (selectedSortOption === `Country (A-Z)`) {
       sortedMovies.sort((a, b) =>
         a.country_of_origin.localeCompare(b.country_of_origin),
-      );
-    } else if (selectedSortOption === `Country (Z-A)`) {
-      sortedMovies.sort((a, b) =>
-        b.country_of_origin.localeCompare(a.country_of_origin),
       );
     }
 
@@ -323,46 +313,10 @@ const Movies: React.FC = () => {
                 </button>
                 <button
                   className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() => handleSortOptionClick(`Title (Z-A)`)}
-                >
-                  Title (Z-A)
-                  {selectedSortOption === `Title (Z-A)` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
                   onClick={() => handleSortOptionClick(`Director (A-Z)`)}
                 >
                   Director (A-Z)
                   {selectedSortOption === `Director (A-Z)` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() => handleSortOptionClick(`Director (Z-A)`)}
-                >
-                  Director (Z-A)
-                  {selectedSortOption === `Director (Z-A)` && (
                     <svg
                       className="float-right inline-block"
                       xmlns="http://www.w3.org/2000/svg"
@@ -393,25 +347,6 @@ const Movies: React.FC = () => {
                     </svg>
                   )}
                 </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() => handleSortOptionClick(`Country (Z-A)`)}
-                >
-                  Country (Z-A)
-                  {selectedSortOption === `Country (Z-A)` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-
                 <button
                   className={`block w-full text-left hover:bg-gray-100`}
                   onClick={() =>
