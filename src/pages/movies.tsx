@@ -11,7 +11,6 @@ const Movies: React.FC = () => {
   const [isGenreExpanded, setGenreExpanded] = useState(false);
   const [isDecadeExpanded, setDecadeExpanded] = useState(false);
   const [isRuntimeExpanded, setRuntimeExpanded] = useState(false);
-  const [isInitialMoviesSet, setIsInitialMoviesSet] = useState(false);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [availableGenres, setAvailableGenres] = useState<string[]>([]);
   const [selectedDecade, setSelectedDecade] = useState<number | null>(null);
@@ -132,17 +131,17 @@ const Movies: React.FC = () => {
   };
 
   useEffect(() => {
-    async function fetchMovies() {
+    const fetchMovies = async () => {
       try {
         const response = await axios.get<MovieAttributes[]>(
           `http://localhost:3001/movies`,
         );
-        const sortedMovies = response.data;
-        setMovies(sortedMovies);
+        const fetchedMovies = response.data;
+        setMovies(fetchedMovies);
       } catch (error) {
         console.error(error);
       }
-    }
+    };
     fetchMovies();
   }, []);
 
@@ -180,14 +179,12 @@ const Movies: React.FC = () => {
     setFilteredMovies(sortedMovies);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSortOption]);
+
   useEffect(() => {
-    if (!isInitialMoviesSet) {
+    if (movies.length > 0) {
       setFilteredMovies(movies);
-      setIsInitialMoviesSet(true);
-    } else if (filteredMovies.length === 0) {
-      setIsInitialMoviesSet(false);
     }
-  }, [movies, isInitialMoviesSet, filteredMovies]);
+  }, [movies]);
 
   useEffect(() => {
     const uniqueGenres = filteredMovies.reduce((genres: string[], movie) => {
@@ -278,7 +275,6 @@ const Movies: React.FC = () => {
   }, [filteredMovies]);
 
   const randomMovie = filteredMovies[randomMovieIndex]?.movie_uid;
-  console.log(randomMovie);
   return (
     <div className="container text-text">
       <Header />
