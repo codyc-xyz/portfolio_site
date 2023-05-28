@@ -20,8 +20,7 @@ const Movies: React.FC = () => {
   const [randomMovieIndex, setRandomMovieIndex] = useState(0);
   const [searchValue, setSearchValue] = useState<string>(``);
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
-  const [selectedSortOption, setSelectedSortOption] =
-    useState<string>(`Title (A-Z)`);
+  const [selectedSortOption, setSelectedSortOption] = useState<string>(``);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -230,14 +229,9 @@ const Movies: React.FC = () => {
     }
 
     setFilteredMovies(sortedMovies);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    selectedSortOption,
-    selectedDecade,
-    selectedGenres,
-    selectedLength,
-    searchValue,
-  ]);
+  }, [selectedSortOption, selectedDecade, selectedGenres, selectedLength]);
 
   useEffect(() => {
     if (movies.length > 0) {
