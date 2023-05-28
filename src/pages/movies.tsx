@@ -20,7 +20,8 @@ const Movies: React.FC = () => {
   const [randomMovieIndex, setRandomMovieIndex] = useState(0);
   const [searchValue, setSearchValue] = useState<string>(``);
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
-  const [selectedSortOption, setSelectedSortOption] = useState<string>(``);
+  const [selectedSortOption, setSelectedSortOption] =
+    useState<string>(`Title (A-Z)`);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -189,7 +190,11 @@ const Movies: React.FC = () => {
           `http://localhost:3001/movies`,
         );
         const fetchedMovies = response.data;
-        setMovies(fetchedMovies);
+        const sortedFetchedMovies = fetchedMovies.sort((a, b) =>
+          a.movie_title.localeCompare(b.movie_title),
+        );
+
+        setMovies(sortedFetchedMovies);
       } catch (error) {
         console.error(error);
       }
