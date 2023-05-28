@@ -18,11 +18,37 @@ const Movies: React.FC = () => {
   const [selectedLength, setSelectedLength] = useState<string | null>(null);
   const [availableLengths, setAvailableLengths] = useState<string[]>([]);
   const [randomMovieIndex, setRandomMovieIndex] = useState(0);
-
+  const [searchValue, setSearchValue] = useState<string>(``);
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
-
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>(`Title (A-Z)`);
+
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setSearchValue(event.target.value);
+  };
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const filteredResults = movies.filter((movie) => {
+      const movieYear = new Date(movie.date_movie_released).getFullYear();
+      const movieDecade = Math.floor(movieYear / 10) * 10;
+      return (
+        (selectedGenres.length === 0 ||
+          selectedGenres.every((genre) =>
+            movie.movie_genres.includes(genre),
+          )) &&
+        (selectedDecade === null || movieDecade === selectedDecade) &&
+        (selectedLength === null || checkMovieLength(movie, selectedLength)) &&
+        (movie.movie_title.includes(searchValue) ||
+          movie.country_of_origin.includes(searchValue) ||
+          movie.director.director_name.includes(searchValue))
+      );
+    });
+    setFilteredMovies(filteredResults);
+  };
 
   const handleSortOptionClick = (option: string) => {
     setSortExpanded(!isSortExpanded);
@@ -600,11 +626,13 @@ const Movies: React.FC = () => {
               Movies I Love
             </h1>
             <div className="w-1/4 flex text-right justify-end">
-              <form>
+              <form onSubmit={handleSearchSubmit}>
                 <input
                   type="text"
                   placeholder="Search"
                   className="border border-gray-300 rounded-lg px-4 py-2 mr-2 w-3/4 h-3/4 mt-1"
+                  value={searchValue}
+                  onChange={handleSearchInputChange}
                 />
                 <button
                   type="submit"
