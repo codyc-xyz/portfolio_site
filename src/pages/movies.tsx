@@ -18,6 +18,7 @@ const Movies: React.FC = () => {
   const [availableDecades, setAvailableDecades] = useState<number[]>([]);
   const [selectedLength, setSelectedLength] = useState<string | null>(null);
   const [availableLengths, setAvailableLengths] = useState<string[]>([]);
+  const [randomMovieIndex, setRandomMovieIndex] = useState(0);
 
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
 
@@ -177,7 +178,8 @@ const Movies: React.FC = () => {
     }
 
     setFilteredMovies(sortedMovies);
-  }, [selectedSortOption, filteredMovies]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSortOption]);
   useEffect(() => {
     if (!isInitialMoviesSet) {
       setFilteredMovies(movies);
@@ -268,6 +270,15 @@ const Movies: React.FC = () => {
     setAvailableLengths(sortedLengths);
   }, [filteredMovies]);
 
+  useEffect(() => {
+    if (filteredMovies.length > 0) {
+      const newIndex = Math.floor(Math.random() * filteredMovies.length);
+      setRandomMovieIndex(newIndex);
+    }
+  }, [filteredMovies]);
+
+  const randomMovie = filteredMovies[randomMovieIndex]?.movie_uid;
+  console.log(randomMovie);
   return (
     <div className="container text-text">
       <Header />
@@ -582,9 +593,12 @@ const Movies: React.FC = () => {
         <div>
           <div className="w-full flex items-center">
             <div className="w-1/4 flex text-center">
-              <button className="text-xl hover:text-opacity-50 text-primary rounded">
+              <a
+                href={randomMovie}
+                className="text-xl hover:text-opacity-50 text-primary rounded"
+              >
                 Random
-              </button>
+              </a>
             </div>
             <h1 className="text-center text-3xl flex-grow flex-shrink-0 ml-auto mr-auto w-1/2">
               Movies I Love
