@@ -3,6 +3,7 @@ import Header from '../components/general/Header';
 import { MovieAttributes } from '../types/MovieAttributes';
 import MovieCard from '../components/movie_page/MovieCard';
 import axios from 'axios';
+import { X } from 'react-feather';
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
@@ -45,6 +46,23 @@ const Movies: React.FC = () => {
         (movie.movie_title.includes(searchValue) ||
           movie.country_of_origin.includes(searchValue) ||
           movie.director.director_name.includes(searchValue))
+      );
+    });
+    setFilteredMovies(filteredResults);
+  };
+
+  const handleClearSearch = () => {
+    setSearchValue(``);
+    const filteredResults = movies.filter((movie) => {
+      const movieYear = new Date(movie.date_movie_released).getFullYear();
+      const movieDecade = Math.floor(movieYear / 10) * 10;
+      return (
+        (selectedGenres.length === 0 ||
+          selectedGenres.every((genre) =>
+            movie.movie_genres.includes(genre),
+          )) &&
+        (selectedDecade === null || movieDecade === selectedDecade) &&
+        (selectedLength === null || checkMovieLength(movie, selectedLength))
       );
     });
     setFilteredMovies(filteredResults);
@@ -658,17 +676,26 @@ const Movies: React.FC = () => {
               Movies I Love
             </h1>
             <div className="w-1/4 flex text-right justify-end">
-              <form onSubmit={handleSearchSubmit}>
+              <form onSubmit={handleSearchSubmit} className="relative">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="border border-gray-300 rounded-lg px-4 py-2 mr-2 w-3/4 h-3/4 mt-1"
+                  className="border border-gray-300 rounded-lg px-4 py-2 pr-10 w-3/4 h-3/4 mt-1"
                   value={searchValue}
                   onChange={handleSearchInputChange}
                 />
+                {searchValue && (
+                  <button
+                    type="button"
+                    className="absolute top-1/2 right-6 transform -translate-y-1/2"
+                    onClick={handleClearSearch}
+                  >
+                    <X className="h-3 w-3 text-gray-500 hover:text-gray-700 cursor-pointer" />
+                  </button>
+                )}
                 <button
                   type="submit"
-                  className="text-primary text-l hover:text-opacity-50"
+                  className="ml-2 text-primary text-l hover:text-opacity-50"
                 >
                   Go
                 </button>
