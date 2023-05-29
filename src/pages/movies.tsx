@@ -4,6 +4,8 @@ import { MovieAttributes } from '../types/MovieAttributes';
 import MovieCard from '../components/movie_page/MovieCard';
 import axios from 'axios';
 import { X } from 'react-feather';
+import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
+import Dropdown from '../components/general/dropdown';
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
@@ -358,168 +360,34 @@ const Movies: React.FC = () => {
   }, [filteredMovies]);
 
   const randomMovie = filteredMovies[randomMovieIndex]?.movie_uid;
+  const sortOptions = [
+    `Title (A-Z)`,
+    `Director (A-Z)`,
+    `Country (A-Z)`,
+    `Length Ascending`,
+    `Length Descending`,
+    `Release Date Ascending`,
+    `Release Date Descending`,
+  ];
+
   return (
     <div className="container text-text">
       <Header />
 
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">
-          <div className="w-1/4 relative">
-            <button
-              className={`w-full py-2 px-2 ${
-                isSortExpanded ? `rounded-t-lg` : `rounded-lg`
-              } bg-white shadow-sm border border-gray-300`}
-              onClick={() => setSortExpanded(!isSortExpanded)}
-            >
-              Sort{` `}
-              <svg
-                className={`float-right inline-block transform ${
-                  isSortExpanded ? `rotate-180` : ``
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 12 12"
-                fill="currentColor"
-              >
-                <path d="M3.672 4h4.656L6 7.58z" />
-              </svg>
-            </button>
-            {isSortExpanded && (
-              <div className="bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full">
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() => handleSortOptionClick(`Title (A-Z)`)}
-                >
-                  Title (A-Z)
-                  {selectedSortOption === `Title (A-Z)` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() => handleSortOptionClick(`Director (A-Z)`)}
-                >
-                  Director (A-Z)
-                  {selectedSortOption === `Director (A-Z)` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() => handleSortOptionClick(`Country (A-Z)`)}
-                >
-                  Country (A-Z)
-                  {selectedSortOption === `Country (A-Z)` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() => handleSortOptionClick(`Length Ascending`)}
-                >
-                  Length Ascending
-                  {selectedSortOption === `Length Ascending` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() => handleSortOptionClick(`Length Descending`)}
-                >
-                  Length Descending
-                  {selectedSortOption === `Length Descending` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() =>
-                    handleSortOptionClick(`Release Date Ascending`)
-                  }
-                >
-                  Release Date Ascending
-                  {selectedSortOption === `Release Date Ascending` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-                <button
-                  className={`block w-full text-left hover:bg-gray-100`}
-                  onClick={() =>
-                    handleSortOptionClick(`Release Date Descending`)
-                  }
-                >
-                  Release Date Descending
-                  {selectedSortOption === `Release Date Descending` && (
-                    <svg
-                      className="float-right inline-block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M9 16.17L5.53 12.7a.996.996 0 0 1 1.41-1.41l2.83 2.83 6.36-6.36a.996.996 0 1 1 1.41 1.41L9 16.17z" />
-                    </svg>
-                  )}
-                </button>
-              </div>
-            )}
-          </div>
+          <ButtonWithDropdown
+            label="Sort"
+            isExpanded={isSortExpanded}
+            onButtonClick={() => setSortExpanded(!isSortExpanded)}
+            dropdown={
+              <Dropdown
+                options={sortOptions}
+                selectedOption={selectedSortOption}
+                onOptionClick={handleSortOptionClick}
+              />
+            }
+          />
           <div className="w-3/4 relative">
             <button
               className={`w-full ${
