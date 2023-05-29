@@ -212,110 +212,55 @@ const Movies: React.FC = () => {
     setSelectedLength(null);
   };
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await axios.get<MovieAttributes[]>(
-          `http://localhost:3001/movies`,
-        );
-        const fetchedMovies = response.data;
-        const sortedFetchedMovies = fetchedMovies.sort((a, b) =>
+  const sortMovies = (movies: MovieAttributes[], sortOption: string) => {
+    switch (sortOption) {
+      case `Title (A-Z)`:
+        return movies.sort((a, b) =>
           a.movie_title.localeCompare(b.movie_title),
         );
-
-        setMovies(sortedFetchedMovies);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchMovies();
-  }, []);
-
-  useEffect(() => {
-    const sortedMovies = [...filteredMovies];
-
-    if (selectedSortOption === `Title (A-Z)`) {
-      sortedMovies.sort((a, b) => a.movie_title.localeCompare(b.movie_title));
-    } else if (selectedSortOption === `Release Date Ascending`) {
-      sortedMovies.sort(
-        (a, b) =>
-          new Date(a.date_movie_released).getTime() -
-          new Date(b.date_movie_released).getTime(),
-      );
-    } else if (selectedSortOption === `Release Date Descending`) {
-      sortedMovies.sort(
-        (a, b) =>
-          new Date(b.date_movie_released).getTime() -
-          new Date(a.date_movie_released).getTime(),
-      );
-    } else if (selectedSortOption === `Director (A-Z)`) {
-      sortedMovies.sort((a, b) =>
-        a.director.director_name.localeCompare(b.director.director_name),
-      );
-    } else if (selectedSortOption === `Country (A-Z)`) {
-      sortedMovies.sort((a, b) =>
-        a.country_of_origin.localeCompare(b.country_of_origin),
-      );
-    } else if (selectedSortOption === `Length Ascending`) {
-      sortedMovies.sort((a, b) => a.length_in_minutes - b.length_in_minutes);
-    } else if (selectedSortOption === `Length Descending`) {
-      sortedMovies.sort((a, b) => b.length_in_minutes - a.length_in_minutes);
+      case `Release Date Ascending`:
+        return movies.sort(
+          (a, b) =>
+            new Date(a.date_movie_released).getTime() -
+            new Date(b.date_movie_released).getTime(),
+        );
+      case `Release Date Descending`:
+        return movies.sort(
+          (a, b) =>
+            new Date(b.date_movie_released).getTime() -
+            new Date(a.date_movie_released).getTime(),
+        );
+      case `Director (A-Z)`:
+        return movies.sort((a, b) =>
+          a.director.director_name.localeCompare(b.director.director_name),
+        );
+      case `Country (A-Z)`:
+        return movies.sort((a, b) =>
+          a.country_of_origin.localeCompare(b.country_of_origin),
+        );
+      case `Length Ascending`:
+        return movies.sort((a, b) => a.length_in_minutes - b.length_in_minutes);
+      case `Length Descending`:
+        return movies.sort((a, b) => b.length_in_minutes - a.length_in_minutes);
+      default:
+        return movies;
     }
+  };
 
-    setFilteredMovies(sortedMovies);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSortOption, selectedDecade, selectedGenres, selectedLength]);
-
-  useEffect(() => {
-    if (movies.length > 0) {
-      setFilteredMovies(movies);
-    }
-  }, [movies]);
-
-  useEffect(() => {
-    const genreCounts: { [key: string]: number } = filteredMovies.reduce(
-      (counts: { [key: string]: number }, movie: MovieAttributes) => {
-        movie.movie_genres.forEach((genre: string) => {
-          if (!counts[genre]) {
-            counts[genre] = 0;
-          }
-          counts[genre]++;
-        });
-        return counts;
-      },
-      {},
-    );
-
-    const uniqueGenres: string[] = Object.keys(genreCounts).sort(
-      (a: string, b: string) => {
-        if (selectedGenres.includes(a) && !selectedGenres.includes(b)) {
-          return -1;
-        } else if (!selectedGenres.includes(a) && selectedGenres.includes(b)) {
-          return 1;
+  const countGenres = (movies: MovieAttributes[]) => {
+    return movies.reduce((counts: Record<string, number>, movie) => {
+      movie.movie_genres.forEach((genre) => {
+        if (!counts[genre]) {
+          counts[genre] = 0;
         }
-        return genreCounts[b] - genreCounts[a];
-      },
-    );
+        counts[genre]++;
+      });
+      return counts;
+    }, {});
+  };
 
-    setAvailableGenres(uniqueGenres);
-  }, [filteredMovies, selectedGenres]);
-
-  useEffect(() => {
-    const uniqueDecades = filteredMovies.reduce((decades: number[], movie) => {
-      const movieYear = new Date(movie.date_movie_released).getFullYear();
-      const movieDecade = Math.floor(movieYear / 10) * 10;
-      if (!decades.includes(movieDecade)) {
-        decades.push(movieDecade);
-      }
-      return decades;
-    }, []);
-    const sortedDecades = uniqueDecades.sort((a, b) => a - b);
-    setAvailableDecades(sortedDecades);
-  }, [filteredMovies]);
-
-  useEffect(() => {
-    const uniqueLengths = filteredMovies.reduce((lengths: string[], movie) => {
+  const calculateLengths = (movies: MovieAttributes[]) => {
+    return movies.reduce((lengths: string[], movie) => {
       const currLength = movie.length_in_minutes;
       if (currLength <= 30 && !lengths.includes(`0-30`)) {
         lengths.push(`0-30`);
@@ -348,6 +293,67 @@ const Movies: React.FC = () => {
       }
       return lengths;
     }, []);
+  };
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get<MovieAttributes[]>(
+          `http://localhost:3001/movies`,
+        );
+        const fetchedMovies = response.data;
+        const sortedFetchedMovies = fetchedMovies.sort((a, b) =>
+          a.movie_title.localeCompare(b.movie_title),
+        );
+
+        setMovies(sortedFetchedMovies);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchMovies();
+  }, []);
+
+  useEffect(() => {
+    const sortedMovies = sortMovies([...filteredMovies], selectedSortOption);
+    setFilteredMovies(sortedMovies);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSortOption, selectedDecade, selectedGenres, selectedLength]);
+
+  useEffect(() => {
+    if (movies.length > 0) {
+      setFilteredMovies(movies);
+    }
+  }, [movies]);
+
+  useEffect(() => {
+    const genreCounts = countGenres(filteredMovies);
+    const uniqueGenres = Object.keys(genreCounts).sort((a, b) => {
+      if (selectedGenres.includes(a) && !selectedGenres.includes(b)) {
+        return -1;
+      } else if (!selectedGenres.includes(a) && selectedGenres.includes(b)) {
+        return 1;
+      }
+      return genreCounts[b] - genreCounts[a];
+    });
+    setAvailableGenres(uniqueGenres);
+  }, [filteredMovies, selectedGenres]);
+
+  useEffect(() => {
+    const uniqueDecades = filteredMovies.reduce((decades: number[], movie) => {
+      const movieYear = new Date(movie.date_movie_released).getFullYear();
+      const movieDecade = Math.floor(movieYear / 10) * 10;
+      if (!decades.includes(movieDecade)) {
+        decades.push(movieDecade);
+      }
+      return decades;
+    }, []);
+    const sortedDecades = uniqueDecades.sort((a, b) => a - b);
+    setAvailableDecades(sortedDecades);
+  }, [filteredMovies]);
+
+  useEffect(() => {
+    const uniqueLengths = calculateLengths(filteredMovies);
     const sortedLengths = uniqueLengths.sort((a, b) => {
       if (a === `181+`) {
         return 1;
@@ -368,7 +374,6 @@ const Movies: React.FC = () => {
     });
     setAvailableLengths(sortedLengths);
   }, [filteredMovies]);
-
   useEffect(() => {
     if (filteredMovies.length > 0) {
       const newIndex = Math.floor(Math.random() * filteredMovies.length);
@@ -452,10 +457,7 @@ const Movies: React.FC = () => {
               onInputChange={handleSearchInputChange}
               onClear={handleClearSearch}
             />
-            <div
-              className="grid grid-cols-6 gap-4"
-              style={{ marginTop: `16px` }}
-            >
+            <div className="grid grid-cols-6 gap-4 mt-2">
               {filteredMovies.map((movie) => (
                 <MovieCard
                   key={movie.movie_uid}
