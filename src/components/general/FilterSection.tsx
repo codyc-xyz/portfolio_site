@@ -1,6 +1,6 @@
 import React from 'react';
 
-type OptionType = string | number;
+export type OptionType = string | number;
 
 interface FilterSectionProps {
   label: string;

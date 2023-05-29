@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
 import { MovieAttributes } from '../types/MovieAttributes';
+import { OptionType } from '../components/general/FilterSection';
 import MovieCard from '../components/movie_page/MovieCard';
 import PageHeader from '../components/general/PageHeader';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
-import FilterSection from '../components/general/FilterSection';
+import Filter from '../components/general/Filter';
 import axios from 'axios';
 
 const Movies: React.FC = () => {
@@ -386,6 +387,35 @@ const Movies: React.FC = () => {
     `Release Date Descending`,
   ];
 
+  const filterSections = [
+    {
+      label: `Genre`,
+      isExpanded: isGenreExpanded,
+      onButtonClick: () => setGenreExpanded(!isGenreExpanded),
+      options: availableGenres,
+      selectedOption: selectedGenres,
+      onOptionClickString: handleGenreClick,
+    },
+    {
+      label: `Decade`,
+      isExpanded: isDecadeExpanded,
+      onButtonClick: () => setDecadeExpanded(!isDecadeExpanded),
+      options: availableDecades,
+      selectedOption: selectedDecade,
+      onOptionClickNumber: handleDecadeClick,
+      displayOption: (option: OptionType) => `${option}s`,
+    },
+    {
+      label: `Length`,
+      isExpanded: isRuntimeExpanded,
+      onButtonClick: () => setRuntimeExpanded(!isRuntimeExpanded),
+      options: availableLengths,
+      selectedOption: selectedLength,
+      onOptionClickString: handleRuntimeClick,
+      displayOption: (option: OptionType) => `${option} minutes`,
+    },
+  ];
+
   return (
     <div className="container text-text">
       <Header />
@@ -404,69 +434,15 @@ const Movies: React.FC = () => {
               />
             }
           />
-          <div className="w-3/4 relative">
-            <button
-              className={`w-full ${
-                isFilterExpanded ? `rounded-t-lg` : `rounded-lg`
-              } bg-white shadow-sm border border-gray-300 p-2`}
-              onClick={() => setFilterExpanded(!isFilterExpanded)}
-            >
-              Filter{` `}
-              <svg
-                className={`float-right inline-block transform ${
-                  isFilterExpanded ? `rotate-180` : ``
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 12 12"
-                fill="currentColor"
-              >
-                <path d="M3.672 4h4.656L6 7.58z" />
-              </svg>
-            </button>
-            {isFilterExpanded && (
-              <div className="bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full $">
-                <FilterSection
-                  label="Genre"
-                  isExpanded={isGenreExpanded}
-                  onButtonClick={() => setGenreExpanded(!isGenreExpanded)}
-                  options={availableGenres}
-                  selectedOption={selectedGenres}
-                  onOptionClickString={handleGenreClick}
-                />
-                <FilterSection
-                  label="Decade"
-                  isExpanded={isDecadeExpanded}
-                  onButtonClick={() => setDecadeExpanded(!isDecadeExpanded)}
-                  options={availableDecades}
-                  selectedOption={selectedDecade}
-                  onOptionClickNumber={handleDecadeClick}
-                  displayOption={(option) => `${option}s`}
-                />
-                <FilterSection
-                  label="Length"
-                  isExpanded={isRuntimeExpanded}
-                  onButtonClick={() => setRuntimeExpanded(!isRuntimeExpanded)}
-                  options={availableLengths}
-                  selectedOption={selectedLength}
-                  onOptionClickString={handleRuntimeClick}
-                  displayOption={(option) => `${option} minutes`}
-                />
-                <button
-                  className="m-1 mb-0 float-right text-primary hover:opacity-50"
-                  onClick={() => handleFilterClear()}
-                >
-                  Clear
-                </button>
-                <p className="float-left mt-3 ml-1 text-xs">
-                  {filteredMovies.length} / {movies.length}
-                </p>
-              </div>
-            )}
-          </div>
+          <Filter
+            isFilterExpanded={isFilterExpanded}
+            onFilterClick={() => setFilterExpanded(!isFilterExpanded)}
+            filterSections={filterSections}
+            onClear={handleFilterClear}
+            filteredItemsLength={filteredMovies.length}
+            itemsLength={movies.length}
+          />
         </div>
-
         <div>
           <div>
             <PageHeader
