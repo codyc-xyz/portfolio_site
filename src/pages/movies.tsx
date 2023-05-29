@@ -194,11 +194,18 @@ const Movies: React.FC = () => {
     }
   };
   const handleFilterClear = () => {
-    setFilteredMovies(movies);
+    setFilteredMovies(
+      movies.filter(
+        (movie) =>
+          movie.movie_title.includes(searchValue) ||
+          movie.country_of_origin.includes(searchValue) ||
+          movie.director.director_name.includes(searchValue),
+      ),
+    );
+
     setSelectedGenres([]);
     setSelectedDecade(null);
     setSelectedLength(null);
-    setSearchValue(``);
   };
 
   useEffect(() => {
