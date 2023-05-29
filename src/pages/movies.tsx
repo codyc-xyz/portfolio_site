@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
 import { MovieAttributes } from '../types/MovieAttributes';
 import MovieCard from '../components/movie_page/MovieCard';
-import axios from 'axios';
 import PageHeader from '../components/general/PageHeader';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
 import FilterSection from '../components/general/FilterSection';
+import axios from 'axios';
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
@@ -273,17 +273,32 @@ const Movies: React.FC = () => {
   }, [movies]);
 
   useEffect(() => {
-    const uniqueGenres = filteredMovies.reduce((genres: string[], movie) => {
-      movie.movie_genres.forEach((genre) => {
-        if (!genres.includes(genre)) {
-          genres.push(genre);
+    const genreCounts: { [key: string]: number } = filteredMovies.reduce(
+      (counts: { [key: string]: number }, movie: MovieAttributes) => {
+        movie.movie_genres.forEach((genre: string) => {
+          if (!counts[genre]) {
+            counts[genre] = 0;
+          }
+          counts[genre]++;
+        });
+        return counts;
+      },
+      {},
+    );
+
+    const uniqueGenres: string[] = Object.keys(genreCounts).sort(
+      (a: string, b: string) => {
+        if (selectedGenres.includes(a) && !selectedGenres.includes(b)) {
+          return -1;
+        } else if (!selectedGenres.includes(a) && selectedGenres.includes(b)) {
+          return 1;
         }
-      });
-      return genres;
-    }, []);
+        return genreCounts[b] - genreCounts[a];
+      },
+    );
 
     setAvailableGenres(uniqueGenres);
-  }, [filteredMovies]);
+  }, [filteredMovies, selectedGenres]);
 
   useEffect(() => {
     const uniqueDecades = filteredMovies.reduce((decades: number[], movie) => {
