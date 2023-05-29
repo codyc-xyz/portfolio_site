@@ -6,6 +6,7 @@ import axios from 'axios';
 import { X } from 'react-feather';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/dropdown';
+import FilterSection from '../components/general/FilterSection';
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
@@ -411,118 +412,32 @@ const Movies: React.FC = () => {
             </button>
             {isFilterExpanded && (
               <div className="bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full $">
-                <button
-                  className="block w-full text-left hover:bg-gray-100 p-1"
-                  onClick={() => setGenreExpanded(!isGenreExpanded)}
-                >
-                  Genre
-                  <svg
-                    className={`float-right inline-block transform ${
-                      isGenreExpanded ? `rotate-180` : ``
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 12 12"
-                    fill="currentColor"
-                  >
-                    <path d="M3.672 4h4.656L6 7.58z" />
-                  </svg>
-                </button>
-
-                {isGenreExpanded && (
-                  <div>
-                    {availableGenres.map((genre: string) => (
-                      <React.Fragment key={genre}>
-                        <button
-                          className={`px-1 py-1 rounded-md ${
-                            selectedGenres.includes(genre)
-                              ? `text-primary opacity-50`
-                              : ` text-primary hover:opacity-50`
-                          }`}
-                          onClick={() => handleGenreClick(genre)}
-                        >
-                          {genre}
-                        </button>
-                      </React.Fragment>
-                    ))}
-                  </div>
-                )}
-
-                <button
-                  className="block w-full text-left hover:bg-gray-100 p-1"
-                  onClick={() => setDecadeExpanded(!isDecadeExpanded)}
-                >
-                  Decade
-                  <svg
-                    className={`float-right inline-block transform ${
-                      isDecadeExpanded ? `rotate-180` : ``
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 12 12"
-                    fill="currentColor"
-                  >
-                    <path d="M3.672 4h4.656L6 7.58z" />
-                  </svg>
-                </button>
-
-                {isDecadeExpanded && (
-                  <div>
-                    {availableDecades.map((decade: number) => (
-                      <React.Fragment key={decade}>
-                        <button
-                          className={`px-1 py-1 rounded-md ${
-                            selectedDecade === decade
-                              ? `text-primary opacity-50`
-                              : ` text-primary hover:opacity-50`
-                          }`}
-                          onClick={() => handleDecadeClick(decade)}
-                        >
-                          {decade}s
-                        </button>
-                      </React.Fragment>
-                    ))}
-                  </div>
-                )}
-                <button
-                  className="block w-full text-left hover:bg-gray-100 p-1"
-                  onClick={() => setRuntimeExpanded(!isRuntimeExpanded)}
-                >
-                  Length
-                  <svg
-                    className={`float-right inline-block transform ${
-                      isRuntimeExpanded ? `rotate-180` : ``
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 12 12"
-                    fill="currentColor"
-                  >
-                    <path d="M3.672 4h4.656L6 7.58z" />
-                  </svg>
-                </button>
-                {isRuntimeExpanded && (
-                  <div>
-                    {availableLengths.map((length: string) => (
-                      <React.Fragment key={length}>
-                        <button
-                          className={`px-1 py-1 rounded-md ${
-                            selectedLength === length
-                              ? `text-primary opacity-50`
-                              : ` text-primary hover:opacity-50`
-                          }`}
-                          onClick={() => handleRuntimeClick(length)}
-                        >
-                          {length} minutes
-                        </button>
-                      </React.Fragment>
-                    ))}
-                  </div>
-                )}
-
+                <FilterSection
+                  label="Genre"
+                  isExpanded={isGenreExpanded}
+                  onButtonClick={() => setGenreExpanded(!isGenreExpanded)}
+                  options={availableGenres}
+                  selectedOption={selectedGenres}
+                  onOptionClickString={handleGenreClick}
+                />
+                <FilterSection
+                  label="Decade"
+                  isExpanded={isDecadeExpanded}
+                  onButtonClick={() => setDecadeExpanded(!isDecadeExpanded)}
+                  options={availableDecades}
+                  selectedOption={selectedDecade}
+                  onOptionClickNumber={handleDecadeClick}
+                  displayOption={(option) => `${option}s`}
+                />
+                <FilterSection
+                  label="Length"
+                  isExpanded={isRuntimeExpanded}
+                  onButtonClick={() => setRuntimeExpanded(!isRuntimeExpanded)}
+                  options={availableLengths}
+                  selectedOption={selectedLength}
+                  onOptionClickString={handleRuntimeClick}
+                  displayOption={(option) => `${option} minutes`}
+                />
                 <button
                   className="m-1 mb-0 float-right text-primary hover:opacity-50"
                   onClick={() => handleFilterClear()}

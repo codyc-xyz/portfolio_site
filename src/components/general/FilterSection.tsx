@@ -1,13 +1,16 @@
-// FilterSection.tsx
 import React from 'react';
+
+type OptionType = string | number;
 
 interface FilterSectionProps {
   label: string;
   isExpanded: boolean;
   onButtonClick: () => void;
-  options: string[];
-  selectedOption: string | string[] | number;
-  onOptionClick: (option: string) => void;
+  options: OptionType[];
+  selectedOption: OptionType | OptionType[] | null;
+  onOptionClickString?: (option: string) => void;
+  onOptionClickNumber?: (option: number) => void;
+  displayOption?: (option: OptionType) => string;
 }
 
 const FilterSection: React.FC<FilterSectionProps> = ({
@@ -16,7 +19,9 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   onButtonClick,
   options,
   selectedOption,
-  onOptionClick,
+  onOptionClickString,
+  onOptionClickNumber,
+  displayOption = (option) => option.toString(),
 }) => {
   return (
     <div>
@@ -43,15 +48,21 @@ const FilterSection: React.FC<FilterSectionProps> = ({
         <div>
           {options.map((option) => (
             <button
-              key={option}
+              key={option.toString()}
               className={`px-1 py-1 rounded-md ${
-                selectedOption === option
+                selectedOption === option ||
+                (Array.isArray(selectedOption) &&
+                  selectedOption.includes(option))
                   ? `text-primary opacity-50`
                   : `text-primary hover:opacity-50`
               }`}
-              onClick={() => onOptionClick(option)}
+              onClick={() =>
+                typeof option === `string`
+                  ? onOptionClickString?.(option)
+                  : onOptionClickNumber?.(option)
+              }
             >
-              {option}
+              {displayOption(option)}
             </button>
           ))}
         </div>
@@ -59,5 +70,4 @@ const FilterSection: React.FC<FilterSectionProps> = ({
     </div>
   );
 };
-
 export default FilterSection;
