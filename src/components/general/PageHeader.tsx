@@ -6,11 +6,11 @@ import LinkComponent from './LinkComponent';
 import TitleComponent from './TitleComponent';
 
 interface PageHeaderProps extends SearchBarComponentProps {
-  randomMovie: string;
+  randomItem: string;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
-  randomMovie,
+  randomItem,
   searchValue,
   onSubmit,
   onInputChange,
@@ -18,7 +18,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
 }) => {
   return (
     <div className="w-full flex items-center">
-      <LinkComponent href={randomMovie} text="Random" />
+      <LinkComponent href={randomItem} text="Random" />
       <TitleComponent text="Movies I Love" />
       <SearchBarComponent
         searchValue={searchValue}

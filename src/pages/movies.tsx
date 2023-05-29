@@ -3,7 +3,7 @@ import Header from '../components/general/Header';
 import { MovieAttributes } from '../types/MovieAttributes';
 import MovieCard from '../components/movie_page/MovieCard';
 import axios from 'axios';
-import { X } from 'react-feather';
+import PageHeader from '../components/general/PageHeader';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
 import FilterSection from '../components/general/FilterSection';
@@ -453,56 +453,29 @@ const Movies: React.FC = () => {
         </div>
 
         <div>
-          <div className="w-full flex items-center">
-            <div className="w-1/4 flex text-center">
-              <a
-                href={randomMovie}
-                className="text-xl hover:text-opacity-50 text-primary rounded"
-              >
-                Random
-              </a>
-            </div>
-            <h1 className="text-center text-3xl flex-grow flex-shrink-0 ml-auto mr-auto w-1/2">
-              Movies I Love
-            </h1>
-            <div className="w-1/4 flex text-right justify-end">
-              <form onSubmit={handleSearchSubmit} className="relative">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border border-gray-300 rounded-lg px-4 py-2 pr-10 w-3/4 h-3/4 mt-1"
-                  value={searchValue}
-                  onChange={handleSearchInputChange}
+          <div>
+            <PageHeader
+              randomItem={randomMovie}
+              searchValue={searchValue}
+              onSubmit={handleSearchSubmit}
+              onInputChange={handleSearchInputChange}
+              onClear={handleClearSearch}
+            />
+            <div
+              className="grid grid-cols-6 gap-4"
+              style={{ marginTop: `16px` }}
+            >
+              {filteredMovies.map((movie) => (
+                <MovieCard
+                  key={movie.movie_uid}
+                  moviePageUrl={`${movie.movie_uid}`}
+                  directorName={movie.director.director_name}
+                  title={movie.movie_title}
+                  imageUrl={movie.movie_poster}
+                  originCountry={movie.country_of_origin}
                 />
-                {searchValue && (
-                  <button
-                    type="button"
-                    className="absolute top-1/2 right-6 transform -translate-y-1/2"
-                    onClick={handleClearSearch}
-                  >
-                    <X className="h-3 w-3 text-gray-500 hover:text-gray-700 cursor-pointer" />
-                  </button>
-                )}
-                <button
-                  type="submit"
-                  className="ml-2 text-primary text-l hover:text-opacity-50"
-                >
-                  Go
-                </button>
-              </form>
+              ))}
             </div>
-          </div>
-          <div className="grid grid-cols-6 gap-4" style={{ marginTop: `16px` }}>
-            {filteredMovies.map((movie) => (
-              <MovieCard
-                key={movie.movie_uid}
-                moviePageUrl={`${movie.movie_uid}`}
-                directorName={movie.director.director_name}
-                title={movie.movie_title}
-                imageUrl={movie.movie_poster}
-                originCountry={movie.country_of_origin}
-              />
-            ))}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import SubmitButton from './SubmitButton';
 
 export interface SearchBarComponentProps {
   searchValue: string;
-  onSubmit: (e: React.FormEvent) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClear: () => void;
 }
