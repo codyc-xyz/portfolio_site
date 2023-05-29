@@ -5,7 +5,7 @@ import MovieCard from '../components/movie_page/MovieCard';
 import axios from 'axios';
 import { X } from 'react-feather';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
-import Dropdown from '../components/general/dropdown';
+import Dropdown from '../components/general/Dropdown';
 import FilterSection from '../components/general/FilterSection';
 
 const Movies: React.FC = () => {
