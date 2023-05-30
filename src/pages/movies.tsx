@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
 import { MovieAttributes } from '../types/MovieAttributes';
 import { OptionType } from '../components/general/FilterSection';
-import MovieCard from '../components/movie_page/MovieCard';
+import Card from '../components/general/Card';
 import PageHeader from '../components/general/PageHeader';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
@@ -459,13 +459,13 @@ const Movies: React.FC = () => {
             />
             <div className="grid grid-cols-6 gap-4 mt-2">
               {filteredMovies.map((movie) => (
-                <MovieCard
+                <Card
                   key={movie.movie_uid}
-                  moviePageUrl={`${movie.movie_uid}`}
-                  directorName={movie.director.director_name}
-                  title={movie.movie_title}
+                  pageUrl={`/movies/${movie.movie_uid}`}
+                  altText={movie.movie_title}
+                  title={movie.director.director_name}
                   imageUrl={movie.movie_poster}
-                  originCountry={movie.country_of_origin}
+                  secondaryText={movie.country_of_origin}
                 />
               ))}
             </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
 import { BookAttributes } from '../types/BookAttributes';
-import BookCard from '../components/book_page/BookCard';
+import Card from '../components/general/Card';
 import axios from 'axios';
 
 const Books: React.FC = () => {
@@ -29,15 +29,13 @@ const Books: React.FC = () => {
       >
         Books I Find Interesting
       </h1>
-      <div
-        className="grid grid-cols-6 grid-rows-2 gap-4"
-        style={{ marginTop: `16px` }}
-      >
+      <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
         {books.map((book) => {
           return (
-            <BookCard
+            <Card
               key={book.book_uid}
-              bookPageUrl={`${book.book_uid}`}
+              pageUrl={`/philosophy/${book.book_uid}`}
+              altText={book.book_title}
               title={book.book_title}
               imageUrl={book.book_cover_image}
             />

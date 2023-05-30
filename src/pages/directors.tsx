@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
 import { DirectorAttributes } from '../types/DirectorAttributes';
-import DirectorCard from '../components/director_page/DirectorCard';
+import Card from '../components/general/Card';
 import axios from 'axios';
 
 const Movies: React.FC = () => {
@@ -29,18 +29,16 @@ const Movies: React.FC = () => {
       >
         Directors I Love
       </h1>
-      <div
-        className="grid grid-cols-6 grid-rows-2 gap-4"
-        style={{ marginTop: `16px` }}
-      >
+      <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
         {directors.map((director) => {
           return (
-            <DirectorCard
+            <Card
               key={director.director_uid}
-              directorPageUrl={`${director.director_uid}`}
-              directorName={director.director_name}
+              pageUrl={`/directors/${director.director_uid}`}
+              altText={director.director_name}
+              title={director.director_name}
               imageUrl={director.director_image}
-              birthCountry={director.director_country_of_birth}
+              secondaryText={director.director_country_of_birth}
             />
           );
         })}
