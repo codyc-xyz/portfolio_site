@@ -3,9 +3,38 @@ import Header from '../components/general/Header';
 import { DirectorAttributes } from '../types/DirectorAttributes';
 import Card from '../components/general/Card';
 import axios from 'axios';
+import PageHeader from '../components/general/PageHeader';
 
 const Movies: React.FC = () => {
   const [directors, setDirectors] = useState<DirectorAttributes[]>([]);
+  const [filteredDirectors, setFilteredDirectors] = useState<
+    DirectorAttributes[]
+  >([]);
+  const [randomDirectorIndex, setRandomDirectorIndex] = useState(0);
+  const [searchValue, setSearchValue] = useState<string>(``);
+
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setSearchValue(event.target.value);
+  };
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const filteredResults = directors.filter((director) => {
+      return (
+        director.director_name.includes(searchValue) ||
+        director.director_country_of_birth.includes(searchValue)
+      );
+    });
+    setFilteredDirectors(filteredResults);
+  };
+
+  const handleClearSearch = () => {
+    setSearchValue(``);
+    setFilteredDirectors(directors);
+  };
 
   useEffect(() => {
     async function fetchDirectors() {
@@ -20,17 +49,35 @@ const Movies: React.FC = () => {
     }
     fetchDirectors();
   }, []);
+
+  useEffect(() => {
+    if (directors.length > 0) {
+      setFilteredDirectors(directors);
+    }
+  }, [directors]);
+
+  useEffect(() => {
+    if (filteredDirectors.length > 0) {
+      const newIndex = Math.floor(Math.random() * filteredDirectors.length);
+      setRandomDirectorIndex(newIndex);
+    }
+  }, [filteredDirectors]);
+
+  const randomDirector = directors[randomDirectorIndex]?.director_uid;
+
   return (
     <div className="container">
       <Header />
-      <h1
-        className="text-center text-3xl"
-        style={{ marginTop: `24px`, marginBottom: `24px` }}
-      >
-        Directors I Love
-      </h1>
+      <PageHeader
+        randomItem={randomDirector}
+        searchValue={searchValue}
+        onSubmit={handleSearchSubmit}
+        onInputChange={handleSearchInputChange}
+        onClear={handleClearSearch}
+        titleText="Directors I Love"
+      />
       <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
-        {directors.map((director) => {
+        {filteredDirectors.map((director) => {
           return (
             <Card
               key={director.director_uid}

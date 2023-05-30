@@ -7,6 +7,7 @@ import TitleComponent from './TitleComponent';
 
 interface PageHeaderProps extends SearchBarComponentProps {
   randomItem: string;
+  titleText: string;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
@@ -15,11 +16,12 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   onSubmit,
   onInputChange,
   onClear,
+  titleText,
 }) => {
   return (
     <div className="w-full flex items-center">
       <LinkComponent href={randomItem} text="Random" />
-      <TitleComponent text="Movies I Love" />
+      <TitleComponent text={titleText} />
       <SearchBarComponent
         searchValue={searchValue}
         onSubmit={onSubmit}

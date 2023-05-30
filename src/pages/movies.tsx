@@ -456,6 +456,7 @@ const Movies: React.FC = () => {
               onSubmit={handleSearchSubmit}
               onInputChange={handleSearchInputChange}
               onClear={handleClearSearch}
+              titleText="Movies I Love"
             />
             <div className="grid grid-cols-6 gap-4 mt-2">
               {filteredMovies.map((movie) => (
