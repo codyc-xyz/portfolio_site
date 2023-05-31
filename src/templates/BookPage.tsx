@@ -84,7 +84,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
               <a
                 href={`/authors/${authorUid}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
                 {authorName}
               </a>
@@ -114,7 +114,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
           />
         </div>
       </div>
-      <div style={{ marginTop: `24px` }}>
+      <div className="mt-4">
         <h2 className="text-xl">Excerpts I Find Interesting</h2>
         <div className="grid grid-cols-12">
           <div className="col-start-1 col-span-4 flex items-center justify-start mt-4">
@@ -128,11 +128,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
                 style={{ width: `50px`, height: `15px` }}
               />
               {` `} / {excerpts.length}
-              <button
-                type="submit"
-                className="text-primary"
-                style={{ marginLeft: `8px` }}
-              >
+              <button type="submit" className="text-primary ml-1">
                 Go
               </button>
             </form>
@@ -181,10 +177,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
             </button>
           </div>
         </div>
-        <div
-          className="col-start-4 col-span-6 flex justify-center"
-          style={{ marginTop: `24px`, marginBottom: `72px` }}
-        >
+        <div className="col-start-4 col-span-6 flex justify-center my-4">
           <p>{currentExcerpt.text}</p>
         </div>
       </div>

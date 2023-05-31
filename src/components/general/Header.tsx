@@ -8,31 +8,31 @@ const Header = () => {
       </div>
       <nav className="w-2/4 flex items-center justify-between">
         <a
-          className="text-xl font-medium text-text hover:text-gray-800 mx-3"
+          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
           href="/about"
         >
           About
         </a>
         <a
-          className="text-xl font-medium text-text hover:text-gray-800 mx-3"
+          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
           href="/movies"
         >
           Movies
         </a>
         <a
-          className="text-xl font-medium text-text hover:text-gray-800 mx-3"
+          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
           href="/directors"
         >
           Directors
         </a>
         <a
-          className="text-xl font-medium text-text hover:text-gray-800 mx-3"
+          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
           href="/philosophy"
         >
           Philosophy
         </a>
         <a
-          className="text-xl font-medium text-text hover:text-gray-800 mx-3"
+          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
           href="/authors"
         >
           Authors
@@ -42,7 +42,7 @@ const Header = () => {
       <div className="w-1/4 flex items-center justify-end">
         <div className="mr-8">
           <a
-            className="text-xl font-medium text-text hover:text-gray-800"
+            className="text-xl font-medium text-text hover:text-opacity-50"
             href="/projects"
           >
             Projects

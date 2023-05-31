@@ -42,7 +42,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
   return (
     <div className="container font-medium text-text">
       <Header />
-      <div className="flex" style={{ marginTop: `24px` }}>
+      <div className="flex mt-4">
         <div className="w-2/3 pr-4">
           <h1 className="text-2xl">{movieTitle}</h1>
           <div className="mt-2">
@@ -57,7 +57,8 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
               <a
                 href={`/directors/${directorUid}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
+                className="hover:opacity-50"
               >
                 {directorName}
               </a>
@@ -74,17 +75,18 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
                 href={letterboxdLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hover:opacity-50"
               >
                 {letterboxdLink}
               </a>
             </p>
           </div>
           <h2 className="text-xl mt-4">About</h2>
-          <p className="text-sm mt-2">{movieDescription}</p>
+          <p className="text-sm my-4">{movieDescription}</p>
           {contentWarnings && (
-            <div className="mt-4">
+            <div className="mb-2">
               <button
-                className="text-sm underline text-blue-500"
+                className="text-sm underline text-text"
                 onClick={toggleContentWarnings}
               >
                 {showContentWarnings
@@ -92,9 +94,9 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
                   : `Show Content Warnings`}
               </button>
               {showContentWarnings && (
-                <ul className="list-disc list-inside mt-2">
+                <ul className="list-disc list-inside mt-2 flex flex-wrap">
                   {contentWarnings.map((warning, index) => (
-                    <li key={index} className="text-sm">
+                    <li key={index} className="text-sm mr-4">
                       {warning}
                     </li>
                   ))}
@@ -107,12 +109,9 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
           <img src={moviePoster} alt="Movie Poster" className="w-full" />
         </div>
       </div>
-      <div className="mt-8">
+      <div className="mt-2">
         <h2 className="text-xl">Screenshots</h2>
-        <div
-          className="grid grid-cols-2 gap-4 mt-4"
-          style={{ marginBottom: `24px` }}
-        >
+        <div className="grid grid-cols-2 gap-4 my-4">
           {screenshotLinks.map((screenshot, index) => (
             <img
               key={index}

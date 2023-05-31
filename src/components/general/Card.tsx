@@ -19,7 +19,12 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <a href={pageUrl} className="relative">
+      <a
+        href={pageUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="relative"
+      >
         <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm">
           <img
             src={imageUrl}
