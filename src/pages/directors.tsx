@@ -87,7 +87,7 @@ const Directors: React.FC = () => {
 
   const dropdown = (
     <Dropdown
-      className="ml-5"
+      className="mx-6"
       options={sortOptions}
       selectedOption={selectedSortOption}
       onOptionClick={handleSortOptionClick}
@@ -106,7 +106,7 @@ const Directors: React.FC = () => {
             onButtonClick={() => setSortExpanded(!isSortExpanded)}
             dropdown={dropdown}
             widthClass="w-full"
-            paddingClass=" w-full py-1 px-6 ml-5"
+            paddingClass=" w-full py-1 px-3 mx-6"
           />
         </div>
         <TitleComponent

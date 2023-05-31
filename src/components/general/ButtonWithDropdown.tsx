@@ -20,16 +20,14 @@ const ButtonWithDropdown: React.FC<ButtonWithDropdownProps> = ({
   return (
     <div className={`${widthClass} relative`}>
       <button
-        className={`${paddingClass} ${
+        className={`${paddingClass} flex justify-between items-center ${
           isExpanded ? `rounded-t-lg` : `rounded-lg`
         } bg-white shadow-sm border border-gray-300`}
         onClick={onButtonClick}
       >
-        {label}
+        <div className="flex-grow">{label}</div>
         <svg
-          className={`float-right inline-block transform ${
-            isExpanded ? `rotate-180` : ``
-          }`}
+          className={`transform ${isExpanded ? `rotate-180` : ``}`}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
