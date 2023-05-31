@@ -1,4 +1,5 @@
 import { Model } from 'sequelize';
+import { MovieAttributes } from './MovieAttributes';
 
 export type DirectorAttributes = {
   director_uid: string;
@@ -8,6 +9,7 @@ export type DirectorAttributes = {
   date_director_deceased: Date | null;
   director_country_of_birth: string;
   director_image: string;
+  movies: MovieAttributes[];
 };
 
 class DirectorClass extends Model<DirectorAttributes> {}

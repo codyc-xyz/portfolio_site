@@ -301,12 +301,8 @@ const Movies: React.FC = () => {
         const response = await axios.get<MovieAttributes[]>(
           `http://localhost:3001/movies`,
         );
-        const fetchedMovies = response.data;
-        const sortedFetchedMovies = fetchedMovies.sort((a, b) =>
-          a.movie_title.localeCompare(b.movie_title),
-        );
-
-        setMovies(sortedFetchedMovies);
+        const fetchedMovies = sortMovies(response.data, selectedSortOption);
+        setMovies(fetchedMovies);
       } catch (error) {
         console.error(error);
       }
@@ -317,6 +313,7 @@ const Movies: React.FC = () => {
   useEffect(() => {
     const sortedMovies = sortMovies([...filteredMovies], selectedSortOption);
     setFilteredMovies(sortedMovies);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSortOption, selectedDecade, selectedGenres, selectedLength]);
 

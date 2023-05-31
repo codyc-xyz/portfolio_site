@@ -48,18 +48,57 @@ const Directors: React.FC = () => {
     setSelectedSortOption(option);
   };
 
+  const sortDirectors = (
+    directors: DirectorAttributes[],
+    sortOption: string,
+  ) => {
+    switch (sortOption) {
+      case `Name (A-Z)`:
+        return directors.sort((a, b) =>
+          a.director_name.localeCompare(b.director_name),
+        );
+      case `Date Born Ascending`:
+        return directors.sort(
+          (a, b) =>
+            new Date(a.date_director_born).getTime() -
+            new Date(b.date_director_born).getTime(),
+        );
+      case `Date Born Descending`:
+        return directors.sort(
+          (a, b) =>
+            new Date(b.date_director_born).getTime() -
+            new Date(a.date_director_born).getTime(),
+        );
+      case `Country (A-Z)`:
+        return directors.sort((a, b) =>
+          a.director_country_of_birth.localeCompare(
+            b.director_country_of_birth,
+          ),
+        );
+      case `Number of Movies`:
+        return directors.sort((a, b) => b.movies.length - a.movies.length);
+      default:
+        return directors;
+    }
+  };
+
   useEffect(() => {
     async function fetchDirectors() {
       try {
         const response = await axios.get<DirectorAttributes[]>(
           `http://localhost:3001/directors`,
         );
-        setDirectors(response.data);
+        const fetchedDirectors = sortDirectors(
+          response.data,
+          selectedSortOption,
+        );
+        setDirectors(fetchedDirectors);
       } catch (error) {
         console.error(error);
       }
     }
     fetchDirectors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -75,6 +114,17 @@ const Directors: React.FC = () => {
     }
   }, [filteredDirectors]);
 
+  useEffect(() => {
+    if (filteredDirectors.length > 0) {
+      const sortedDirectors = sortDirectors(
+        [...filteredDirectors],
+        selectedSortOption,
+      );
+      setFilteredDirectors(sortedDirectors);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSortOption, directors]);
+
   const randomDirector = directors[randomDirectorIndex]?.director_uid;
 
   const sortOptions = [
@@ -82,7 +132,7 @@ const Directors: React.FC = () => {
     `Country (A-Z)`,
     `Date Born Ascending`,
     `Date Born Descending`,
-    `Movies Included`,
+    `Number of Movies`,
   ];
 
   const dropdown = (
@@ -93,7 +143,7 @@ const Directors: React.FC = () => {
       onOptionClick={handleSortOptionClick}
     />
   );
-
+  console.log(directors);
   return (
     <div className="container">
       <Header />

@@ -85,6 +85,7 @@ const root = {
   allDirectors: async () => {
     try {
       const directors = await Director.findAll({
+        include: [Movie],
         attributes: [
           `director_uid`,
           `director_name`,
@@ -94,7 +95,6 @@ const root = {
           `director_country_of_birth`,
           `director_image`,
         ],
-        include: [Movie],
         tableName: `director`,
       });
       return directors;
@@ -481,6 +481,7 @@ app.get(`/books`, async (req: Request, res: Response) => {
 app.get(`/directors`, async (req: typeof Request, res: typeof Response) => {
   try {
     const directors = await Director.findAll({
+      include: [Movie],
       attributes: [
         `director_uid`,
         `director_name`,
