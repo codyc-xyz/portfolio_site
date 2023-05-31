@@ -21,14 +21,9 @@ const Books: React.FC = () => {
     fetchBooks();
   }, []);
   return (
-    <div className="container">
+    <div className="container text-text">
       <Header />
-      <h1
-        className="text-center text-3xl"
-        style={{ marginTop: `24px`, marginBottom: `24px` }}
-      >
-        Books I Find Interesting
-      </h1>
+      <h1 className="text-center text-3xl">Books I Find Interesting</h1>
       <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
         {books.map((book) => {
           return (

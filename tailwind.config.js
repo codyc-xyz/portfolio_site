@@ -14,6 +14,10 @@ module.exports = {
       4: `24px`,
       5: `32px`,
       6: `48px`,
+      7: `64px`,
+      8: `96px`,
+      9: `128px`,
+      10: `192px`,
     },
     screens: {
       sm: `480px`,

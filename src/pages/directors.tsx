@@ -75,7 +75,7 @@ const Directors: React.FC = () => {
             b.director_country_of_birth,
           ),
         );
-      case `Number of Movies`:
+      case `Films Directed`:
         return directors.sort((a, b) => b.movies.length - a.movies.length);
       default:
         return directors;
@@ -132,23 +132,22 @@ const Directors: React.FC = () => {
     `Country (A-Z)`,
     `Date Born Ascending`,
     `Date Born Descending`,
-    `Number of Movies`,
+    `Films Directed`,
   ];
 
   const dropdown = (
     <Dropdown
-      className="mx-6"
+      className="mx-5"
       options={sortOptions}
       selectedOption={selectedSortOption}
       onOptionClick={handleSortOptionClick}
     />
   );
-  console.log(directors);
   return (
     <div className="container">
       <Header />
       <div className="w-full flex items-center justify-between">
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center">
           <LinkComponent href={randomDirector} text="Random" />
           <ButtonWithDropdown
             label="Sort"
@@ -156,7 +155,7 @@ const Directors: React.FC = () => {
             onButtonClick={() => setSortExpanded(!isSortExpanded)}
             dropdown={dropdown}
             widthClass="w-full"
-            paddingClass=" w-full py-1 px-3 mx-6"
+            paddingClass=" w-full py-1 px-3 ml-5 mr-7"
           />
         </div>
         <TitleComponent
