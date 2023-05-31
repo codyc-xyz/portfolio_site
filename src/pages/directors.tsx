@@ -3,15 +3,22 @@ import Header from '../components/general/Header';
 import { DirectorAttributes } from '../types/DirectorAttributes';
 import Card from '../components/general/Card';
 import axios from 'axios';
-import PageHeader from '../components/general/PageHeader';
+import LinkComponent from '../components/general/LinkComponent';
+import Dropdown from '../components/general/Dropdown';
+import TitleComponent from '../components/general/TitleComponent';
+import SearchBarComponent from '../components/general/SearchBarComponent';
+import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 
-const Movies: React.FC = () => {
+const Directors: React.FC = () => {
   const [directors, setDirectors] = useState<DirectorAttributes[]>([]);
   const [filteredDirectors, setFilteredDirectors] = useState<
     DirectorAttributes[]
   >([]);
   const [randomDirectorIndex, setRandomDirectorIndex] = useState(0);
   const [searchValue, setSearchValue] = useState<string>(``);
+  const [isSortExpanded, setSortExpanded] = useState(false);
+  const [selectedSortOption, setSelectedSortOption] =
+    useState<string>(`Name (A-Z)`);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -34,6 +41,11 @@ const Movies: React.FC = () => {
   const handleClearSearch = () => {
     setSearchValue(``);
     setFilteredDirectors(directors);
+  };
+
+  const handleSortOptionClick = (option: string) => {
+    setSortExpanded(!isSortExpanded);
+    setSelectedSortOption(option);
   };
 
   useEffect(() => {
@@ -65,17 +77,49 @@ const Movies: React.FC = () => {
 
   const randomDirector = directors[randomDirectorIndex]?.director_uid;
 
+  const sortOptions = [
+    `Name (A-Z)`,
+    `Country (A-Z)`,
+    `Date Born Ascending`,
+    `Date Born Descending`,
+    `Movies Included`,
+  ];
+
+  const dropdown = (
+    <Dropdown
+      className="ml-5"
+      options={sortOptions}
+      selectedOption={selectedSortOption}
+      onOptionClick={handleSortOptionClick}
+    />
+  );
+
   return (
     <div className="container">
       <Header />
-      <PageHeader
-        randomItem={randomDirector}
-        searchValue={searchValue}
-        onSubmit={handleSearchSubmit}
-        onInputChange={handleSearchInputChange}
-        onClear={handleClearSearch}
-        titleText="Directors I Love"
-      />
+      <div className="w-full flex items-center justify-between">
+        <div className="flex items-center space-x-1">
+          <LinkComponent href={randomDirector} text="Random" />
+          <ButtonWithDropdown
+            label="Sort"
+            isExpanded={isSortExpanded}
+            onButtonClick={() => setSortExpanded(!isSortExpanded)}
+            dropdown={dropdown}
+            widthClass="w-full"
+            paddingClass=" w-full py-1 px-6 ml-5"
+          />
+        </div>
+        <TitleComponent
+          text={`Directors I Love`}
+          className="self-center mx-auto"
+        />
+        <SearchBarComponent
+          searchValue={searchValue}
+          onSubmit={handleSearchSubmit}
+          onInputChange={handleSearchInputChange}
+          onClear={handleClearSearch}
+        />
+      </div>
       <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
         {filteredDirectors.map((director) => {
           return (
@@ -94,4 +138,4 @@ const Movies: React.FC = () => {
   );
 };
 
-export default Movies;
+export default Directors;

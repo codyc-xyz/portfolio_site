@@ -4,19 +4,23 @@ interface DropdownProps {
   options: string[];
   selectedOption: string;
   onOptionClick: (option: string) => void;
+  className?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   options,
   selectedOption,
   onOptionClick,
+  className = ``,
 }) => {
   return (
-    <div className="bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full">
+    <div
+      className={`${className} bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full`}
+    >
       {options.map((option) => (
         <button
           key={option}
-          className={`block w-full text-left hover:bg-gray-100`}
+          className={`block w-full text-left hover:bg-gray-100 py-0.5`}
           onClick={() => onOptionClick(option)}
         >
           {option}

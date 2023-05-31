@@ -421,6 +421,14 @@ const Movies: React.FC = () => {
     },
   ];
 
+  const dropdown = (
+    <Dropdown
+      options={sortOptions}
+      selectedOption={selectedSortOption}
+      onOptionClick={handleSortOptionClick}
+    />
+  );
+
   return (
     <div className="container text-text">
       <Header />
@@ -428,16 +436,12 @@ const Movies: React.FC = () => {
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">
           <ButtonWithDropdown
+            widthClass="w-1/4"
+            paddingClass="w-full py-2 px-2"
             label="Sort"
             isExpanded={isSortExpanded}
             onButtonClick={() => setSortExpanded(!isSortExpanded)}
-            dropdown={
-              <Dropdown
-                options={sortOptions}
-                selectedOption={selectedSortOption}
-                onOptionClick={handleSortOptionClick}
-              />
-            }
+            dropdown={dropdown}
           />
           <Filter
             isFilterExpanded={isFilterExpanded}

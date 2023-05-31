@@ -2,6 +2,7 @@ import React from 'react';
 
 interface TitleComponentProps {
   text: string;
+  className?: string;
 }
 
 const TitleComponent: React.FC<TitleComponentProps> = ({ text }) => {

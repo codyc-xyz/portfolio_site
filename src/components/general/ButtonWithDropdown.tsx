@@ -1,10 +1,12 @@
 import React from 'react';
 
-interface ButtonWithDropdownProps {
+export interface ButtonWithDropdownProps {
   label: string;
   isExpanded: boolean;
   onButtonClick: () => void;
   dropdown: React.ReactNode;
+  widthClass: string;
+  paddingClass: string;
 }
 
 const ButtonWithDropdown: React.FC<ButtonWithDropdownProps> = ({
@@ -12,11 +14,13 @@ const ButtonWithDropdown: React.FC<ButtonWithDropdownProps> = ({
   isExpanded,
   onButtonClick,
   dropdown,
+  widthClass,
+  paddingClass,
 }) => {
   return (
-    <div className="w-1/4 relative">
+    <div className={`${widthClass} relative`}>
       <button
-        className={`w-full py-2 px-2 ${
+        className={`${paddingClass} ${
           isExpanded ? `rounded-t-lg` : `rounded-lg`
         } bg-white shadow-sm border border-gray-300`}
         onClick={onButtonClick}
