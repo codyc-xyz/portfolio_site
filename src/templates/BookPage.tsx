@@ -14,6 +14,7 @@ interface BookPageProps {
     isbn: string;
     authorUid: string;
     authorName: string;
+    countryOfOrigin: string;
     excerpts: ExcerptAttributes[];
   };
 }
@@ -31,6 +32,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
     authorUid,
     authorName,
     excerpts,
+    countryOfOrigin,
   } = pageContext;
 
   const [currentExcerptIndex, setCurrentExcerptIndex] = useState(0);
@@ -79,6 +81,10 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
             <p className="text-sm">
               <strong>Published:</strong> {datePublished}
             </p>
+            <p className="text-sm">
+              <strong>From:</strong> {countryOfOrigin}
+            </p>
+
             <p className="text-sm">
               <strong>By: </strong>
               <a

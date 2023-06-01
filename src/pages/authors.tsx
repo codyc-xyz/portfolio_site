@@ -39,7 +39,7 @@ const Authors: React.FC = () => {
               altText={author.author_name}
               title={author.author_name}
               imageUrl={author.author_image}
-              imageHeight="350px"
+              imageHeight="400px"
             />
           );
         })}

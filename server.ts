@@ -50,6 +50,7 @@ const schema = buildSchema(`
     book_cover_image: String!
     goodreads_link: String!
     isbn: String!
+    country_of_origin: String!
     author_uid: String!
     author: Author!
     excerpts: [Excerpt]
@@ -143,6 +144,7 @@ const root = {
           `book_cover_image`,
           `goodreads_link`,
           `isbn`,
+          `country_of_origin`,
           `author_uid`,
         ],
         tableName: `book`,
@@ -290,6 +292,11 @@ Book.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    country_of_origin: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
     author_uid: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -467,6 +474,7 @@ app.get(`/books`, async (req: Request, res: Response) => {
         `isbn`,
         `book_cover_image`,
         `goodreads_link`,
+        `country_of_origin`,
         `author_uid`,
       ],
       tableName: `book`,

@@ -90,6 +90,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
           goodreads_link
           isbn
           author_uid
+          country_of_origin
           author {
             author_name
           }
@@ -188,6 +189,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
           coverImage: book.book_cover_image,
           goodreadsLink: book.goodreads_link,
           isbn: book.isbn,
+          countryOfOrigin: book.country_of_origin,
           authorUid: book.author_uid,
           authorName: book.author.author_name,
           excerpts: book.excerpts.map((excerpt: any) => ({
