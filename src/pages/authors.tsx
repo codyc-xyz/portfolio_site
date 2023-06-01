@@ -38,6 +38,7 @@ const Authors: React.FC = () => {
               pageUrl={`${author.author_uid}`}
               altText={author.author_name}
               title={author.author_name}
+              secondaryText={author.country_of_birth}
               imageUrl={author.author_image}
               imageHeight="400px"
             />

@@ -109,6 +109,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
           date_author_born
           date_author_deceased
           author_image
+          country_of_birth
           books {
             book_uid
             book_title
@@ -216,6 +217,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
           dateBorn: author.date_author_born,
           dateDeceased: author.date_author_deceased,
           authorImage: author.author_image,
+          countryOfBirth: author.author_country_of_birth,
           books: author.books.map((book: any) => ({
             book_uid: book.book_uid,
             book_title: book.book_title,

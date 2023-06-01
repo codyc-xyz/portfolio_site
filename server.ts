@@ -62,6 +62,7 @@ const schema = buildSchema(`
     date_author_born: String!
     date_author_deceased: String
     author_image: String!
+    country_of_birth
     books: [Book!]!
   }
 
@@ -166,6 +167,7 @@ const root = {
           `date_author_born`,
           `date_author_deceased`,
           `author_image`,
+          `country_of_birth`,
         ],
         tableName: `author`,
       });
@@ -247,6 +249,10 @@ Author.init(
       allowNull: true,
     },
     author_image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    country_of_birth: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -518,6 +524,7 @@ app.get(`/authors`, async (req: typeof Request, res: typeof Response) => {
         `date_author_born`,
         `date_author_deceased`,
         `author_image`,
+        `country_of_birth`,
       ],
       tableName: `author`,
     });

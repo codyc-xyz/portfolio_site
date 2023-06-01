@@ -7,6 +7,7 @@ export type AuthorAttributes = {
   date_author_deceased: Date;
   author_biography: string;
   author_image: string;
+  country_of_birth: string;
 };
 
 class AuthorClass extends Model<AuthorAttributes> {}

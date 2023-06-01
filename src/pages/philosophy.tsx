@@ -298,7 +298,8 @@ const Books: React.FC = () => {
         const response = await axios.get<BookAttributes[]>(
           `http://localhost:3001/books`,
         );
-        setBooks(response.data);
+        const fetchedBooks = sortBooks(response.data, selectedSortOption);
+        setBooks(fetchedBooks);
       } catch (error) {
         console.error(error);
       }
@@ -470,7 +471,8 @@ const Books: React.FC = () => {
                 key={book.book_uid}
                 pageUrl={`/philosophy/${book.book_uid}`}
                 altText={book.book_title}
-                title=""
+                title={book.author.author_name}
+                secondaryText={book.country_of_origin}
                 imageUrl={book.book_cover_image}
                 imageHeight="400px"
               />
