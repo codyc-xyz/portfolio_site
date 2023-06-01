@@ -10,6 +10,7 @@ interface AuthorPageProps {
     dateBorn: string;
     dateDeceased: string;
     authorImage: string;
+    countryOfBirth: string;
     books: BookAttributes[];
   };
 }
@@ -21,6 +22,7 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
     dateBorn,
     dateDeceased,
     authorImage,
+    countryOfBirth,
     books,
   } = pageContext;
   return (
@@ -38,6 +40,9 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
                 <strong>Deceased:</strong> {dateDeceased}
               </p>
             )}
+            <p className="text-sm">
+              <strong>From:</strong> {countryOfBirth}
+            </p>
           </div>
           <h2 className="text-xl mt-4">About</h2>
           <p className="text-sm mt-2">{authorBiography}</p>

@@ -52,7 +52,11 @@ const Movies: React.FC = () => {
           movie.director.director_name.includes(searchValue))
       );
     });
-    setFilteredMovies(filteredResults);
+    const sortedFilteredResults = sortMovies(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredMovies(sortedFilteredResults);
   };
 
   const handleClearSearch = () => {
@@ -69,7 +73,11 @@ const Movies: React.FC = () => {
         (selectedLength === null || checkMovieLength(movie, selectedLength))
       );
     });
-    setFilteredMovies(filteredResults);
+    const sortedFilteredResults = sortMovies(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredMovies(sortedFilteredResults);
   };
 
   const handleSortOptionClick = (option: string) => {

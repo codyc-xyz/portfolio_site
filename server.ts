@@ -62,7 +62,7 @@ const schema = buildSchema(`
     date_author_born: String!
     date_author_deceased: String
     author_image: String!
-    country_of_birth
+    country_of_birth: String!
     books: [Book!]!
   }
 

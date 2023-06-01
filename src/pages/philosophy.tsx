@@ -52,7 +52,11 @@ const Books: React.FC = () => {
           book.author.author_name.includes(searchValue))
       );
     });
-    setFilteredBooks(filteredResults);
+    const sortedFilteredResults = sortBooks(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredBooks(sortedFilteredResults);
   };
 
   const handleClearSearch = () => {
@@ -69,7 +73,11 @@ const Books: React.FC = () => {
         (selectedLength === null || checkBookLength(book, selectedLength))
       );
     });
-    setFilteredBooks(filteredResults);
+    const sortedFilteredResults = sortBooks(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredBooks(sortedFilteredResults);
   };
 
   const handleSortOptionClick = (option: string) => {

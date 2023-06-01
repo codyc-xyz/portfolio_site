@@ -35,12 +35,17 @@ const Directors: React.FC = () => {
         director.director_country_of_birth.includes(searchValue)
       );
     });
-    setFilteredDirectors(filteredResults);
+    const sortedFilteredResults = sortDirectors(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredDirectors(sortedFilteredResults);
   };
 
   const handleClearSearch = () => {
     setSearchValue(``);
-    setFilteredDirectors(directors);
+    const sortedDirectors = sortDirectors(directors, selectedSortOption);
+    setFilteredDirectors(sortedDirectors);
   };
 
   const handleSortOptionClick = (option: string) => {
