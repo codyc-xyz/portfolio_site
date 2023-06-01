@@ -159,14 +159,14 @@ const Movies: React.FC = () => {
           const movieDecade = Math.floor(movieYear / 10) * 10;
 
           return (
-            ((selectedDecade === null || movieDecade === selectedDecade) &&
-              selectedGenres.every((genre) =>
-                movie.movie_genres.includes(genre),
-              ) &&
-              searchValue === ``) ||
-            movie.movie_title.includes(searchValue) ||
-            movie.country_of_origin.includes(searchValue) ||
-            movie.director.director_name.includes(searchValue)
+            (selectedDecade === null || movieDecade === selectedDecade) &&
+            selectedGenres.every((genre) =>
+              movie.movie_genres.includes(genre),
+            ) &&
+            (searchValue === `` ||
+              movie.movie_title.includes(searchValue) ||
+              movie.country_of_origin.includes(searchValue) ||
+              movie.director.director_name.includes(searchValue))
           );
         }),
       );

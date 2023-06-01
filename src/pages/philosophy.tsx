@@ -103,8 +103,10 @@ const Books: React.FC = () => {
       return bookLength > 200 && bookLength <= 400;
     } else if (length === `401-600`) {
       return bookLength > 400 && bookLength <= 600;
-    } else {
+    } else if (length === `601+`) {
       return bookLength > 600;
+    } else {
+      return book;
     }
   };
 
@@ -185,6 +187,8 @@ const Books: React.FC = () => {
 
   const handleLengthClick = (length: string) => {
     if (selectedLength === length) {
+      console.log(selectedLength, length, selectedSubjects, selectedCentury);
+
       setSelectedLength(null);
       setFilteredBooks(
         books.filter((book) => {
@@ -192,24 +196,24 @@ const Books: React.FC = () => {
           const bookCentury = Math.floor(bookYear / 100) * 100;
 
           return (
-            ((selectedCentury === null || bookCentury === selectedCentury) &&
-              selectedSubjects.every((subject) =>
-                book.book_subjects.includes(subject),
-              ) &&
-              searchValue === ``) ||
-            book.book_title.includes(searchValue) ||
-            book.country_of_origin.includes(searchValue) ||
-            book.author.author_name.includes(searchValue)
+            (selectedCentury === null || bookCentury === selectedCentury) &&
+            selectedSubjects.every((subject) =>
+              book.book_subjects.includes(subject),
+            ) &&
+            (searchValue === `` ||
+              book.book_title.includes(searchValue) ||
+              book.country_of_origin.includes(searchValue) ||
+              book.author.author_name.includes(searchValue))
           );
         }),
       );
     } else {
+      setSelectedLength(length);
       setFilteredBooks(
         filteredBooks.filter((book) => {
           return checkBookLength(book, length);
         }),
       );
-      setSelectedLength(length);
     }
   };
 
