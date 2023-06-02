@@ -1,3 +1,4 @@
+import Card from '../components/general/Card';
 import Header from '../components/general/Header';
 import { BookAttributes } from '../types/BookAttributes';
 import React from 'react';
@@ -59,20 +60,14 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
       <div className="my-2">
         <h2 className="text-xl">Books I Found Interesting</h2>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-          {books.map((book) => (
-            <div
-              className="bg-white shadow-lg rounded-lg overflow-hidden"
+          {books.map((book: BookAttributes) => (
+            <Card
               key={book.book_uid}
-            >
-              <a key={book.book_uid} href={`/books/${book.book_uid}`}>
-                <img
-                  key={book.book_uid}
-                  src={book.book_cover_image}
-                  alt={`Book ${book.book_title}`}
-                  className="w-full h-full"
-                />
-              </a>
-            </div>
+              imageUrl={book.book_cover_image}
+              altText={`Book ${book.book_title}`}
+              pageUrl={`/books/${book.book_uid}`}
+              imageHeight="400px"
+            />
           ))}
         </div>
       </div>

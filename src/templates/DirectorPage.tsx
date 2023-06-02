@@ -1,4 +1,5 @@
 import Header from '../components/general/Header';
+import Card from '../components/general/Card';
 import { MovieAttributes } from '../types/MovieAttributes';
 import React from 'react';
 
@@ -58,19 +59,13 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
         <h2 className="text-xl">My Favorite Movies</h2>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {movies.map((movie) => (
-            <div
-              className="bg-white shadow-lg rounded-lg overflow-hidden"
+            <Card
               key={movie.movie_uid}
-            >
-              <a key={movie.movie_uid} href={`/movies/${movie.movie_uid}`}>
-                <img
-                  key={movie.movie_uid}
-                  src={movie.movie_poster}
-                  alt={`Movie ${movie.movie_title}`}
-                  className="w-full h-full"
-                />
-              </a>
-            </div>
+              imageUrl={movie.movie_poster}
+              altText={`Movie ${movie.movie_title}`}
+              pageUrl={`/movies/${movie.movie_uid}`}
+              imageHeight="350px"
+            />
           ))}
         </div>
       </div>
