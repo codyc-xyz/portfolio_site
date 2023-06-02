@@ -91,6 +91,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
                 href={`/authors/${authorUid}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hover:opacity-50"
               >
                 {authorName}
               </a>
@@ -100,7 +101,12 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
             </p>
             <p className="text-sm">
               <strong>Goodreads: </strong>
-              <a href={goodreadsLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={goodreadsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-50"
+              >
                 {goodreadsLink}
               </a>
             </p>
@@ -134,7 +140,10 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
                 style={{ width: `50px`, height: `15px` }}
               />
               {` `} / {excerpts.length}
-              <button type="submit" className="text-primary ml-1">
+              <button
+                type="submit"
+                className="text-primary ml-1 hover:opacity-50"
+              >
                 Go
               </button>
             </form>
@@ -176,7 +185,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
           </div>
           <div className="col-start-12 col-span-1 flex items-center justify-end mt-4">
             <button
-              className="text-xl text-primary"
+              className="text-xl text-primary hover:opacity-50"
               onClick={handleRandomExcerpt}
             >
               Random
