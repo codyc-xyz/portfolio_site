@@ -517,6 +517,7 @@ app.get(`/directors`, async (req: typeof Request, res: typeof Response) => {
 app.get(`/authors`, async (req: typeof Request, res: typeof Response) => {
   try {
     const authors = await Author.findAll({
+      include: [Book],
       attributes: [
         `author_uid`,
         `author_name`,

@@ -2,10 +2,85 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
 import { AuthorAttributes } from '../types/AuthorAttributes';
 import Card from '../components/general/Card';
+import LinkComponent from '../components/general/LinkComponent';
+import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
+import Dropdown from '../components/general/Dropdown';
+import TitleComponent from '../components/general/TitleComponent';
+import SearchBarComponent from '../components/general/SearchBarComponent';
 import axios from 'axios';
 
 const Authors: React.FC = () => {
   const [authors, setAuthors] = useState<AuthorAttributes[]>([]);
+  const [filteredAuthors, setFilteredAuthors] = useState<AuthorAttributes[]>(
+    [],
+  );
+  const [randomAuthorIndex, setRandomAuthorIndex] = useState(0);
+  const [isSortExpanded, setSortExpanded] = useState(false);
+  const [selectedSortOption, setSelectedSortOption] =
+    useState<string>(`Name (A-Z)`);
+  const [searchValue, setSearchValue] = useState<string>(``);
+
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setSearchValue(event.target.value);
+  };
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const filteredResults = authors.filter((author) => {
+      return (
+        author.author_name.includes(searchValue) ||
+        author.country_of_birth.includes(searchValue)
+      );
+    });
+    const sortedFilteredResults = sortAuthors(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredAuthors(sortedFilteredResults);
+  };
+
+  const handleClearSearch = () => {
+    setSearchValue(``);
+    const sortedAuthors = sortAuthors(authors, selectedSortOption);
+    setFilteredAuthors(sortedAuthors);
+  };
+
+  const handleSortOptionClick = (option: string) => {
+    setSortExpanded(!isSortExpanded);
+    setSelectedSortOption(option);
+  };
+
+  const sortAuthors = (authors: AuthorAttributes[], sortOption: string) => {
+    switch (sortOption) {
+      case `Name (A-Z)`:
+        return authors.sort((a, b) =>
+          a.author_name.localeCompare(b.author_name),
+        );
+      case `Date Born Ascending`:
+        return authors.sort(
+          (a, b) =>
+            new Date(a.date_author_born).getTime() -
+            new Date(b.date_author_born).getTime(),
+        );
+      case `Date Born Descending`:
+        return authors.sort(
+          (a, b) =>
+            new Date(b.date_author_born).getTime() -
+            new Date(a.date_author_born).getTime(),
+        );
+      case `Country (A-Z)`:
+        return authors.sort((a, b) =>
+          a.country_of_birth.localeCompare(b.country_of_birth),
+        );
+      case `Number of Books`:
+        return authors.sort((a, b) => b.books.length - a.books.length);
+      default:
+        return authors;
+    }
+  };
 
   useEffect(() => {
     async function fetchAuthors() {
@@ -13,37 +88,101 @@ const Authors: React.FC = () => {
         const response = await axios.get<AuthorAttributes[]>(
           `http://localhost:3001/authors`,
         );
-        console.log(response.data);
-        setAuthors(response.data);
+        const fetchedAuthors = sortAuthors(response.data, selectedSortOption);
+        setAuthors(fetchedAuthors);
       } catch (error) {
         console.error(error);
       }
     }
     fetchAuthors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (authors.length > 0) {
+      setFilteredAuthors(authors);
+    }
+  }, [authors]);
+
+  useEffect(() => {
+    if (filteredAuthors.length > 0) {
+      const newIndex = Math.floor(Math.random() * filteredAuthors.length);
+      setRandomAuthorIndex(newIndex);
+    }
+  }, [filteredAuthors]);
+
+  useEffect(() => {
+    if (filteredAuthors.length > 0) {
+      const sortedAuthors = sortAuthors(
+        [...filteredAuthors],
+        selectedSortOption,
+      );
+      setFilteredAuthors(sortedAuthors);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSortOption, authors]);
+
+  const randomAuthor = filteredAuthors[randomAuthorIndex]?.author_uid;
+
+  const sortOptions = [
+    `Name (A-Z)`,
+    `Country (A-Z)`,
+    `Date Born Ascending`,
+    `Date Born Descending`,
+    `Number of Books`,
+  ];
+
+  const dropdown = (
+    <Dropdown
+      className="mx-5"
+      options={sortOptions}
+      selectedOption={selectedSortOption}
+      onOptionClick={handleSortOptionClick}
+    />
+  );
+
   return (
     <div className="container">
       <Header />
-      <h1
-        className="text-center text-3xl"
-        style={{ marginTop: `24px`, marginBottom: `24px` }}
-      >
-        Authors I Find Interesting
-      </h1>
-      <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-2">
-        {authors.map((author) => {
-          return (
-            <Card
-              key={author.author_uid}
-              pageUrl={`${author.author_uid}`}
-              altText={author.author_name}
-              title={author.author_name}
-              secondaryText={author.country_of_birth}
-              imageUrl={author.author_image}
-              imageHeight="400px"
+      <div className="flex flex-col gap-2">
+        <div className="w-full flex items-center justify-between">
+          <div className="flex items-center">
+            <LinkComponent href={randomAuthor} text="Random" />
+            <ButtonWithDropdown
+              label="Sort"
+              isExpanded={isSortExpanded}
+              onButtonClick={() => setSortExpanded(!isSortExpanded)}
+              dropdown={dropdown}
+              widthClass="w-full"
+              paddingClass=" w-full py-1 px-3 ml-5 mr-7"
             />
-          );
-        })}
+          </div>
+          <TitleComponent
+            text={`Authors I Find Interesting`}
+            className="self-center mx-auto"
+          />
+          <SearchBarComponent
+            searchValue={searchValue}
+            onSubmit={handleSearchSubmit}
+            onInputChange={handleSearchInputChange}
+            onClear={handleClearSearch}
+          />
+        </div>
+        <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-2">
+          {filteredAuthors.map((author) => {
+            return (
+              <Card
+                key={author.author_uid}
+                pageUrl={`${author.author_uid}`}
+                altText={author.author_name}
+                title={author.author_name}
+                secondaryText={author.country_of_birth}
+                imageUrl={author.author_image}
+                imageHeight="350px"
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

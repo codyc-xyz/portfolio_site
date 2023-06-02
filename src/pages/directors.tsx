@@ -80,7 +80,7 @@ const Directors: React.FC = () => {
             b.director_country_of_birth,
           ),
         );
-      case `Films Directed`:
+      case `Number of Movies`:
         return directors.sort((a, b) => b.movies.length - a.movies.length);
       default:
         return directors;
@@ -130,14 +130,14 @@ const Directors: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSortOption, directors]);
 
-  const randomDirector = directors[randomDirectorIndex]?.director_uid;
+  const randomDirector = filteredDirectors[randomDirectorIndex]?.director_uid;
 
   const sortOptions = [
     `Name (A-Z)`,
     `Country (A-Z)`,
     `Date Born Ascending`,
     `Date Born Descending`,
-    `Films Directed`,
+    `Number of Films`,
   ];
 
   const dropdown = (
@@ -149,7 +149,7 @@ const Directors: React.FC = () => {
     />
   );
   return (
-    <div className="container">
+    <div className="container text-text">
       <Header />
       <div className="flex flex-col gap-2">
         <div className="w-full flex items-center justify-between">

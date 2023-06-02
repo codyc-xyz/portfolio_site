@@ -54,7 +54,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
           />
         </div>
       </div>
-      <div style={{ marginBottom: `24px`, marginTop: `24px` }}>
+      <div className="my-2">
         <h2 className="text-xl">My Favorite Movies</h2>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {movies.map((movie) => (
