@@ -6,6 +6,7 @@ module.exports = {
   content: [`./src/**/*.{js,jsx,ts,tsx}`, `./public/index.html`],
   theme: {
     spacing: {
+      // Existing values
       0: `0px`,
       0.5: `4px`,
       1: `8px`,
@@ -18,6 +19,9 @@ module.exports = {
       8: `96px`,
       9: `128px`,
       10: `192px`,
+      11: `288px`,
+      12: `384px`,
+      13: `450px`,
     },
     screens: {
       sm: `480px`,
