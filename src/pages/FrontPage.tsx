@@ -10,27 +10,27 @@ const FrontPage: React.FC = () => {
     {
       title: `Dream a Little Dream of Me`,
       artist: `Dean Martin`,
-      audioSrc: `../../public/static/audio/Dream_a_Little_Dream_of_Me.mp3`,
+      audioSrc: `/static/audio/Dream_a_Little_Dream_of_Me.mp3`,
     },
     {
       title: `Fruit of Dreams`,
       artist: `Les Baxter`,
-      audioSrc: `../../public/static/audio/Fruit_Of_Dreams.mp3`,
+      audioSrc: `/static/audio/Fruit_Of_Dreams.mp3`,
     },
     {
       title: `Look To The Sky`,
       artist: `Antônio Carlos Jobim`,
-      audioSrc: `../../public/static/audio/Look_To_The_Sky.mp3`,
+      audioSrc: `/static/audio/Look_To_The_Sky.mp3`,
     },
     {
       title: `Tenderly`,
       artist: `Les Baxter`,
-      audioSrc: `../../public/static/audio/Tenderly.mp3`,
+      audioSrc: `/static/audio/Tenderly.mp3`,
     },
     {
       title: `Here's To Life`,
       artist: `Shirley Horn`,
-      audioSrc: `../../public/static/audio/Here's_To_Life.mp3`,
+      audioSrc: `/static/audio/Here's_To_Life.mp3`,
     },
   ];
   return (

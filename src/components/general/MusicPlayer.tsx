@@ -13,7 +13,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
 
   useEffect(() => {
     audioRef.current.src = songs[currentSongIndex].audioSrc;
-
+    console.log(audioRef.current.src);
     if (isPlaying) {
       audioRef.current.play();
     } else {

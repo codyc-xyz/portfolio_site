@@ -1,7 +1,7 @@
 type Song = {
   title: string;
   artist: string;
-  audioSrc: string;
+  audioSrc: any;
 };
 
 export default Song;
