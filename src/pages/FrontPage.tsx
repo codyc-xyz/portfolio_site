@@ -104,37 +104,51 @@ const FrontPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="text-text">
       <Header />
-      <div className="flex items-center justify-end mt-4">
-        <div className="flex flex-col justify-center">
-          {selectedGif !== `homerMargeGif` && (
-            <button
-              onClick={() => handleClick(`homerSimpsonGif`)}
-              onMouseEnter={() => handleMouseEnter(`homerSimpsonGif`)}
-              onMouseLeave={() => handleMouseLeave(`homerSimpsonGif`)}
-            >
-              <img
-                src={homerSimpsonSrc}
-                className={gifStyles(`homerSimpsonGif`)}
-              />
-            </button>
-          )}
-          {selectedGif === `homerSimpsonGif` && (
-            <MusicPlayer songs={dreamsPlaylist} className="mx-auto" />
-          )}
-          {selectedGif !== `homerSimpsonGif` && (
-            <button
-              onClick={() => handleClick(`homerMargeGif`)}
-              onMouseEnter={() => handleMouseEnter(`homerMargeGif`)}
-              onMouseLeave={() => handleMouseLeave(`homerMargeGif`)}
-            >
-              <img src={homerMargeSrc} className={gifStyles(`homerMargeGif`)} />
-            </button>
-          )}
-          {selectedGif === `homerMargeGif` && (
-            <MusicPlayer songs={boogiePlaylist} className="mx-auto" />
-          )}
+      <div className="flex">
+        <div className="w-1/2 flex flex-col justify-center items-start text-3xl mx-8">
+          <p className="my-2">Hi.</p>
+          <p className="my-2">My name is Cody.</p>
+          <p className="my-2">Welcome to my portfolio.</p>
+          <p className="my-2">Select a mood and explore!</p>
+        </div>
+        <div className="w-1/2">
+          <div className="flex items-center justify-end mt-4">
+            <div className="flex flex-col justify-center">
+              {` `}
+              {selectedGif !== `homerMargeGif` && (
+                <button
+                  onClick={() => handleClick(`homerSimpsonGif`)}
+                  onMouseEnter={() => handleMouseEnter(`homerSimpsonGif`)}
+                  onMouseLeave={() => handleMouseLeave(`homerSimpsonGif`)}
+                >
+                  <img
+                    src={homerSimpsonSrc}
+                    className={gifStyles(`homerSimpsonGif`)}
+                  />
+                </button>
+              )}
+              {selectedGif === `homerSimpsonGif` && (
+                <MusicPlayer songs={dreamsPlaylist} className="mx-auto" />
+              )}
+              {selectedGif !== `homerSimpsonGif` && (
+                <button
+                  onClick={() => handleClick(`homerMargeGif`)}
+                  onMouseEnter={() => handleMouseEnter(`homerMargeGif`)}
+                  onMouseLeave={() => handleMouseLeave(`homerMargeGif`)}
+                >
+                  <img
+                    src={homerMargeSrc}
+                    className={gifStyles(`homerMargeGif`)}
+                  />
+                </button>
+              )}
+              {selectedGif === `homerMargeGif` && (
+                <MusicPlayer songs={boogiePlaylist} className="mx-auto" />
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

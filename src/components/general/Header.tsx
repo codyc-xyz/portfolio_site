@@ -9,12 +9,6 @@ const Header = () => {
       <nav className="w-2/4 flex items-center justify-between">
         <a
           className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
-          href="/about"
-        >
-          About
-        </a>
-        <a
-          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
           href="/movies"
         >
           Movies
