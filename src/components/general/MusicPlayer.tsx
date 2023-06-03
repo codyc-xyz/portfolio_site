@@ -3,9 +3,10 @@ import Song from '../../types/Song';
 
 interface MusicPlayerProps {
   songs: Song[];
+  className?: string;
 }
 
-const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
+const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs, className }) => {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -38,8 +39,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4">
-      <button className="p-2 text-text" onClick={handlePrev}>
+    <div className={className}>
+      <button className="p-2 text-text hover:opacity-50" onClick={handlePrev}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -55,7 +56,10 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
           <polygon points="22 19 13 12 22 5 22 19"></polygon>
         </svg>
       </button>
-      <button className="p-2 text-primary" onClick={handlePlayPause}>
+      <button
+        className="p-2 text-primary hover:opacity-50"
+        onClick={handlePlayPause}
+      >
         {isPlaying ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +91,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
           </svg>
         )}
       </button>
-      <button className="p-2 text-text" onClick={handleNext}>
+      <button className="p-2 text-text hover:opacity-50" onClick={handleNext}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

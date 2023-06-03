@@ -2,11 +2,32 @@ import React, { useState } from 'react';
 import Header from '../components/general/Header';
 import homerSimpsonGif from '../../public/static/homer-simpson-comfy.gif';
 import homerMargeGif from '../../public/static/homer-marge-dancing.gif';
+import homerSimpsonStill from '../../public/static/homer-simpson-comfy-still.jpg';
+import homerMargeStill from '../../public/static/homerMargeStill.jpg';
 import Song from '../types/Song';
 import MusicPlayer from '../components/general/MusicPlayer';
 
 const FrontPage: React.FC = () => {
   const [selectedGif, setSelectedGif] = useState<string>(``);
+  const [homerSimpsonSrc, setHomerSimpsonSrc] =
+    useState<string>(homerSimpsonStill);
+  const [homerMargeSrc, setHomerMargeSrc] = useState<string>(homerMargeStill);
+
+  const handleMouseEnter = (gifName: string) => {
+    if (gifName === `homerSimpsonGif`) {
+      setHomerSimpsonSrc(homerSimpsonGif);
+    } else if (gifName === `homerMargeGif`) {
+      setHomerMargeSrc(homerMargeGif);
+    }
+  };
+
+  const handleMouseLeave = (gifName: string) => {
+    if (gifName === `homerSimpsonGif`) {
+      setHomerSimpsonSrc(homerSimpsonStill);
+    } else if (gifName === `homerMargeGif`) {
+      setHomerMargeSrc(homerMargeStill);
+    }
+  };
 
   const dreamsPlaylist: Song[] = [
     {
@@ -36,6 +57,34 @@ const FrontPage: React.FC = () => {
     },
   ];
 
+  const boogiePlaylist: Song[] = [
+    {
+      title: `Looking Up to You`,
+      artist: `Michael Wycoff`,
+      audioSrc: `/static/audio/Looking_Up_To_You.mp3`,
+    },
+    {
+      title: `Ha Ha, Hee Hee`,
+      artist: `Sly & The Family Stone`,
+      audioSrc: `/static/audio/Ha_Ha_Hee_Hee.mp3`,
+    },
+    {
+      title: `Let Love Enter`,
+      artist: `Michael Henderson`,
+      audioSrc: `/static/audio/Let_Love_Enter.mp3`,
+    },
+    {
+      title: `Mr Magician`,
+      artist: `Mystic Merlin`,
+      audioSrc: `/static/audio/Mr_Magician.mp3`,
+    },
+    {
+      title: `I'll Never Forget (My Favorite Disco)`,
+      artist: `Dexter Wansel, The Jones Girls`,
+      audioSrc: `/static/audio/I'll_Never_Forget.mp3`,
+    },
+  ];
+
   const handleClick = (gifName: string) => {
     if (selectedGif !== gifName) {
       setSelectedGif(gifName);
@@ -46,32 +95,43 @@ const FrontPage: React.FC = () => {
 
   const gifStyles = (gifName: string) => {
     if (selectedGif === gifName) {
-      return `w-full h-full`;
+      return `w-13 h-13 justify-center mt-7`;
     } else {
-      return `h-11 w-12`;
+      return `h-11 w-12 my-2 shadow-lg hover:shadow-sm`;
     }
   };
 
   return (
     <div>
       <Header />
-      <div className="flex items-center justify-end">
-        <div className="flex flex-col justify-center space-y-4">
+      <div className="flex items-center justify-end mt-4">
+        <div className="flex flex-col justify-center">
           {selectedGif !== `homerMargeGif` && (
-            <button onClick={() => handleClick(`homerSimpsonGif`)}>
+            <button
+              onClick={() => handleClick(`homerSimpsonGif`)}
+              onMouseEnter={() => handleMouseEnter(`homerSimpsonGif`)}
+              onMouseLeave={() => handleMouseLeave(`homerSimpsonGif`)}
+            >
               <img
-                src={homerSimpsonGif}
+                src={homerSimpsonSrc}
                 className={gifStyles(`homerSimpsonGif`)}
               />
-              {selectedGif === `homerSimpsonGif` && (
-                <MusicPlayer songs={dreamsPlaylist} />
-              )}
             </button>
           )}
+          {selectedGif === `homerSimpsonGif` && (
+            <MusicPlayer songs={dreamsPlaylist} className="mx-auto" />
+          )}
           {selectedGif !== `homerSimpsonGif` && (
-            <button onClick={() => handleClick(`homerMargeGif`)}>
-              <img src={homerMargeGif} className={gifStyles(`homerMargeGif`)} />
+            <button
+              onClick={() => handleClick(`homerMargeGif`)}
+              onMouseEnter={() => handleMouseEnter(`homerMargeGif`)}
+              onMouseLeave={() => handleMouseLeave(`homerMargeGif`)}
+            >
+              <img src={homerMargeSrc} className={gifStyles(`homerMargeGif`)} />
             </button>
+          )}
+          {selectedGif === `homerMargeGif` && (
+            <MusicPlayer songs={boogiePlaylist} className="mx-auto" />
           )}
         </div>
       </div>
