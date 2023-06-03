@@ -22,10 +22,20 @@ const FrontPage: React.FC = () => {
   };
 
   const handleMouseLeave = (gifName: string) => {
-    if (gifName === `homerSimpsonGif`) {
+    if (gifName === `homerSimpsonGif` && selectedGif !== `homerSimpsonGif`) {
       setHomerSimpsonSrc(homerSimpsonStill);
-    } else if (gifName === `homerMargeGif`) {
+    } else if (gifName === `homerMargeGif` && selectedGif !== `homerMargeGif`) {
       setHomerMargeSrc(homerMargeStill);
+    }
+  };
+
+  const handleClick = (gifName: string) => {
+    if (selectedGif !== gifName) {
+      setSelectedGif(gifName);
+      handleMouseEnter(gifName);
+    } else {
+      setSelectedGif(``);
+      handleMouseLeave(gifName);
     }
   };
 
@@ -84,14 +94,6 @@ const FrontPage: React.FC = () => {
       audioSrc: `/static/audio/I'll_Never_Forget.mp3`,
     },
   ];
-
-  const handleClick = (gifName: string) => {
-    if (selectedGif !== gifName) {
-      setSelectedGif(gifName);
-    } else {
-      setSelectedGif(``);
-    }
-  };
 
   const gifStyles = (gifName: string) => {
     if (selectedGif === gifName) {
