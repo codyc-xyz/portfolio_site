@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/general/Header';
 import homerSimpsonGif from '../../public/static/homer-simpson-comfy.gif';
 import homerMargeGif from '../../public/static/homer-marge-dancing.gif';
@@ -6,6 +6,8 @@ import Song from '../types/Song';
 import MusicPlayer from '../components/general/MusicPlayer';
 
 const FrontPage: React.FC = () => {
+  const [selectedGif, setSelectedGif] = useState<string>(``);
+
   const dreamsPlaylist: Song[] = [
     {
       title: `Dream a Little Dream of Me`,
@@ -33,16 +35,46 @@ const FrontPage: React.FC = () => {
       audioSrc: `/static/audio/Here's_To_Life.mp3`,
     },
   ];
+
+  const handleClick = (gifName: string) => {
+    if (selectedGif !== gifName) {
+      setSelectedGif(gifName);
+    } else {
+      setSelectedGif(``);
+    }
+  };
+
+  const gifStyles = (gifName: string) => {
+    if (selectedGif === gifName) {
+      return `w-full h-full`;
+    } else {
+      return `h-11 w-12`;
+    }
+  };
+
   return (
     <div>
       <Header />
       <div className="flex items-center justify-end">
         <div className="flex flex-col justify-center space-y-4">
-          <img src={homerSimpsonGif} className="h-11 w-12" />
-          <img src={homerMargeGif} className="h-11 w-12" />
+          {selectedGif !== `homerMargeGif` && (
+            <button onClick={() => handleClick(`homerSimpsonGif`)}>
+              <img
+                src={homerSimpsonGif}
+                className={gifStyles(`homerSimpsonGif`)}
+              />
+              {selectedGif === `homerSimpsonGif` && (
+                <MusicPlayer songs={dreamsPlaylist} />
+              )}
+            </button>
+          )}
+          {selectedGif !== `homerSimpsonGif` && (
+            <button onClick={() => handleClick(`homerMargeGif`)}>
+              <img src={homerMargeGif} className={gifStyles(`homerMargeGif`)} />
+            </button>
+          )}
         </div>
       </div>
-      <MusicPlayer songs={dreamsPlaylist} />
     </div>
   );
 };
