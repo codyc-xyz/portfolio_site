@@ -12,8 +12,11 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
   const audioRef = React.useRef(new Audio(songs[currentSongIndex].audioSrc));
 
   useEffect(() => {
+    if (currentSongIndex > songs.length) {
+      setCurrentSongIndex(0);
+    }
     audioRef.current.src = songs[currentSongIndex].audioSrc;
-    console.log(audioRef.current.src);
+
     if (isPlaying) {
       audioRef.current.play();
     } else {
@@ -36,9 +39,70 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
 
   return (
     <div className="fixed bottom-4 right-4">
-      <button onClick={handlePrev}>Prev</button>
-      <button onClick={handlePlayPause}>{isPlaying ? `Pause` : `Play`}</button>
-      <button onClick={handleNext}>Next</button>
+      <button className="p-2 text-text" onClick={handlePrev}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          height="24"
+          width="24"
+        >
+          <polygon points="11 19 2 12 11 5 11 19"></polygon>
+          <polygon points="22 19 13 12 22 5 22 19"></polygon>
+        </svg>
+      </button>
+      <button className="p-2 text-primary" onClick={handlePlayPause}>
+        {isPlaying ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            height="24"
+            width="24"
+          >
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            height="24"
+            width="24"
+          >
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        )}
+      </button>
+      <button className="p-2 text-text" onClick={handleNext}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          height="24"
+          width="24"
+        >
+          <polygon points="13 19 22 12 13 5 13 19"></polygon>
+          <polygon points="2 19 11 12 2 5 2 19"></polygon>
+        </svg>
+      </button>
     </div>
   );
 };
