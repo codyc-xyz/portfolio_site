@@ -8,7 +8,6 @@ import Dropdown from '../components/general/Dropdown';
 import TitleComponent from '../components/general/TitleComponent';
 import SearchBarComponent from '../components/general/SearchBarComponent';
 import axios from 'axios';
-import Layout from '../Layout';
 
 const Authors: React.FC = () => {
   const [authors, setAuthors] = useState<AuthorAttributes[]>([]);
@@ -143,51 +142,49 @@ const Authors: React.FC = () => {
   );
 
   return (
-    <Layout>
-      <div className="container">
-        <Header />
-        <div className="flex flex-col gap-2">
-          <div className="w-full flex items-center justify-between">
-            <div className="flex items-center">
-              <LinkComponent href={randomAuthor} text="Random" />
-              <ButtonWithDropdown
-                label="Sort"
-                isExpanded={isSortExpanded}
-                onButtonClick={() => setSortExpanded(!isSortExpanded)}
-                dropdown={dropdown}
-                widthClass="w-full"
-                paddingClass=" w-full py-1 px-3 ml-5 mr-7"
+    <div className="container">
+      <Header />
+      <div className="flex flex-col gap-2">
+        <div className="w-full flex items-center justify-between">
+          <div className="flex items-center">
+            <LinkComponent href={randomAuthor} text="Random" />
+            <ButtonWithDropdown
+              label="Sort"
+              isExpanded={isSortExpanded}
+              onButtonClick={() => setSortExpanded(!isSortExpanded)}
+              dropdown={dropdown}
+              widthClass="w-full"
+              paddingClass=" w-full py-1 px-3 ml-5 mr-7"
+            />
+          </div>
+          <TitleComponent
+            text={`Authors I Find Interesting`}
+            className="self-center mx-auto"
+          />
+          <SearchBarComponent
+            searchValue={searchValue}
+            onSubmit={handleSearchSubmit}
+            onInputChange={handleSearchInputChange}
+            onClear={handleClearSearch}
+          />
+        </div>
+        <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-2">
+          {filteredAuthors.map((author) => {
+            return (
+              <Card
+                key={author.author_uid}
+                pageUrl={`${author.author_uid}`}
+                altText={author.author_name}
+                title={author.author_name}
+                secondaryText={author.country_of_birth}
+                imageUrl={author.author_image}
+                imageHeight="350px"
               />
-            </div>
-            <TitleComponent
-              text={`Authors I Find Interesting`}
-              className="self-center mx-auto"
-            />
-            <SearchBarComponent
-              searchValue={searchValue}
-              onSubmit={handleSearchSubmit}
-              onInputChange={handleSearchInputChange}
-              onClear={handleClearSearch}
-            />
-          </div>
-          <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-2">
-            {filteredAuthors.map((author) => {
-              return (
-                <Card
-                  key={author.author_uid}
-                  pageUrl={`${author.author_uid}`}
-                  altText={author.author_name}
-                  title={author.author_name}
-                  secondaryText={author.country_of_birth}
-                  imageUrl={author.author_image}
-                  imageHeight="350px"
-                />
-              );
-            })}
-          </div>
+            );
+          })}
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 

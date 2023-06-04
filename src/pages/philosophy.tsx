@@ -8,7 +8,6 @@ import Dropdown from '../components/general/Dropdown';
 import PageHeader from '../components/general/PageHeader';
 import { OptionType } from '../components/general/FilterSection';
 import axios from 'axios';
-import Layout from '../Layout';
 
 const Books: React.FC = () => {
   const [books, setBooks] = useState<BookAttributes[]>([]);
@@ -440,58 +439,56 @@ const Books: React.FC = () => {
   ];
 
   return (
-    <Layout>
-      <div className="container text-text">
-        <Header />
-        <div className="flex flex-col gap-2 mb-4">
-          <div className="flex gap-4">
-            <ButtonWithDropdown
-              widthClass="w-1/4"
-              paddingClass="w-full py-2 px-2"
-              label="Sort"
-              isExpanded={isSortExpanded}
-              onButtonClick={() => setSortExpanded(!isSortExpanded)}
-              dropdown={dropdown}
-            />
-            <Filter
-              isFilterExpanded={isFilterExpanded}
-              onFilterClick={() => setFilterExpanded(!isFilterExpanded)}
-              filterSections={filterSections}
-              onClear={handleFilterClear}
-              filteredItemsLength={filteredBooks.length}
-              itemsLength={books.length}
-            />
-          </div>
+    <div className="container text-text">
+      <Header />
+      <div className="flex flex-col gap-2 mb-4">
+        <div className="flex gap-4">
+          <ButtonWithDropdown
+            widthClass="w-1/4"
+            paddingClass="w-full py-2 px-2"
+            label="Sort"
+            isExpanded={isSortExpanded}
+            onButtonClick={() => setSortExpanded(!isSortExpanded)}
+            dropdown={dropdown}
+          />
+          <Filter
+            isFilterExpanded={isFilterExpanded}
+            onFilterClick={() => setFilterExpanded(!isFilterExpanded)}
+            filterSections={filterSections}
+            onClear={handleFilterClear}
+            filteredItemsLength={filteredBooks.length}
+            itemsLength={books.length}
+          />
+        </div>
+        <div>
           <div>
-            <div>
-              <PageHeader
-                randomItem={randomBook}
-                searchValue={searchValue}
-                onSubmit={handleSearchSubmit}
-                onInputChange={handleSearchInputChange}
-                onClear={handleClearSearch}
-                titleText="Books I Find Interesting"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-2">
-            {filteredBooks.map((book) => {
-              return (
-                <Card
-                  key={book.book_uid}
-                  pageUrl={`/philosophy/${book.book_uid}`}
-                  altText={book.book_title}
-                  title={book.author.author_name}
-                  secondaryText={book.country_of_origin}
-                  imageUrl={book.book_cover_image}
-                  imageHeight="400px"
-                />
-              );
-            })}
+            <PageHeader
+              randomItem={randomBook}
+              searchValue={searchValue}
+              onSubmit={handleSearchSubmit}
+              onInputChange={handleSearchInputChange}
+              onClear={handleClearSearch}
+              titleText="Books I Find Interesting"
+            />
           </div>
         </div>
+        <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-2">
+          {filteredBooks.map((book) => {
+            return (
+              <Card
+                key={book.book_uid}
+                pageUrl={`/philosophy/${book.book_uid}`}
+                altText={book.book_title}
+                title={book.author.author_name}
+                secondaryText={book.country_of_origin}
+                imageUrl={book.book_cover_image}
+                imageHeight="400px"
+              />
+            );
+          })}
+        </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 

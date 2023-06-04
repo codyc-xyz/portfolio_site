@@ -8,7 +8,6 @@ import Dropdown from '../components/general/Dropdown';
 import TitleComponent from '../components/general/TitleComponent';
 import SearchBarComponent from '../components/general/SearchBarComponent';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
-import Layout from '../Layout';
 
 const Directors: React.FC = () => {
   const [directors, setDirectors] = useState<DirectorAttributes[]>([]);
@@ -150,50 +149,48 @@ const Directors: React.FC = () => {
     />
   );
   return (
-    <Layout>
-      <div className="container text-text">
-        <Header />
-        <div className="flex flex-col gap-2">
-          <div className="w-full flex items-center justify-between">
-            <div className="flex items-center">
-              <LinkComponent href={randomDirector} text="Random" />
-              <ButtonWithDropdown
-                label="Sort"
-                isExpanded={isSortExpanded}
-                onButtonClick={() => setSortExpanded(!isSortExpanded)}
-                dropdown={dropdown}
-                widthClass="w-full"
-                paddingClass=" w-full py-1 px-3 ml-5 mr-7"
+    <div className="container text-text">
+      <Header />
+      <div className="flex flex-col gap-2">
+        <div className="w-full flex items-center justify-between">
+          <div className="flex items-center">
+            <LinkComponent href={randomDirector} text="Random" />
+            <ButtonWithDropdown
+              label="Sort"
+              isExpanded={isSortExpanded}
+              onButtonClick={() => setSortExpanded(!isSortExpanded)}
+              dropdown={dropdown}
+              widthClass="w-full"
+              paddingClass=" w-full py-1 px-3 ml-5 mr-7"
+            />
+          </div>
+          <TitleComponent
+            text={`Directors I Love`}
+            className="self-center mx-auto"
+          />
+          <SearchBarComponent
+            searchValue={searchValue}
+            onSubmit={handleSearchSubmit}
+            onInputChange={handleSearchInputChange}
+            onClear={handleClearSearch}
+          />
+        </div>
+        <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
+          {filteredDirectors.map((director) => {
+            return (
+              <Card
+                key={director.director_uid}
+                pageUrl={`/directors/${director.director_uid}`}
+                altText={director.director_name}
+                title={director.director_name}
+                imageUrl={director.director_image}
+                secondaryText={director.director_country_of_birth}
               />
-            </div>
-            <TitleComponent
-              text={`Directors I Love`}
-              className="self-center mx-auto"
-            />
-            <SearchBarComponent
-              searchValue={searchValue}
-              onSubmit={handleSearchSubmit}
-              onInputChange={handleSearchInputChange}
-              onClear={handleClearSearch}
-            />
-          </div>
-          <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
-            {filteredDirectors.map((director) => {
-              return (
-                <Card
-                  key={director.director_uid}
-                  pageUrl={`/directors/${director.director_uid}`}
-                  altText={director.director_name}
-                  title={director.director_name}
-                  imageUrl={director.director_image}
-                  secondaryText={director.director_country_of_birth}
-                />
-              );
-            })}
-          </div>
+            );
+          })}
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 
