@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Link } from 'gatsby';
+import MusicPlayer from './components/general/MusicPlayer';
 
 interface LayoutProps {
   children: ReactNode;
@@ -7,23 +7,10 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <body>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/"></Link>
-            </li>
-            <li>
-              <Link to="/movies"></Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <div className="container">{children}</div>
-      </main>
-    </body>
+    <>
+      <MusicPlayer />
+      {children}
+    </>
   );
 };
 

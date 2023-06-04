@@ -8,6 +8,7 @@ import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
 import Filter from '../components/general/Filter';
 import axios from 'axios';
+import Layout from '../Layout';
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
@@ -435,54 +436,56 @@ const Movies: React.FC = () => {
   );
 
   return (
-    <div className="container text-text">
-      <Header />
+    <Layout>
+      <div className="container text-text">
+        <Header />
 
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-4">
-          <ButtonWithDropdown
-            widthClass="w-1/4"
-            paddingClass="w-full py-2 px-2"
-            label="Sort"
-            isExpanded={isSortExpanded}
-            onButtonClick={() => setSortExpanded(!isSortExpanded)}
-            dropdown={dropdown}
-          />
-          <Filter
-            isFilterExpanded={isFilterExpanded}
-            onFilterClick={() => setFilterExpanded(!isFilterExpanded)}
-            filterSections={filterSections}
-            onClear={handleFilterClear}
-            filteredItemsLength={filteredMovies.length}
-            itemsLength={movies.length}
-          />
-        </div>
-        <div>
-          <div>
-            <PageHeader
-              randomItem={randomMovie}
-              searchValue={searchValue}
-              onSubmit={handleSearchSubmit}
-              onInputChange={handleSearchInputChange}
-              onClear={handleClearSearch}
-              titleText="Movies I Love"
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-4">
+            <ButtonWithDropdown
+              widthClass="w-1/4"
+              paddingClass="w-full py-2 px-2"
+              label="Sort"
+              isExpanded={isSortExpanded}
+              onButtonClick={() => setSortExpanded(!isSortExpanded)}
+              dropdown={dropdown}
             />
-            <div className="grid grid-cols-6 gap-4 mt-2">
-              {filteredMovies.map((movie) => (
-                <Card
-                  key={movie.movie_uid}
-                  pageUrl={`/movies/${movie.movie_uid}`}
-                  altText={movie.movie_title}
-                  title={movie.director.director_name}
-                  imageUrl={movie.movie_poster}
-                  secondaryText={movie.country_of_origin}
-                />
-              ))}
+            <Filter
+              isFilterExpanded={isFilterExpanded}
+              onFilterClick={() => setFilterExpanded(!isFilterExpanded)}
+              filterSections={filterSections}
+              onClear={handleFilterClear}
+              filteredItemsLength={filteredMovies.length}
+              itemsLength={movies.length}
+            />
+          </div>
+          <div>
+            <div>
+              <PageHeader
+                randomItem={randomMovie}
+                searchValue={searchValue}
+                onSubmit={handleSearchSubmit}
+                onInputChange={handleSearchInputChange}
+                onClear={handleClearSearch}
+                titleText="Movies I Love"
+              />
+              <div className="grid grid-cols-6 gap-4 mt-2">
+                {filteredMovies.map((movie) => (
+                  <Card
+                    key={movie.movie_uid}
+                    pageUrl={`/movies/${movie.movie_uid}`}
+                    altText={movie.movie_title}
+                    title={movie.director.director_name}
+                    imageUrl={movie.movie_poster}
+                    secondaryText={movie.country_of_origin}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

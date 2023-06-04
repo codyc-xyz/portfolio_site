@@ -116,7 +116,7 @@ const MusicPlayer: React.FC = () => {
           } text-xl p-1 m-1`}
           onClick={() => handleButtonSelect(dreamsPlaylist, `starryNight`)}
         >
-          🌌
+          🌙
         </button>
         <button
           className={`${
