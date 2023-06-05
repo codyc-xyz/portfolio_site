@@ -75,7 +75,7 @@ const MusicPlayer: React.FC = () => {
       audioSrc: `/static/audio/I'll_Never_Forget.mp3`,
     },
   ];
-
+  console.log(`mounted`);
   const audioRef = useRef(
     new Audio(currentPlaylist[currentSongIndex]?.audioSrc),
   );
@@ -93,7 +93,8 @@ const MusicPlayer: React.FC = () => {
     } else {
       audioRef.current.pause();
     }
-  }, [currentSongIndex, isPlaying, currentPlaylist, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSongIndex, isPlaying, currentPlaylist]);
 
   const handleNext = () => {
     dispatch(
@@ -120,7 +121,7 @@ const MusicPlayer: React.FC = () => {
   };
 
   return (
-    <div className="absolute right-2 bottom-2 flex flex-col space-y-2">
+    <div className="fixed right-2 bottom-2 flex flex-col space-y-2">
       <div className="flex-row text-center">
         <button
           className={`${
