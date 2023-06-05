@@ -1,18 +1,25 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import { MusicPlayerContext } from '../../contexts/MusicPlayerContext';
 import Song from '../../types/Song';
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  AppState,
+  togglePlay,
+  setCurrentSongIndex,
+  setCurrentPlaylist,
+  setSelectedButton,
+} from '../../redux/store';
 
 const MusicPlayer: React.FC = () => {
-  const {
-    isPlaying,
-    togglePlay,
-    currentSongIndex,
-    setCurrentSongIndex,
-    currentPlaylist,
-    setCurrentPlaylist,
-    selectedButton,
-    setSelectedButton,
-  } = useContext(MusicPlayerContext);
+  const isPlaying = useSelector((state: AppState) => state.isPlaying);
+  const currentSongIndex = useSelector(
+    (state: AppState) => state.currentSongIndex,
+  );
+  const currentPlaylist = useSelector(
+    (state: AppState) => state.currentPlaylist,
+  );
+  const selectedButton = useSelector((state: AppState) => state.selectedButton);
+  const dispatch = useDispatch();
+
   const dreamsPlaylist: Song[] = [
     {
       title: `Dream a Little Dream of Me`,
@@ -75,25 +82,31 @@ const MusicPlayer: React.FC = () => {
 
   useEffect(() => {
     if (currentSongIndex > currentPlaylist.length) {
-      setCurrentSongIndex(0);
+      dispatch(setCurrentSongIndex(0));
     }
     audioRef.current.src = currentPlaylist[currentSongIndex]?.audioSrc;
 
     if (isPlaying) {
-      audioRef.current.play();
+      audioRef.current
+        .play()
+        .catch((error) => console.error(`Audio playback error: `, error));
     } else {
       audioRef.current.pause();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSongIndex, isPlaying, currentPlaylist]);
+  }, [currentSongIndex, isPlaying, currentPlaylist, dispatch]);
 
   const handleNext = () => {
-    setCurrentSongIndex((currentSongIndex + 1) % currentPlaylist.length);
+    dispatch(
+      setCurrentSongIndex((currentSongIndex + 1) % currentPlaylist.length),
+    );
   };
 
   const handlePrev = () => {
-    setCurrentSongIndex(
-      (currentSongIndex - 1 + currentPlaylist.length) % currentPlaylist.length,
+    dispatch(
+      setCurrentSongIndex(
+        (currentSongIndex - 1 + currentPlaylist.length) %
+          currentPlaylist.length,
+      ),
     );
   };
 
@@ -101,10 +114,9 @@ const MusicPlayer: React.FC = () => {
     playlist: Song[],
     button: 'starryNight' | 'discoBall',
   ) => {
-    setCurrentPlaylist(playlist);
-    setSelectedButton(button);
-    setCurrentSongIndex(0);
-    togglePlay();
+    dispatch(setCurrentPlaylist(playlist));
+    dispatch(setSelectedButton(button));
+    dispatch(setCurrentSongIndex(0));
   };
 
   return (
@@ -146,7 +158,7 @@ const MusicPlayer: React.FC = () => {
         </button>
         <button
           className="p-2 text-primary hover:opacity-50"
-          onClick={togglePlay}
+          onClick={() => dispatch(togglePlay())}
         >
           {isPlaying ? (
             <svg

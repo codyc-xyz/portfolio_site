@@ -1,46 +1,48 @@
+import { Link } from 'gatsby';
+
 const Header = () => {
   return (
     <header className="flex items-center justify-between py-4 px-0">
       <div className="w-1/4">
-        <a className="text-xl text-text hover:text-opacity-50" href="/">
+        <Link className="text-xl text-text hover:text-opacity-50" to="/">
           Home
-        </a>
+        </Link>
       </div>
       <nav className="w-2/4 flex items-center justify-between">
-        <a
+        <Link
           className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
-          href="/movies"
+          to="/movies"
         >
           Movies
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
-          href="/directors"
+          to="/directors"
         >
           Directors
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
-          href="/philosophy"
+          to="/philosophy"
         >
           Philosophy
-        </a>
-        <a
+        </Link>
+        <Link
           className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
-          href="/authors"
+          to="/authors"
         >
           Authors
-        </a>
+        </Link>
       </nav>
 
       <div className="w-1/4 flex items-center justify-end">
         <div className="mr-0">
-          <a
+          <Link
             className="text-xl font-medium text-text hover:text-opacity-50"
-            href="/projects"
+            to="/projects"
           >
             Projects
-          </a>
+          </Link>
         </div>
       </div>
     </header>

@@ -1,5 +1,13 @@
-import React, { createContext, useState } from 'react';
-import Song from '../types/Song';
+import React, { createContext, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Song from '@/types/Song';
+import {
+  AppState,
+  togglePlay,
+  setCurrentSongIndex,
+  setCurrentPlaylist,
+  setSelectedButton,
+} from '../redux/store';
 
 interface MusicPlayerContextValue {
   isPlaying: boolean;
@@ -12,44 +20,60 @@ interface MusicPlayerContextValue {
   setSelectedButton: (button: 'starryNight' | 'discoBall') => void;
 }
 
-export const MusicPlayerContext = createContext<MusicPlayerContextValue>({
-  isPlaying: false,
-  togglePlay: () => {},
-  currentSongIndex: 0,
-  setCurrentSongIndex: () => {},
-  currentPlaylist: [],
-  setCurrentPlaylist: () => {},
-  selectedButton: `starryNight`,
-  setSelectedButton: () => {},
-});
+export const MusicPlayerContext = createContext<
+  MusicPlayerContextValue | undefined
+>(undefined);
 
-export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
+export const useMusicPlayer = () => {
+  const context = useContext(MusicPlayerContext);
+  if (!context) {
+    throw new Error(`useMusicPlayer must be used within a MusicPlayerProvider`);
+  }
+  return context;
+};
+
+export const MusicPlayerProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [currentPlaylist, setCurrentPlaylist] = useState<Song[]>([]);
-  const [selectedButton, setSelectedButton] = useState<
-    'starryNight' | 'discoBall'
-  >(`starryNight`);
+  const isPlaying = useSelector((state: AppState) => state.isPlaying);
+  const currentSongIndex = useSelector(
+    (state: AppState) => state.currentSongIndex,
+  );
+  const currentPlaylist = useSelector(
+    (state: AppState) => state.currentPlaylist,
+  );
+  const selectedButton = useSelector((state: AppState) => state.selectedButton);
+  const dispatch = useDispatch();
 
-  const togglePlay = () => {
-    setIsPlaying((prevState) => !prevState);
+  const togglePlayHandler = () => {
+    dispatch(togglePlay());
+  };
+
+  const setCurrentSongIndexHandler = (index: number) => {
+    dispatch(setCurrentSongIndex(index));
+  };
+
+  const setCurrentPlaylistHandler = (playlist: Song[]) => {
+    dispatch(setCurrentPlaylist(playlist));
+  };
+
+  const setSelectedButtonHandler = (button: 'starryNight' | 'discoBall') => {
+    dispatch(setSelectedButton(button));
+  };
+
+  const contextValue: MusicPlayerContextValue = {
+    isPlaying,
+    togglePlay: togglePlayHandler,
+    currentSongIndex,
+    setCurrentSongIndex: setCurrentSongIndexHandler,
+    currentPlaylist,
+    setCurrentPlaylist: setCurrentPlaylistHandler,
+    selectedButton,
+    setSelectedButton: setSelectedButtonHandler,
   };
 
   return (
-    <MusicPlayerContext.Provider
-      value={{
-        isPlaying,
-        togglePlay,
-        currentSongIndex,
-        setCurrentSongIndex,
-        currentPlaylist,
-        setCurrentPlaylist,
-        selectedButton,
-        setSelectedButton,
-      }}
-    >
+    <MusicPlayerContext.Provider value={contextValue}>
       {children}
     </MusicPlayerContext.Provider>
   );

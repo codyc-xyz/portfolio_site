@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.7.14",
+    "@reduxjs/toolkit": "1.9.5",
     "apollo-server-express": "3.12.0",
     "assert": "2.0.0",
     "autoprefixer": "10.4.14",
@@ -70,7 +71,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-feather": "2.0.10",
+    "react-redux": "8.0.7",
     "react-router-dom": "6.11.1",
+    "redux": "4.2.1",
     "sequelize": "6.31.1",
     "stream": "0.0.2",
     "stream-browserify": "3.0.0",
