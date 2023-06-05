@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
+import { MusicPlayerContext } from '../../contexts/MusicPlayerContext';
 import Song from '../../types/Song';
 
-type ButtonSelection = 'starryNight' | 'discoBall';
-
 const MusicPlayer: React.FC = () => {
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-
+  const {
+    isPlaying,
+    togglePlay,
+    currentSongIndex,
+    setCurrentSongIndex,
+    currentPlaylist,
+    setCurrentPlaylist,
+    selectedButton,
+    setSelectedButton,
+  } = useContext(MusicPlayerContext);
   const dreamsPlaylist: Song[] = [
     {
       title: `Dream a Little Dream of Me`,
@@ -63,20 +69,15 @@ const MusicPlayer: React.FC = () => {
     },
   ];
 
-  const [currentPlaylist, setCurrentPlaylist] =
-    useState<Song[]>(dreamsPlaylist);
-  const [selectedButton, setSelectedButton] =
-    useState<ButtonSelection>(`starryNight`);
-
-  const audioRef = React.useRef(
-    new Audio(currentPlaylist[currentSongIndex].audioSrc),
+  const audioRef = useRef(
+    new Audio(currentPlaylist[currentSongIndex]?.audioSrc),
   );
 
   useEffect(() => {
     if (currentSongIndex > currentPlaylist.length) {
       setCurrentSongIndex(0);
     }
-    audioRef.current.src = currentPlaylist[currentSongIndex].audioSrc;
+    audioRef.current.src = currentPlaylist[currentSongIndex]?.audioSrc;
 
     if (isPlaying) {
       audioRef.current.play();
@@ -96,15 +97,14 @@ const MusicPlayer: React.FC = () => {
     );
   };
 
-  const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
-
-  const handleButtonSelect = (playlist: Song[], button: ButtonSelection) => {
+  const handleButtonSelect = (
+    playlist: Song[],
+    button: 'starryNight' | 'discoBall',
+  ) => {
     setCurrentPlaylist(playlist);
     setSelectedButton(button);
     setCurrentSongIndex(0);
-    setIsPlaying(false);
+    togglePlay();
   };
 
   return (
@@ -146,7 +146,7 @@ const MusicPlayer: React.FC = () => {
         </button>
         <button
           className="p-2 text-primary hover:opacity-50"
-          onClick={handlePlayPause}
+          onClick={togglePlay}
         >
           {isPlaying ? (
             <svg
