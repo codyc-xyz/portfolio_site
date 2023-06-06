@@ -65,7 +65,7 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
               key={book.book_uid}
               imageUrl={book.book_cover_image}
               altText={`Book ${book.book_title}`}
-              pageUrl={`/books/${book.book_uid}`}
+              pageUrl={`/philosophy/${book.book_uid}`}
               imageHeight="400px"
             />
           ))}

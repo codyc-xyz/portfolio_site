@@ -303,6 +303,13 @@ const Movies: React.FC = () => {
     }, []);
   };
 
+  const handleRandomClick = () => {
+    if (filteredMovies.length > 0) {
+      const newIndex = Math.floor(Math.random() * filteredMovies.length);
+      setRandomMovieIndex(newIndex);
+    }
+  };
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -466,6 +473,7 @@ const Movies: React.FC = () => {
               onInputChange={handleSearchInputChange}
               onClear={handleClearSearch}
               titleText="Movies I Love"
+              onClick={handleRandomClick}
             />
             <div className="grid grid-cols-6 gap-4 mt-2">
               {filteredMovies.map((movie) => (

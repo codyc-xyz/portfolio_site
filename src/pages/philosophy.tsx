@@ -84,7 +84,6 @@ const Books: React.FC = () => {
     setSortExpanded(!isSortExpanded);
     setSelectedSortOption(option);
   };
-  console.log(books);
   const handleFilterClear = () => {
     setFilteredBooks(
       books.filter(
@@ -195,8 +194,6 @@ const Books: React.FC = () => {
 
   const handleLengthClick = (length: string) => {
     if (selectedLength === length) {
-      console.log(selectedLength, length, selectedSubjects, selectedCentury);
-
       setSelectedLength(null);
       setFilteredBooks(
         books.filter((book) => {
@@ -298,6 +295,13 @@ const Books: React.FC = () => {
       }
       return lengths;
     }, []);
+  };
+
+  const handleRandomClick = () => {
+    if (filteredBooks.length > 0) {
+      const newIndex = Math.floor(Math.random() * filteredBooks.length);
+      setRandomBookIndex(newIndex);
+    }
   };
 
   useEffect(() => {
@@ -464,6 +468,7 @@ const Books: React.FC = () => {
           <div>
             <PageHeader
               randomItem={randomBook}
+              onClick={handleRandomClick}
               searchValue={searchValue}
               onSubmit={handleSearchSubmit}
               onInputChange={handleSearchInputChange}

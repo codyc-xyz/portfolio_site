@@ -80,13 +80,20 @@ const Directors: React.FC = () => {
             b.director_country_of_birth,
           ),
         );
-      case `Number of Movies`:
+      case `Number of Films`:
         return directors.sort((a, b) => b.movies.length - a.movies.length);
       default:
         return directors;
     }
   };
+  const handleRandomClick = () => {
+    if (filteredDirectors.length > 0) {
+      const newIndex = Math.floor(Math.random() * filteredDirectors.length);
+      setRandomDirectorIndex(newIndex);
+    }
+  };
 
+  console.log(directors);
   useEffect(() => {
     async function fetchDirectors() {
       try {
@@ -154,14 +161,18 @@ const Directors: React.FC = () => {
       <div className="flex flex-col gap-2">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center">
-            <LinkComponent href={randomDirector} text="Random" />
+            <LinkComponent
+              href={randomDirector}
+              text="Random"
+              onClick={handleRandomClick}
+            />
             <ButtonWithDropdown
               label="Sort"
               isExpanded={isSortExpanded}
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
               widthClass="w-full"
-              paddingClass=" w-full py-1 px-3 ml-5 mr-7"
+              paddingClass=" w-full py-1 px-5 ml-5 mr-7"
             />
           </div>
           <TitleComponent

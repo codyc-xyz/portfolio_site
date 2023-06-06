@@ -75,7 +75,6 @@ const MusicPlayer: React.FC = () => {
       audioSrc: `/static/audio/I'll_Never_Forget.mp3`,
     },
   ];
-  console.log(`mounted`);
   const audioRef = useRef(
     new Audio(currentPlaylist[currentSongIndex]?.audioSrc),
   );

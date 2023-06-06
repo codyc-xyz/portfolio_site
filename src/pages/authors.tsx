@@ -53,6 +53,13 @@ const Authors: React.FC = () => {
     setSelectedSortOption(option);
   };
 
+  const handleRandomClick = () => {
+    if (filteredAuthors.length > 0) {
+      const newIndex = Math.floor(Math.random() * filteredAuthors.length);
+      setRandomAuthorIndex(newIndex);
+    }
+  };
+
   const sortAuthors = (authors: AuthorAttributes[], sortOption: string) => {
     switch (sortOption) {
       case `Name (A-Z)`:
@@ -147,14 +154,18 @@ const Authors: React.FC = () => {
       <div className="flex flex-col gap-2">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center">
-            <LinkComponent href={randomAuthor} text="Random" />
+            <LinkComponent
+              href={randomAuthor}
+              text="Random"
+              onClick={handleRandomClick}
+            />
             <ButtonWithDropdown
               label="Sort"
               isExpanded={isSortExpanded}
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
               widthClass="w-full"
-              paddingClass=" w-full py-1 px-3 ml-5 mr-7"
+              paddingClass=" w-full py-1 px-5 ml-5 mr-7"
             />
           </div>
           <TitleComponent
