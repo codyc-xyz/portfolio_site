@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import Song from '../types/Song';
+import { dreamsPlaylist } from '../components/general/MusicPlayer';
 
 export interface AppState {
   isPlaying: boolean;
@@ -36,7 +37,7 @@ type AppAction =
 const initialState: AppState = {
   isPlaying: false,
   currentSongIndex: 0,
-  currentPlaylist: [],
+  currentPlaylist: dreamsPlaylist,
   selectedButton: `starryNight`,
 };
 

@@ -9,6 +9,62 @@ import {
   setSelectedButton,
 } from '../../redux/store';
 
+export const dreamsPlaylist: Song[] = [
+  {
+    title: `Dream a Little Dream of Me`,
+    artist: `Dean Martin`,
+    audioSrc: `/static/audio/Dream_a_Little_Dream_of_Me.mp3`,
+  },
+  {
+    title: `Fruit of Dreams`,
+    artist: `Les Baxter`,
+    audioSrc: `/static/audio/Fruit_Of_Dreams.mp3`,
+  },
+  {
+    title: `Look To The Sky`,
+    artist: `Antônio Carlos Jobim`,
+    audioSrc: `/static/audio/Look_To_The_Sky.mp3`,
+  },
+  {
+    title: `Tenderly`,
+    artist: `Les Baxter`,
+    audioSrc: `/static/audio/Tenderly.mp3`,
+  },
+  {
+    title: `Here's To Life`,
+    artist: `Shirley Horn`,
+    audioSrc: `/static/audio/Here's_To_Life.mp3`,
+  },
+];
+
+const boogiePlaylist: Song[] = [
+  {
+    title: `Looking Up to You`,
+    artist: `Michael Wycoff`,
+    audioSrc: `/static/audio/Looking_Up_To_You.mp3`,
+  },
+  {
+    title: `Ha Ha, Hee Hee`,
+    artist: `Sly & The Family Stone`,
+    audioSrc: `/static/audio/Ha_Ha_Hee_Hee.mp3`,
+  },
+  {
+    title: `Let Love Enter`,
+    artist: `Michael Henderson`,
+    audioSrc: `/static/audio/Let_Love_Enter.mp3`,
+  },
+  {
+    title: `Mr Magician`,
+    artist: `Mystic Merlin`,
+    audioSrc: `/static/audio/Mr_Magician.mp3`,
+  },
+  {
+    title: `I'll Never Forget (My Favorite Disco)`,
+    artist: `Dexter Wansel, The Jones Girls`,
+    audioSrc: `/static/audio/I'll_Never_Forget.mp3`,
+  },
+];
+
 const MusicPlayer: React.FC = () => {
   const isPlaying = useSelector((state: AppState) => state.isPlaying);
   const currentSongIndex = useSelector(
@@ -20,61 +76,6 @@ const MusicPlayer: React.FC = () => {
   const selectedButton = useSelector((state: AppState) => state.selectedButton);
   const dispatch = useDispatch();
 
-  const dreamsPlaylist: Song[] = [
-    {
-      title: `Dream a Little Dream of Me`,
-      artist: `Dean Martin`,
-      audioSrc: `/static/audio/Dream_a_Little_Dream_of_Me.mp3`,
-    },
-    {
-      title: `Fruit of Dreams`,
-      artist: `Les Baxter`,
-      audioSrc: `/static/audio/Fruit_Of_Dreams.mp3`,
-    },
-    {
-      title: `Look To The Sky`,
-      artist: `Antônio Carlos Jobim`,
-      audioSrc: `/static/audio/Look_To_The_Sky.mp3`,
-    },
-    {
-      title: `Tenderly`,
-      artist: `Les Baxter`,
-      audioSrc: `/static/audio/Tenderly.mp3`,
-    },
-    {
-      title: `Here's To Life`,
-      artist: `Shirley Horn`,
-      audioSrc: `/static/audio/Here's_To_Life.mp3`,
-    },
-  ];
-
-  const boogiePlaylist: Song[] = [
-    {
-      title: `Looking Up to You`,
-      artist: `Michael Wycoff`,
-      audioSrc: `/static/audio/Looking_Up_To_You.mp3`,
-    },
-    {
-      title: `Ha Ha, Hee Hee`,
-      artist: `Sly & The Family Stone`,
-      audioSrc: `/static/audio/Ha_Ha_Hee_Hee.mp3`,
-    },
-    {
-      title: `Let Love Enter`,
-      artist: `Michael Henderson`,
-      audioSrc: `/static/audio/Let_Love_Enter.mp3`,
-    },
-    {
-      title: `Mr Magician`,
-      artist: `Mystic Merlin`,
-      audioSrc: `/static/audio/Mr_Magician.mp3`,
-    },
-    {
-      title: `I'll Never Forget (My Favorite Disco)`,
-      artist: `Dexter Wansel, The Jones Girls`,
-      audioSrc: `/static/audio/I'll_Never_Forget.mp3`,
-    },
-  ];
   const audioRef = useRef(
     new Audio(currentPlaylist[currentSongIndex]?.audioSrc),
   );
@@ -92,9 +93,19 @@ const MusicPlayer: React.FC = () => {
     } else {
       audioRef.current.pause();
     }
+
+    const handleEnd = () => {
+      handleNext();
+    };
+
+    audioRef.current.addEventListener(`ended`, handleEnd);
+
+    return () => {
+      audioRef.current.removeEventListener(`ended`, handleEnd);
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSongIndex, isPlaying, currentPlaylist]);
-
   const handleNext = () => {
     dispatch(
       setCurrentSongIndex((currentSongIndex + 1) % currentPlaylist.length),

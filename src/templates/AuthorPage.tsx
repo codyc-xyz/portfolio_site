@@ -53,7 +53,7 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
             src={authorImage}
             alt="Director Image"
             className="w-full"
-            style={{ height: `350px`, width: `250px` }}
+            style={{ height: `450px`, width: `350px` }}
           />
         </div>
       </div>
