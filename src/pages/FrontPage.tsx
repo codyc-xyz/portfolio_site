@@ -111,6 +111,8 @@ const FrontPage: React.FC = () => {
   return (
     <div className="container text-text flex flex-col h-screen">
       <Header />
+      <h1 className="text-2xl text-center mx-auto">At a Glance</h1>
+
       <Scrollbar title="Movies" data={movies} />
       <Scrollbar title="Directors" data={directors} />
       <Scrollbar title="Books" data={books} />

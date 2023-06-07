@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { ImageWithLink } from '../../pages/FrontPage';
+import React, { useState } from 'react';
 
 interface ScrollbarProps {
   title: string;
@@ -23,13 +23,14 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
     <div className="h-full w-full flex flex-col space-y-1 text-text">
       <h2 className="text-xl font-bold">{title}</h2>
       <div className="flex overflow-hidden">
-        <button
-          onClick={handlePrev}
-          disabled={currentIndex === 0}
-          className="text-grey-500"
-        >
-          &lt;
-        </button>
+        {currentIndex !== 0 && (
+          <button
+            onClick={handlePrev}
+            className="text-grey-500 hover:opacity-50"
+          >
+            &lt;
+          </button>
+        )}
         <div className="overflow-x-scroll hide-scrollbar grid grid-cols-6">
           {dataToDisplay.map((item, index) => {
             if (title === `Movies`) {
@@ -73,13 +74,14 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
             }
           })}
         </div>
-        <button
-          onClick={handleNext}
-          disabled={currentIndex >= data.length - 6}
-          className="text-grey-500"
-        >
-          &gt;
-        </button>
+        {currentIndex < data.length - 6 && (
+          <button
+            onClick={handleNext}
+            className="text-grey-500 hover:opacity-50"
+          >
+            &gt;
+          </button>
+        )}
       </div>
     </div>
   );
