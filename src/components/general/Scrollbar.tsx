@@ -10,23 +10,17 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 4, data.length - 1));
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 6, data.length - 1));
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => Math.max(prevIndex - 4, 0));
+    setCurrentIndex((prevIndex) => Math.max(prevIndex - 6, 0));
   };
 
   const dataToDisplay = data.slice(currentIndex, currentIndex + 6);
 
-  if (data.length < 6) {
-    while (dataToDisplay.length < 6) {
-      dataToDisplay.push({ src: ``, alt: ``, link: `` });
-    }
-  }
-
   return (
-    <div className="h-1/2 w-full flex flex-col space-y-2">
+    <div className="h-full w-full flex flex-col space-y-1 text-text">
       <h2 className="text-xl font-bold">{title}</h2>
       <div className="flex overflow-hidden">
         <button
@@ -36,7 +30,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
         >
           &lt;
         </button>
-        <div className="flex overflow-x-scroll hide-scrollbar">
+        <div className="overflow-x-scroll hide-scrollbar grid grid-cols-6">
           {dataToDisplay.map((item, index) => {
             if (title === `Movies`) {
               return (
@@ -84,7 +78,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
           disabled={currentIndex >= data.length - 6}
           className="text-grey-500"
         >
-          &rt;
+          &gt;
         </button>
       </div>
     </div>

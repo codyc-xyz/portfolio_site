@@ -19,14 +19,14 @@ export const ImageWithLink: React.FC<ImageWithLinkProps> = ({
   link,
 }) => {
   return (
-    <div className="flex flex-col items-center m-2 mb-4 bg-white shadow-lg overflow-hidden hover:shadow-sm">
+    <div className="flex flex-col items-center m-2 mb-4 bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm">
       <a
         href={link}
         target="_blank"
         rel="noopener noreferrer"
         className="relative"
       >
-        <img className="max-w-10 max-h-15 object-cover" src={src} alt={alt} />
+        <img className="w-10.5 h-11.5" src={src} alt={alt} />
       </a>
     </div>
   );
