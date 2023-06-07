@@ -1,66 +1,120 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
+import { DirectorAttributes } from '../types/DirectorAttributes';
+import { AuthorAttributes } from '../types/AuthorAttributes';
+import { BookAttributes } from '../types/BookAttributes';
+import { MovieAttributes } from '../types/MovieAttributes';
+import Scrollbar from '../components/general/Scrollbar';
+import axios from 'axios';
 
-interface ImageWithTextProps {
+export interface ImageWithLinkProps {
   src: string;
   alt: string;
   link: string;
 }
 
-const ImageWithText: React.FC<ImageWithTextProps> = ({ src, alt, link }) => {
+export const ImageWithLink: React.FC<ImageWithLinkProps> = ({
+  src,
+  alt,
+  link,
+}) => {
   return (
-    <div className="flex flex-col items-center m-2 mb-4 bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm">
+    <div className="flex flex-col items-center m-2 mb-4 bg-white shadow-lg overflow-hidden hover:shadow-sm">
       <a
         href={link}
         target="_blank"
         rel="noopener noreferrer"
         className="relative"
       >
-        <img className="w-full h-auto object-cover" src={src} alt={alt} />
+        <img className="max-w-10 max-h-15 object-cover" src={src} alt={alt} />
       </a>
     </div>
   );
 };
 
 const FrontPage: React.FC = () => {
-  const images = [
-    {
-      src: `/static/Front_Page/MovieDemoScreenShot.png`,
-      alt: `Movie Page`,
-      link: `/movies/8ad79b8a-9674-4fb6-bc50-3b6b35844272/`,
-    },
-    {
-      src: `/static/Front_Page/PhilosophyDemoScreenShot.png`,
-      alt: `Philosophy Page`,
-      link: `/philosophy/0ace69d6-f36c-41bf-9189-6f833833e157`,
-    },
-  ];
+  const [directors, setDirectors] = useState<DirectorAttributes[]>([]);
+  const [authors, setAuthors] = useState<AuthorAttributes[]>([]);
+  const [books, setBooks] = useState<BookAttributes[]>([]);
+  const [movies, setMovies] = useState<MovieAttributes[]>([]);
+
+  const shuffleArray = (array: any[]): any[] => {
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
+
+  useEffect(() => {
+    async function fetchDirectors() {
+      try {
+        const response = await axios.get<DirectorAttributes[]>(
+          `http://localhost:3001/directors`,
+        );
+        const fetchedDirectors = shuffleArray(response.data);
+        setDirectors(fetchedDirectors);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    async function fetchAuthors() {
+      try {
+        const response = await axios.get<AuthorAttributes[]>(
+          `http://localhost:3001/authors`,
+        );
+        const fetchedAuthors = shuffleArray(response.data);
+        setAuthors(fetchedAuthors);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    async function fetchBooks() {
+      try {
+        const response = await axios.get<BookAttributes[]>(
+          `http://localhost:3001/books`,
+        );
+        const fetchedBooks = shuffleArray(response.data);
+        setBooks(fetchedBooks);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    async function fetchMovies() {
+      try {
+        const response = await axios.get<MovieAttributes[]>(
+          `http://localhost:3001/movies`,
+        );
+        const fetchedMovies = shuffleArray(response.data);
+        setMovies(fetchedMovies);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchMovies();
+    fetchBooks();
+    fetchAuthors();
+    fetchDirectors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="container text-text flex flex-col h-screen">
       <Header />
-      <div className="flex flex-col justify-center text-3xl mx-0 my-2">
-        <p className="my-1">Hi.</p>
-        <p className="my-2">My name is Cody.</p>
-        <p className="my-2">
-          I&apos;m a developer passionate about movies, music, philosophy, and
-          code.
-        </p>
-        <p className="my-2">Welcome to my portfolio.</p>
-        <p className="my-2">
-          Explore movies I love, philosophy I find interesting, and much more!
-        </p>
-      </div>
-      <div className="grid grid-cols-2 gap-1 flex-grow">
-        {images.map((image, index) => (
-          <ImageWithText
-            key={index}
-            src={image.src}
-            alt={image.alt}
-            link={image.link}
-          />
-        ))}
-      </div>
+      <Scrollbar title="Movies" data={movies} />
+      <Scrollbar title="Directors" data={directors} />
+      <Scrollbar title="Books" data={books} />
+      <Scrollbar title="Authors" data={authors} />
     </div>
   );
 };
