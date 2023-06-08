@@ -10,13 +10,20 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 6, data.length - 1));
+    setCurrentIndex((prevIndex) => {
+      const remainingItems = data.length - (prevIndex + 6);
+      if (remainingItems < 6 && remainingItems > 0) {
+        return prevIndex + remainingItems;
+      } else if (remainingItems >= 6) {
+        return prevIndex + 6;
+      } else {
+        return prevIndex;
+      }
+    });
   };
-
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - 6, 0));
   };
-
   const dataToDisplay = data.slice(currentIndex, currentIndex + 6);
 
   return (
@@ -60,7 +67,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   link={`/authors/${item.author_uid}`}
                 />
               );
-            } else if (title === `Books`) {
+            } else if (title === `Philosophy`) {
               return (
                 <ImageWithLink
                   key={index}

@@ -107,15 +107,16 @@ const FrontPage: React.FC = () => {
     fetchDirectors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <div className="container text-text flex flex-col h-screen">
       <Header />
-      <h1 className="text-2xl text-center mx-auto">At a Glance</h1>
+      <h1 className="text-center text-3xl flex-grow flex-shrink-0 mx-auto w-1/2">
+        At a Glance
+      </h1>
 
       <Scrollbar title="Movies" data={movies} />
       <Scrollbar title="Directors" data={directors} />
-      <Scrollbar title="Books" data={books} />
+      <Scrollbar title="Philosophy" data={books} />
       <Scrollbar title="Authors" data={authors} />
     </div>
   );
