@@ -1,4 +1,4 @@
-export const hashtagsData = [
+export const hashtagsData: { Hashtag: string; Count: number }[] = [
   {
     Hashtag: `#ENGLOTxRapidLife`,
     Count: 22669,
