@@ -29,16 +29,20 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
   return (
     <div className="h-full w-full flex flex-col space-y-1 text-text">
       <h2 className="text-xl font-bold">{title}</h2>
-      <div className="flex overflow-hidden">
-        {currentIndex !== 0 && (
+      <div className="flex">
+        <div
+          className={`flex ${
+            currentIndex !== 0 ? `` : `opacity-0 pointer-events-none`
+          }`}
+        >
           <button
             onClick={handlePrev}
             className="text-grey-500 hover:opacity-50"
           >
             &lt;
           </button>
-        )}
-        <div className="overflow-x-scroll hide-scrollbar grid grid-cols-6">
+        </div>
+        <div className="overflow-x-scroll hide-scrollbar grid grid-cols-6 flex-grow">
           {dataToDisplay.map((item) => {
             if (title === `Movies`) {
               return (
@@ -81,17 +85,22 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
             }
           })}
         </div>
-        {currentIndex < data.length - 6 && (
+        <div
+          className={`flex ${
+            currentIndex < data.length - 6
+              ? ``
+              : `opacity-0 pointer-events-none`
+          }`}
+        >
           <button
             onClick={handleNext}
             className="text-grey-500 hover:opacity-50"
           >
             &gt;
           </button>
-        )}
+        </div>
       </div>
     </div>
   );
 };
-
 export default Scrollbar;
