@@ -1,4 +1,4 @@
-import { ImageWithLink } from '../../pages/FrontPage';
+import { ImageWithLink } from './ImageWithLink';
 import React, { useState } from 'react';
 
 interface ScrollbarProps {
@@ -39,11 +39,11 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
           </button>
         )}
         <div className="overflow-x-scroll hide-scrollbar grid grid-cols-6">
-          {dataToDisplay.map((item, index) => {
+          {dataToDisplay.map((item) => {
             if (title === `Movies`) {
               return (
                 <ImageWithLink
-                  key={index}
+                  key={item.movie_uid}
                   src={item.movie_poster}
                   alt={item.title}
                   link={`/movies/${item.movie_uid}`}
@@ -52,7 +52,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
             } else if (title === `Directors`) {
               return (
                 <ImageWithLink
-                  key={index}
+                  key={item.director_uid}
                   src={item.director_image}
                   alt={item.director_name}
                   link={`/directors/${item.director_uid}`}
@@ -61,7 +61,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
             } else if (title === `Authors`) {
               return (
                 <ImageWithLink
-                  key={index}
+                  key={item.author_uid}
                   src={item.author_image}
                   alt={item.author_name}
                   link={`/authors/${item.author_uid}`}
@@ -70,7 +70,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
             } else if (title === `Philosophy`) {
               return (
                 <ImageWithLink
-                  key={index}
+                  key={item.book_uid}
                   src={item.book_cover_image}
                   alt={item.book_title}
                   link={`/philosophy/${item.book_uid}`}
