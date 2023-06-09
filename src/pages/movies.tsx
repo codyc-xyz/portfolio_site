@@ -7,7 +7,35 @@ import PageHeader from '../components/general/PageHeader';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
 import Filter from '../components/general/Filter';
-import axios from 'axios';
+import { useQuery, gql } from '@apollo/client';
+
+const GET_MOVIES = gql`
+  {
+    allMovies {
+      movie_uid
+      movie_title
+      movie_description
+      length_in_minutes
+      date_movie_released
+      movie_genres
+      movie_poster
+      letterboxd_link
+      screenshot_links
+      country_of_origin
+      content_warnings
+      director_uid
+      director {
+        director_uid
+        director_name
+        director_biography
+        date_director_born
+        date_director_deceased
+        director_country_of_birth
+        director_image
+      }
+    }
+  }
+`;
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
@@ -27,6 +55,8 @@ const Movies: React.FC = () => {
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>(`Title (A-Z)`);
+
+  const { loading, error, data } = useQuery(GET_MOVIES);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -221,37 +251,42 @@ const Movies: React.FC = () => {
   };
 
   const sortMovies = (movies: MovieAttributes[], sortOption: string) => {
+    const moviesCopy = [...movies];
     switch (sortOption) {
       case `Title (A-Z)`:
-        return movies.sort((a, b) =>
+        return moviesCopy.sort((a, b) =>
           a.movie_title.localeCompare(b.movie_title),
         );
       case `Release Date Ascending`:
-        return movies.sort(
+        return moviesCopy.sort(
           (a, b) =>
             new Date(a.date_movie_released).getTime() -
             new Date(b.date_movie_released).getTime(),
         );
       case `Release Date Descending`:
-        return movies.sort(
+        return moviesCopy.sort(
           (a, b) =>
             new Date(b.date_movie_released).getTime() -
             new Date(a.date_movie_released).getTime(),
         );
       case `Director (A-Z)`:
-        return movies.sort((a, b) =>
+        return moviesCopy.sort((a, b) =>
           a.director.director_name.localeCompare(b.director.director_name),
         );
       case `Country (A-Z)`:
-        return movies.sort((a, b) =>
+        return moviesCopy.sort((a, b) =>
           a.country_of_origin.localeCompare(b.country_of_origin),
         );
       case `Length Ascending`:
-        return movies.sort((a, b) => a.length_in_minutes - b.length_in_minutes);
+        return moviesCopy.sort(
+          (a, b) => a.length_in_minutes - b.length_in_minutes,
+        );
       case `Length Descending`:
-        return movies.sort((a, b) => b.length_in_minutes - a.length_in_minutes);
+        return moviesCopy.sort(
+          (a, b) => b.length_in_minutes - a.length_in_minutes,
+        );
       default:
-        return movies;
+        return moviesCopy;
     }
   };
 
@@ -311,19 +346,12 @@ const Movies: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await axios.get<MovieAttributes[]>(
-          `http://localhost:3001/movies`,
-        );
-        const fetchedMovies = sortMovies(response.data, selectedSortOption);
-        setMovies(fetchedMovies);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchMovies();
-  }, []);
+    if (!loading && !error && data) {
+      const fetchedMovies = sortMovies(data.allMovies, selectedSortOption);
+      setMovies(fetchedMovies);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, error, data]);
 
   useEffect(() => {
     const sortedMovies = sortMovies([...filteredMovies], selectedSortOption);
@@ -440,6 +468,9 @@ const Movies: React.FC = () => {
       onOptionClick={handleSortOptionClick}
     />
   );
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
   return (
     <div className="container text-text">

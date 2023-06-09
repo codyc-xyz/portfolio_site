@@ -1,10 +1,8 @@
 'use strict';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-const express = require(`express`);
 const { Sequelize, DataTypes } = require(`sequelize`);
 const dotenv = require(`dotenv`);
+const express = require(`express`);
 const cors = require(`cors`);
-const FrontImage = require(`./src/types/ImageAttributes.ts`);
 const Movie = require(`./src/types/MovieAttributes`);
 const Director = require(`./src/types/DirectorAttributes`);
 const Book = require(`./src/types/BookAttributes`);
@@ -73,6 +71,7 @@ const schema = buildSchema(`
     chapter: String
     section: String
     book_uid: String!
+    book: Book!
   }
 
   type Query {
@@ -80,6 +79,7 @@ const schema = buildSchema(`
     allMovies: [Movie!]!
     allBooks: [Book!]!
     allAuthors: [Author!]!
+    allExcerpts: [Excerpt!]!
   }
 `);
 
@@ -172,6 +172,26 @@ const root = {
         tableName: `author`,
       });
       return authors;
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Internal Server Error`);
+    }
+  },
+  allExcerpts: async () => {
+    try {
+      const excerpts = await Excerpt.findAll({
+        include: [Book],
+        attributes: [
+          `excerpt_uid`,
+          `text`,
+          `page_number`,
+          `chapter`,
+          `section`,
+          `book_uid`,
+        ],
+        tableName: `excerpt`,
+      });
+      return excerpts;
     } catch (error) {
       console.error(error);
       throw new Error(`Internal Server Error`);
@@ -408,29 +428,6 @@ Author.hasMany(Book, { foreignKey: `author_uid` });
 Book.hasMany(Excerpt, { foreignKey: `book_uid` });
 Excerpt.belongsTo(Book, { foreignKey: `book_uid` });
 
-FrontImage.init(
-  {
-    imageUid: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    imageUrl: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    text: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-  },
-  { sequelize: db, modelName: `front_page_image` },
-);
-
 app.use(
   `/graphql`,
   graphqlHTTP({
@@ -439,142 +436,6 @@ app.use(
     graphiql: true,
   }),
 );
-
-export const client = new ApolloClient({
-  uri: `http://localhost:3001/graphql`,
-  cache: new InMemoryCache(),
-});
-
-app.get(`/excerpts`, async (req: Request, res: Response) => {
-  try {
-    const excerpts = await Excerpt.findAll({
-      include: [Book],
-      attributes: [
-        `excerpt_uid`,
-        `text`,
-        `page_number`,
-        `chapter`,
-        `section`,
-        `book_uid`,
-      ],
-      tableName: `excerpt`,
-    });
-    (res as any).status(200).json(excerpts);
-  } catch (error) {
-    console.error(error);
-    (res as any).status(500).send(`Internal Server Error`);
-  }
-});
-
-app.get(`/books`, async (req: Request, res: Response) => {
-  try {
-    const books = await Book.findAll({
-      include: [Author],
-      attributes: [
-        `book_uid`,
-        `book_title`,
-        `book_description`,
-        `date_book_published`,
-        `pages`,
-        `book_subjects`,
-        `isbn`,
-        `book_cover_image`,
-        `goodreads_link`,
-        `country_of_origin`,
-        `author_uid`,
-      ],
-      tableName: `book`,
-    });
-    (res as any).status(200).json(books);
-  } catch (error) {
-    console.error(error);
-    (res as any).status(500).send(`Internal Server Error`);
-  }
-});
-
-app.get(`/directors`, async (req: typeof Request, res: typeof Response) => {
-  try {
-    const directors = await Director.findAll({
-      include: [Movie],
-      attributes: [
-        `director_uid`,
-        `director_name`,
-        `director_biography`,
-        `date_director_born`,
-        `date_director_deceased`,
-        `director_country_of_birth`,
-        `director_image`,
-      ],
-      tableName: `director`,
-    });
-    (res as any).status(200).json(directors);
-  } catch (error) {
-    console.error(error);
-    (res as any).status(500).send(`Internal Server Error`);
-  }
-});
-
-app.get(`/authors`, async (req: typeof Request, res: typeof Response) => {
-  try {
-    const authors = await Author.findAll({
-      include: [Book],
-      attributes: [
-        `author_uid`,
-        `author_name`,
-        `author_biography`,
-        `date_author_born`,
-        `date_author_deceased`,
-        `author_image`,
-        `country_of_birth`,
-      ],
-      tableName: `author`,
-    });
-    (res as any).status(200).json(authors);
-  } catch (error) {
-    console.error(error);
-    (res as any).status(500).send(`Internal Server Error`);
-  }
-});
-
-app.get(`/movies`, async (req: typeof Request, res: typeof Response) => {
-  try {
-    const movies = await Movie.findAll({
-      include: [Director],
-      attributes: [
-        `movie_uid`,
-        `movie_title`,
-        `movie_description`,
-        `length_in_minutes`,
-        `date_movie_released`,
-        `movie_genres`,
-        `movie_poster`,
-        `letterboxd_link`,
-        `screenshot_links`,
-        `country_of_origin`,
-        `content_warnings`,
-        `director_uid`,
-      ],
-      tableName: `movie`,
-    });
-    (res as any).status(200).json(movies);
-  } catch (error) {
-    console.error(error);
-    (res as any).status(500).send(`Internal Server Error`);
-  }
-});
-
-app.get(`/images`, async (req: typeof Request, res: typeof Response) => {
-  try {
-    const images = await FrontImage.findAll({
-      attributes: [`image_uid`, `title`, `image_url`, `text`],
-      tableName: `front_page_image`,
-    });
-    (res as any).status(200).send(images);
-  } catch (error) {
-    console.error(error);
-    (res as any).status(500).send(`Internal Server Error`);
-  }
-});
 
 app.listen(3001, () => {
   console.log(`Server is running on port 3001`);
