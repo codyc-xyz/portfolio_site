@@ -61,6 +61,7 @@ const Game: React.FC = () => {
   const [hashtag2, setHashtag2] = useState<HashtagData | null>(null);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
 
   const selectHashtag = (selectedHashtag: string) => {
     if (
@@ -88,9 +89,42 @@ const Game: React.FC = () => {
     setHashtag2(randomHashtag2);
   };
 
+  const startButtonHandler = () => {
+    setGameStarted(true);
+  };
+
   useEffect(() => {
-    startGame();
-  }, []);
+    if (gameStarted) {
+      startGame();
+    }
+  }, [gameStarted]);
+
+  if (!gameStarted) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 py-6 px-4">
+        <div className="p-6 bg-gray-100 rounded-lg shadow-lg flex flex-col items-center space-y-3">
+          <p className="text-xl font-bold text-gray-800">
+            Given two hashtags, guess which one you think was most popular from
+            a dataset of millions of tweets scraped from the February 9th 2023
+            to February 13th 2023.
+          </p>
+          <p className="text-xl font-bold text-gray-800">
+            Click on <span className="text-blue-500">View on Twitter</span>
+            {` `}
+            to open current search results for the given hashtags. But be
+            careful! The thousand most popular hashtags in the dataset have not
+            been screened for inappropriate content.
+          </p>
+          <button
+            className="bg-blue-500 text-white rounded-full px-6 py-2 transition-colors duration-200 ease-in-out hover:bg-blue-600"
+            onClick={startButtonHandler}
+          >
+            Play
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 py-6 px-4">
