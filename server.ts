@@ -1,4 +1,5 @@
 'use strict';
+
 const { Sequelize, DataTypes } = require(`sequelize`);
 const dotenv = require(`dotenv`);
 const express = require(`express`);
@@ -106,7 +107,7 @@ const root = {
     }
   },
   Director: {
-    movies: async (parent) => {
+    movies: async (parent: { director_uid: string }) => {
       try {
         const movies = await Movie.findAll({
           where: { director_uid: parent.director_uid },

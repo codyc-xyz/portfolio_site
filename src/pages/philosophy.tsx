@@ -7,7 +7,28 @@ import Filter from '../components/general/Filter';
 import Dropdown from '../components/general/Dropdown';
 import PageHeader from '../components/general/PageHeader';
 import { OptionType } from '../components/general/FilterSection';
-import axios from 'axios';
+import { useQuery, gql } from '@apollo/client';
+
+const GET_BOOKS = gql`
+  {
+    allBooks {
+      book_uid
+      book_title
+      book_description
+      pages
+      date_book_published
+      book_subjects
+      book_cover_image
+      goodreads_link
+      isbn
+      author_uid
+      country_of_origin
+      author {
+        author_name
+      }
+    }
+  }
+`;
 
 const Books: React.FC = () => {
   const [books, setBooks] = useState<BookAttributes[]>([]);
@@ -27,6 +48,8 @@ const Books: React.FC = () => {
   const [randomBookIndex, setRandomBookIndex] = useState(0);
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>(`Title (A-Z)`);
+
+  const { loading, error, data } = useQuery(GET_BOOKS);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -235,9 +258,13 @@ const Books: React.FC = () => {
   };
 
   const sortBooks = (books: BookAttributes[], sortOption: string) => {
+    const booksCopy = [...books];
+
     switch (sortOption) {
       case `Title (A-Z)`:
-        return books.sort((a, b) => a.book_title.localeCompare(b.book_title));
+        return booksCopy.sort((a, b) =>
+          a.book_title.localeCompare(b.book_title),
+        );
       case `Publish Date Ascending`:
         return books.sort(
           (a, b) =>
@@ -245,25 +272,25 @@ const Books: React.FC = () => {
             new Date(b.date_book_published).getTime(),
         );
       case `Publish Date Descending`:
-        return books.sort(
+        return booksCopy.sort(
           (a, b) =>
             new Date(b.date_book_published).getTime() -
             new Date(a.date_book_published).getTime(),
         );
       case `Author (A-Z)`:
-        return books.sort((a, b) =>
+        return booksCopy.sort((a, b) =>
           a.author.author_name.localeCompare(b.author.author_name),
         );
       case `Country (A-Z)`:
-        return books.sort((a, b) =>
+        return booksCopy.sort((a, b) =>
           a.country_of_origin.localeCompare(b.country_of_origin),
         );
       case `Page Length Ascending`:
-        return books.sort((a, b) => a.pages - b.pages);
+        return booksCopy.sort((a, b) => a.pages - b.pages);
       case `Page Length Descending`:
-        return books.sort((a, b) => b.pages - a.pages);
+        return booksCopy.sort((a, b) => b.pages - a.pages);
       default:
-        return books;
+        return booksCopy;
     }
   };
 
@@ -305,19 +332,13 @@ const Books: React.FC = () => {
   };
 
   useEffect(() => {
-    async function fetchBooks() {
-      try {
-        const response = await axios.get<BookAttributes[]>(
-          `http://localhost:3001/books`,
-        );
-        const fetchedBooks = sortBooks(response.data, selectedSortOption);
-        setBooks(fetchedBooks);
-      } catch (error) {
-        console.error(error);
-      }
+    if (!loading && !error && data) {
+      const fetchedBooks = data.allBooks;
+      const sortedFetchedBooks = sortBooks(fetchedBooks, selectedSortOption);
+      setBooks(sortedFetchedBooks);
     }
-    fetchBooks();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, error, data]);
 
   useEffect(() => {
     const sortedBooks = sortBooks([...filteredBooks], selectedSortOption);
