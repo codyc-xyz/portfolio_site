@@ -191,6 +191,20 @@ const root = {
       throw new Error(`Internal Server Error`);
     }
   },
+  Author: {
+    books: async (parent: { author_uid: string }) => {
+      try {
+        const books = await Book.findAll({
+          where: { author_uid: parent.author_uid },
+        });
+        return books;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Internal Server Error`);
+      }
+    },
+  },
+
   allExcerpts: async () => {
     try {
       const excerpts = await Excerpt.findAll({

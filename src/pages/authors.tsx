@@ -7,7 +7,24 @@ import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
 import TitleComponent from '../components/general/TitleComponent';
 import SearchBarComponent from '../components/general/SearchBarComponent';
-import axios from 'axios';
+import { useQuery, gql } from '@apollo/client';
+
+const GET_AUTHORS = gql`
+  {
+    allAuthors {
+      author_uid
+      author_name
+      author_biography
+      date_author_born
+      date_author_deceased
+      author_image
+      country_of_birth
+      books {
+        book_uid
+      }
+    }
+  }
+`;
 
 const Authors: React.FC = () => {
   const [authors, setAuthors] = useState<AuthorAttributes[]>([]);
@@ -19,6 +36,8 @@ const Authors: React.FC = () => {
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>(`Name (A-Z)`);
   const [searchValue, setSearchValue] = useState<string>(``);
+
+  const { loading, error, data } = useQuery(GET_AUTHORS);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -61,49 +80,46 @@ const Authors: React.FC = () => {
   };
 
   const sortAuthors = (authors: AuthorAttributes[], sortOption: string) => {
+    const authorsCopy = [...authors];
     switch (sortOption) {
       case `Name (A-Z)`:
-        return authors.sort((a, b) =>
+        return authorsCopy.sort((a, b) =>
           a.author_name.localeCompare(b.author_name),
         );
       case `Date Born Ascending`:
-        return authors.sort(
+        return authorsCopy.sort(
           (a, b) =>
             new Date(a.date_author_born).getTime() -
             new Date(b.date_author_born).getTime(),
         );
       case `Date Born Descending`:
-        return authors.sort(
+        return authorsCopy.sort(
           (a, b) =>
             new Date(b.date_author_born).getTime() -
             new Date(a.date_author_born).getTime(),
         );
       case `Country (A-Z)`:
-        return authors.sort((a, b) =>
+        return authorsCopy.sort((a, b) =>
           a.country_of_birth.localeCompare(b.country_of_birth),
         );
       case `Number of Books`:
-        return authors.sort((a, b) => b.books.length - a.books.length);
+        return authorsCopy.sort((a, b) => b.books.length - a.books.length);
       default:
-        return authors;
+        return authorsCopy;
     }
   };
 
   useEffect(() => {
-    async function fetchAuthors() {
-      try {
-        const response = await axios.get<AuthorAttributes[]>(
-          `http://localhost:3001/authors`,
-        );
-        const fetchedAuthors = sortAuthors(response.data, selectedSortOption);
-        setAuthors(fetchedAuthors);
-      } catch (error) {
-        console.error(error);
-      }
+    if (!loading && !error && data) {
+      const fetchedAuthors = data.allAuthors;
+      const sortedFetchedAuthors = sortAuthors(
+        fetchedAuthors,
+        selectedSortOption,
+      );
+      setAuthors(sortedFetchedAuthors);
     }
-    fetchAuthors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loading, error, data]);
 
   useEffect(() => {
     if (authors.length > 0) {
