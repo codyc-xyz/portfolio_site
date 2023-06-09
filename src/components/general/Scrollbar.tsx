@@ -44,7 +44,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
         </div>
         <div className="overflow-x-scroll hide-scrollbar grid grid-cols-6 flex-grow">
           {dataToDisplay.map((item) => {
-            if (title === `Movies`) {
+            if (title === `Movies I Love`) {
               return (
                 <ImageWithLink
                   key={item.movie_uid}
@@ -53,7 +53,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   link={`/movies/${item.movie_uid}`}
                 />
               );
-            } else if (title === `Directors`) {
+            } else if (title === `Directors I Love`) {
               return (
                 <ImageWithLink
                   key={item.director_uid}
@@ -62,7 +62,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   link={`/directors/${item.director_uid}`}
                 />
               );
-            } else if (title === `Authors`) {
+            } else if (title === `Authors I Find Interesting`) {
               return (
                 <ImageWithLink
                   key={item.author_uid}
@@ -71,7 +71,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   link={`/authors/${item.author_uid}`}
                 />
               );
-            } else if (title === `Philosophy`) {
+            } else if (title === `Philosophy I Find Interesting`) {
               return (
                 <ImageWithLink
                   key={item.book_uid}

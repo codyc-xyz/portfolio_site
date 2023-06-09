@@ -89,10 +89,10 @@ const FrontPage: React.FC = () => {
         At a Glance
       </h1>
 
-      <Scrollbar title="Movies" data={movies} />
-      <Scrollbar title="Directors" data={directors} />
-      <Scrollbar title="Philosophy" data={books} />
-      <Scrollbar title="Authors" data={authors} />
+      <Scrollbar title="Movies I Love" data={movies} />
+      <Scrollbar title="Directors I Love" data={directors} />
+      <Scrollbar title="Philosophy I Find Interesting" data={books} />
+      <Scrollbar title="Authors I Find Interesting" data={authors} />
     </div>
   );
 };

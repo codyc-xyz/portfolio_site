@@ -473,7 +473,7 @@ const Books: React.FC = () => {
               onSubmit={handleSearchSubmit}
               onInputChange={handleSearchInputChange}
               onClear={handleClearSearch}
-              titleText="Books I Find Interesting"
+              titleText="Philosophy I Find Interesting"
             />
           </div>
         </div>
