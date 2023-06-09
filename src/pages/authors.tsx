@@ -7,6 +7,7 @@ import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
 import TitleComponent from '../components/general/TitleComponent';
 import SearchBarComponent from '../components/general/SearchBarComponent';
+import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 
 const GET_AUTHORS = gql`
@@ -163,6 +164,10 @@ const Authors: React.FC = () => {
       onOptionClick={handleSortOptionClick}
     />
   );
+
+  if (loading || error) {
+    return <LoadingOrError loading={loading} error={error}></LoadingOrError>;
+  }
 
   return (
     <div className="container">

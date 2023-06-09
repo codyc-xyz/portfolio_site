@@ -7,6 +7,7 @@ import Filter from '../components/general/Filter';
 import Dropdown from '../components/general/Dropdown';
 import PageHeader from '../components/general/PageHeader';
 import { OptionType } from '../components/general/FilterSection';
+import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 
 const GET_BOOKS = gql`
@@ -462,6 +463,10 @@ const Books: React.FC = () => {
       displayOption: (option: OptionType) => `${option} pages`,
     },
   ];
+
+  if (loading || error) {
+    return <LoadingOrError loading={loading} error={error}></LoadingOrError>;
+  }
 
   return (
     <div className="container text-text">

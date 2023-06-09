@@ -8,6 +8,7 @@ import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import Dropdown from '../components/general/Dropdown';
 import Filter from '../components/general/Filter';
 import { useQuery, gql } from '@apollo/client';
+import LoadingOrError from '../components/general/LoadingOrError';
 
 const GET_MOVIES = gql`
   {
@@ -470,8 +471,9 @@ const Movies: React.FC = () => {
     />
   );
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (loading || error) {
+    return <LoadingOrError loading={loading} error={error}></LoadingOrError>;
+  }
 
   return (
     <div className="container text-text">

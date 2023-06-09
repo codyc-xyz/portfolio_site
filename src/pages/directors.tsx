@@ -7,6 +7,7 @@ import Dropdown from '../components/general/Dropdown';
 import TitleComponent from '../components/general/TitleComponent';
 import SearchBarComponent from '../components/general/SearchBarComponent';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
+import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 
 const GET_DIRECTORS = gql`
@@ -167,6 +168,11 @@ const Directors: React.FC = () => {
       onOptionClick={handleSortOptionClick}
     />
   );
+
+  if (loading || error) {
+    return <LoadingOrError loading={loading} error={error}></LoadingOrError>;
+  }
+
   return (
     <div className="container text-text">
       <Header />
