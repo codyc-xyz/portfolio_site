@@ -105,6 +105,19 @@ const root = {
       throw new Error(`Internal Server Error`);
     }
   },
+  Director: {
+    movies: async (parent) => {
+      try {
+        const movies = await Movie.findAll({
+          where: { director_uid: parent.director_uid },
+        });
+        return movies;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Internal Server Error`);
+      }
+    },
+  },
   allMovies: async () => {
     try {
       const movies = await Movie.findAll({

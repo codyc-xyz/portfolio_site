@@ -2,12 +2,29 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/general/Header';
 import { DirectorAttributes } from '../types/DirectorAttributes';
 import Card from '../components/general/Card';
-import axios from 'axios';
 import LinkComponent from '../components/general/LinkComponent';
 import Dropdown from '../components/general/Dropdown';
 import TitleComponent from '../components/general/TitleComponent';
 import SearchBarComponent from '../components/general/SearchBarComponent';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
+import { useQuery, gql } from '@apollo/client';
+
+const GET_DIRECTORS = gql`
+  {
+    allDirectors {
+      director_uid
+      director_name
+      director_biography
+      date_director_born
+      date_director_deceased
+      director_country_of_birth
+      director_image
+      movies {
+        movie_uid
+      }
+    }
+  }
+`;
 
 const Directors: React.FC = () => {
   const [directors, setDirectors] = useState<DirectorAttributes[]>([]);
@@ -19,6 +36,8 @@ const Directors: React.FC = () => {
   const [isSortExpanded, setSortExpanded] = useState(false);
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>(`Name (A-Z)`);
+
+  const { loading, error, data } = useQuery(GET_DIRECTORS);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -57,33 +76,34 @@ const Directors: React.FC = () => {
     directors: DirectorAttributes[],
     sortOption: string,
   ) => {
+    const directorsCopy = [...directors];
     switch (sortOption) {
       case `Name (A-Z)`:
-        return directors.sort((a, b) =>
+        return directorsCopy.sort((a, b) =>
           a.director_name.localeCompare(b.director_name),
         );
       case `Date Born Ascending`:
-        return directors.sort(
+        return directorsCopy.sort(
           (a, b) =>
             new Date(a.date_director_born).getTime() -
             new Date(b.date_director_born).getTime(),
         );
       case `Date Born Descending`:
-        return directors.sort(
+        return directorsCopy.sort(
           (a, b) =>
             new Date(b.date_director_born).getTime() -
             new Date(a.date_director_born).getTime(),
         );
       case `Country (A-Z)`:
-        return directors.sort((a, b) =>
+        return directorsCopy.sort((a, b) =>
           a.director_country_of_birth.localeCompare(
             b.director_country_of_birth,
           ),
         );
       case `Number of Films`:
-        return directors.sort((a, b) => b.movies.length - a.movies.length);
+        return directorsCopy.sort((a, b) => b.movies.length - a.movies.length);
       default:
-        return directors;
+        return directorsCopy;
     }
   };
   const handleRandomClick = () => {
@@ -93,25 +113,17 @@ const Directors: React.FC = () => {
     }
   };
 
-  console.log(directors);
   useEffect(() => {
-    async function fetchDirectors() {
-      try {
-        const response = await axios.get<DirectorAttributes[]>(
-          `http://localhost:3001/directors`,
-        );
-        const fetchedDirectors = sortDirectors(
-          response.data,
-          selectedSortOption,
-        );
-        setDirectors(fetchedDirectors);
-      } catch (error) {
-        console.error(error);
-      }
+    if (!loading && !error && data) {
+      const fetchedDirectors = data.allDirectors;
+      const sortedFetchedDirectors = sortDirectors(
+        fetchedDirectors,
+        selectedSortOption,
+      );
+      setDirectors(sortedFetchedDirectors);
     }
-    fetchDirectors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loading, error, data]);
 
   useEffect(() => {
     if (directors.length > 0) {

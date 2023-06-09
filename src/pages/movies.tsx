@@ -347,8 +347,9 @@ const Movies: React.FC = () => {
 
   useEffect(() => {
     if (!loading && !error && data) {
-      const fetchedMovies = sortMovies(data.allMovies, selectedSortOption);
-      setMovies(fetchedMovies);
+      const fetchedMovies = data.allMovies;
+      const sortedFetchedMovies = sortMovies(fetchedMovies, selectedSortOption);
+      setMovies(sortedFetchedMovies);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, error, data]);
