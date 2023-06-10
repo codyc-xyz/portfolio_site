@@ -10,7 +10,7 @@ import { OptionType } from '../components/general/FilterSection';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 
-const GET_BOOKS = gql`
+export const GET_BOOKS = gql`
   {
     allBooks {
       book_uid

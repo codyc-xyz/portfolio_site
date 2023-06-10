@@ -10,7 +10,7 @@ import SearchBarComponent from '../components/general/SearchBarComponent';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 
-const GET_AUTHORS = gql`
+export const GET_AUTHORS = gql`
   {
     allAuthors {
       author_uid

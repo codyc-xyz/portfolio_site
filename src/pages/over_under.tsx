@@ -28,13 +28,11 @@ const GuessResultDisplay: React.FC<GuessResultProps> = ({ guessResult }) => {
   const { correct, selectedHashtag, unselectedHashtag } = guessResult;
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg mb-6">
-      <p className={`text-xl font-bold`}>
+    <div className="p-4 bg-gray-100 rounded-lg shadow-lg mb-6">
+      <p className={`text-xl m-2 font-bold`}>
         {correct ? `Nice guess!` : `Unlucky!`}
         {` `}
-        <span className={`${correct ? `text-green-600` : `text-red-600`}`}>
-          {selectedHashtag.Hashtag}
-        </span>
+        {selectedHashtag.Hashtag}
         {` `}
         was tweeted {` `}
         <span className={`${correct ? `text-green-600` : `text-red-600`}`}>
@@ -45,9 +43,20 @@ const GuessResultDisplay: React.FC<GuessResultProps> = ({ guessResult }) => {
         <span className={`${correct ? `text-green-600` : `text-red-600`}`}>
           {selectedHashtag.index + 1}
         </span>
-        . {unselectedHashtag.Hashtag} was tweeted {unselectedHashtag.Count}
+        .
+      </p>
+      <p className={`text-xl m-2 font-bold`}>
+        {unselectedHashtag.Hashtag} was tweeted{` `}
+        <span className={`${!correct ? `text-green-600` : `text-red-600`}`}>
+          {unselectedHashtag.Count}
+          {` `}
+        </span>
         {` `}
-        times and is ranked {unselectedHashtag.index + 1}.
+        times and is ranked {` `}
+        <span className={`${!correct ? `text-green-600` : `text-red-600`}`}>
+          {unselectedHashtag.index + 1}
+        </span>
+        .
       </p>
     </div>
   );

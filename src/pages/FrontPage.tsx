@@ -5,7 +5,11 @@ import { AuthorAttributes } from '../types/AuthorAttributes';
 import { BookAttributes } from '../types/BookAttributes';
 import { MovieAttributes } from '../types/MovieAttributes';
 import Scrollbar from '../components/general/Scrollbar';
-import axios from 'axios';
+import { GET_AUTHORS } from './authors';
+import { GET_BOOKS } from './philosophy';
+import { GET_MOVIES } from './movies';
+import { GET_DIRECTORS } from './directors';
+import { useQuery } from '@apollo/client';
 
 const FrontPage: React.FC = () => {
   const [directors, setDirectors] = useState<DirectorAttributes[]>([]);
@@ -13,7 +17,29 @@ const FrontPage: React.FC = () => {
   const [books, setBooks] = useState<BookAttributes[]>([]);
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
 
-  const shuffleArray = (array: any[]): any[] => {
+  const {
+    loading: booksLoading,
+    error: booksError,
+    data: booksData,
+  } = useQuery(GET_BOOKS);
+  const {
+    loading: directorsLoading,
+    error: directorsError,
+    data: directorsData,
+  } = useQuery(GET_DIRECTORS);
+  const {
+    loading: authorsLoading,
+    error: authorsError,
+    data: authorsData,
+  } = useQuery(GET_AUTHORS);
+  const {
+    loading: moviesLoading,
+    error: moviesError,
+    data: moviesData,
+  } = useQuery(GET_MOVIES);
+
+  const shuffleArray = (inputArray: any[]): any[] => {
+    const array = [...inputArray];
     let currentIndex = array.length;
     let temporaryValue;
     let randomIndex;
@@ -31,57 +57,37 @@ const FrontPage: React.FC = () => {
   };
 
   useEffect(() => {
-    async function fetchDirectors() {
-      try {
-        const response = await axios.get<DirectorAttributes[]>(
-          `http://localhost:3001/directors`,
-        );
-        const fetchedDirectors = shuffleArray(response.data);
-        setDirectors(fetchedDirectors);
-      } catch (error) {
-        console.error(error);
-      }
+    if (!authorsLoading && !authorsError && authorsData) {
+      const fetchedAuthors = authorsData.allAuthors;
+      const shuffledFetchedAuthors = shuffleArray(fetchedAuthors);
+      setAuthors(shuffledFetchedAuthors);
     }
-    async function fetchAuthors() {
-      try {
-        const response = await axios.get<AuthorAttributes[]>(
-          `http://localhost:3001/authors`,
-        );
-        const fetchedAuthors = shuffleArray(response.data);
-        setAuthors(fetchedAuthors);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    async function fetchBooks() {
-      try {
-        const response = await axios.get<BookAttributes[]>(
-          `http://localhost:3001/books`,
-        );
-        const fetchedBooks = shuffleArray(response.data);
-        setBooks(fetchedBooks);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    async function fetchMovies() {
-      try {
-        const response = await axios.get<MovieAttributes[]>(
-          `http://localhost:3001/movies`,
-        );
-        const fetchedMovies = shuffleArray(response.data);
-        setMovies(fetchedMovies);
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  }, [authorsLoading, authorsError, authorsData]);
 
-    fetchMovies();
-    fetchBooks();
-    fetchAuthors();
-    fetchDirectors();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    if (!moviesLoading && !moviesError && moviesData) {
+      const fetchedMovies = moviesData.allMovies;
+      const shuffledFetchedMovies = shuffleArray(fetchedMovies);
+      setMovies(shuffledFetchedMovies);
+    }
+  }, [moviesLoading, moviesError, moviesData]);
+
+  useEffect(() => {
+    if (!directorsLoading && !directorsError && directorsData) {
+      const fetchedDirectors = directorsData.allDirectors;
+      const shuffledFetchedDirectors = shuffleArray(fetchedDirectors);
+      setDirectors(shuffledFetchedDirectors);
+    }
+  }, [directorsLoading, directorsError, directorsData]);
+
+  useEffect(() => {
+    if (!booksLoading && !booksError && booksData) {
+      const fetchedBooks = booksData.allBooks;
+      const shuffledFetchedBooks = shuffleArray(fetchedBooks);
+      setBooks(shuffledFetchedBooks);
+    }
+  }, [booksLoading, booksError, booksData]);
+
   return (
     <div className="container text-text flex flex-col h-screen">
       <Header />

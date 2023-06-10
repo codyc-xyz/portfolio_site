@@ -10,7 +10,7 @@ import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 
-const GET_DIRECTORS = gql`
+export const GET_DIRECTORS = gql`
   {
     allDirectors {
       director_uid

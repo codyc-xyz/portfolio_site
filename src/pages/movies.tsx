@@ -10,7 +10,7 @@ import Filter from '../components/general/Filter';
 import { useQuery, gql } from '@apollo/client';
 import LoadingOrError from '../components/general/LoadingOrError';
 
-const GET_MOVIES = gql`
+export const GET_MOVIES = gql`
   {
     allMovies {
       movie_uid
