@@ -6,7 +6,7 @@ import { BookAttributes } from '../types/BookAttributes';
 import { MovieAttributes } from '../types/MovieAttributes';
 import Scrollbar from '../components/general/Scrollbar';
 import { GET_AUTHORS } from './authors';
-import { GET_BOOKS } from './philosophy';
+import { GET_BOOKS } from './books';
 import { GET_MOVIES } from './movies';
 import { GET_DIRECTORS } from './directors';
 import { useQuery } from '@apollo/client';
@@ -97,7 +97,7 @@ const FrontPage: React.FC = () => {
 
       <Scrollbar title="Movies I Love" data={movies} />
       <Scrollbar title="Directors I Love" data={directors} />
-      <Scrollbar title="Philosophy I Find Interesting" data={books} />
+      <Scrollbar title="Books I Find Interesting" data={books} />
       <Scrollbar title="Authors I Find Interesting" data={authors} />
     </div>
   );

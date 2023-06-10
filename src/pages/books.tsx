@@ -499,7 +499,7 @@ const Books: React.FC = () => {
               onSubmit={handleSearchSubmit}
               onInputChange={handleSearchInputChange}
               onClear={handleClearSearch}
-              titleText="Philosophy I Find Interesting"
+              titleText="Books I Find Interesting"
             />
           </div>
         </div>
@@ -508,7 +508,7 @@ const Books: React.FC = () => {
             return (
               <Card
                 key={book.book_uid}
-                pageUrl={`/philosophy/${book.book_uid}`}
+                pageUrl={`/books/${book.book_uid}`}
                 altText={book.book_title}
                 title={book.author.author_name}
                 secondaryText={book.country_of_origin}

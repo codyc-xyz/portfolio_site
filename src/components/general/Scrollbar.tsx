@@ -71,13 +71,13 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   link={`/authors/${item.author_uid}`}
                 />
               );
-            } else if (title === `Philosophy I Find Interesting`) {
+            } else if (title === `Books I Find Interesting`) {
               return (
                 <ImageWithLink
                   key={item.book_uid}
                   src={item.book_cover_image}
                   alt={item.book_title}
-                  link={`/philosophy/${item.book_uid}`}
+                  link={`/books/${item.book_uid}`}
                 />
               );
             } else {

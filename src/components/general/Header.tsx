@@ -23,9 +23,9 @@ const Header = () => {
         </Link>
         <Link
           className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
-          to="/philosophy"
+          to="/books"
         >
-          Philosophy
+          Books
         </Link>
         <Link
           className="text-xl font-medium text-text hover:text-opacity-50 mx-3"

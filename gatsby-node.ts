@@ -179,7 +179,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (books) {
     books.forEach((book: any) => {
       createPage({
-        path: `philosophy/${book.book_uid}`,
+        path: `books/${book.book_uid}`,
         component: path.resolve(`./src/templates/BookPage.tsx`),
         context: {
           bookTitle: book.book_title,
