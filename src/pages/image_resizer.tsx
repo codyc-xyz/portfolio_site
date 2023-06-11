@@ -57,8 +57,35 @@ const ImageUpload = () => {
     }
   };
 
-  const handleImageLink = (event: ChangeEvent<HTMLInputElement>) => {
-    setLinkedImages([...linkedImages, { link: event.target.value }]);
+  const handleImageLink = async (event: ChangeEvent<HTMLInputElement>) => {
+    const link = event.target.value;
+    setLinkedImages([...linkedImages, { link }]);
+    try {
+      const response = await axios.get(link, { responseType: `blob` });
+
+      const file = new File([response.data], `temp`, {
+        type: response.data.type,
+      });
+
+      validateImage(file);
+
+      const formData = new FormData();
+      formData.append(`file`, file);
+      const uploadResponse = await axios.post(
+        `http://localhost:3001/api/upload`,
+        formData,
+      );
+      setUploadedImages([
+        ...uploadedImages,
+        {
+          filename: uploadResponse.data.filename,
+          mimetype: uploadResponse.data.mimetype,
+        },
+      ]);
+      setError(null);
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
 
   const handleAddMoreFields = () => {
