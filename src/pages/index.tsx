@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import FrontPage from './FrontPage';
 import Movies from './movies';
@@ -7,9 +8,12 @@ import Directors from './directors';
 import Books from './books';
 import Authors from './authors';
 
+const link = createUploadLink({ uri: `http://localhost:3001/graphql` });
+
 export const client = new ApolloClient({
   uri: `http://localhost:3001/graphql`,
   cache: new InMemoryCache(),
+  link,
 });
 
 export default function Home() {

@@ -1,8 +1,11 @@
-'use strict';
+import express, { Request, Response } from 'express';
+import multer from 'multer';
 
 const { Sequelize, DataTypes } = require(`sequelize`);
 const dotenv = require(`dotenv`);
-const express = require(`express`);
+const sharp = require(`sharp`);
+const fs = require(`fs`);
+const path = require(`path`);
 const cors = require(`cors`);
 const Movie = require(`./src/types/MovieAttributes`);
 const Director = require(`./src/types/DirectorAttributes`);
@@ -11,6 +14,52 @@ const Excerpt = require(`./src/types/ExcerptAttributes`);
 const Author = require(`./src/types/AuthorAttributes`);
 const { graphqlHTTP } = require(`express-graphql`);
 const { buildSchema } = require(`graphql`);
+
+dotenv.config();
+const app = express();
+app.use(cors());
+app.use(express.json());
+const upload = multer({ dest: `uploads/` });
+
+app.post(
+  `/api/upload`,
+  upload.single(`file`),
+  (req: Request, res: Response) => {
+    if (!req.file) {
+      return res.status(400).json({ error: `No file attached` });
+    }
+    return res
+      .status(200)
+      .json({ filename: req.file.filename, mimetype: req.file.mimetype });
+  },
+);
+
+app.post(`/api/resize`, async (req: Request, res: Response) => {
+  const { filename, width, height } = req.body;
+  if (!filename || !width || !height) {
+    return res.status(400).json({ error: `Invalid request parameters` });
+  }
+
+  const inputPath = path.join(__dirname, `/uploads/`, filename);
+  const outputPath = path.join(__dirname, `/resized/`, filename);
+
+  try {
+    await sharp(inputPath)
+      .resize(parseInt(width), parseInt(height))
+      .toFile(outputPath);
+
+    fs.readFile(outputPath, (err: any, data: any) => {
+      if (err) throw err;
+      const base64String =
+        `data:${req.file ? req.file.mimetype : `image/jpeg`};base64,` +
+        data.toString(`base64`);
+      return res.status(200).json({ filename, base64String });
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: `Failed to resize image` });
+  }
+});
 
 const schema = buildSchema(`
   type Movie {
@@ -226,10 +275,6 @@ const root = {
     }
   },
 };
-
-dotenv.config();
-const app = express();
-app.use(cors());
 
 let dbUrl;
 if (process.env.DB_URL) {
