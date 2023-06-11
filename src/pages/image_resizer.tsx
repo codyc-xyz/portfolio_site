@@ -16,24 +16,45 @@ const ImageUpload = () => {
   const [inputFields, setInputFields] = useState<number[]>([0]);
   const [width, setWidth] = useState<string>(``);
   const [height, setHeight] = useState<string>(``);
+  const [error, setError] = useState<string | null>(null);
+
+  const validateImage = (file: File) => {
+    const validTypes = [`image/jpeg`, `image/png`, `image/gif`];
+    if (validTypes.indexOf(file.type) === -1) {
+      throw new Error(`Invalid file type ${file.type}`);
+    }
+  };
+
+  const validateDimension = (dimension: string) => {
+    const dimensionNumber = parseInt(dimension);
+    if (isNaN(dimensionNumber) || dimensionNumber <= 0) {
+      throw new Error(`Width and height must be positive numbers`);
+    }
+  };
 
   const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files) return;
     const newImages = [...uploadedImages];
-    for (let i = 0; i < files.length; i++) {
-      const formData = new FormData();
-      formData.append(`file`, files[i]);
-      const response = await axios.post(
-        `http://localhost:3001/api/upload`,
-        formData,
-      );
-      newImages.push({
-        filename: response.data.filename,
-        mimetype: response.data.mimetype,
-      });
+    try {
+      for (let i = 0; i < files.length; i++) {
+        validateImage(files[i]);
+        const formData = new FormData();
+        formData.append(`file`, files[i]);
+        const response = await axios.post(
+          `http://localhost:3001/api/upload`,
+          formData,
+        );
+        newImages.push({
+          filename: response.data.filename,
+          mimetype: response.data.mimetype,
+        });
+      }
+      setUploadedImages(newImages);
+      setError(null);
+    } catch (error) {
+      setError((error as Error).message);
     }
-    setUploadedImages(newImages);
   };
 
   const handleImageLink = (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,41 +74,61 @@ const ImageUpload = () => {
   };
 
   const handleFormSubmit = () => {
-    uploadedImages.forEach((imageData) => {
-      axios
-        .post(`http://localhost:3001/api/resize`, {
-          filename: imageData.filename,
-          width: parseInt(width),
-          height: parseInt(height),
-        })
-        .then((response) => {
-          alert(`Image ${response.data.filename} resized.`);
-          const base64String = response.data.base64String;
+    try {
+      validateDimension(width);
+      validateDimension(height);
+      const resizePromises = uploadedImages.map((imageData) => {
+        return axios
+          .post(`http://localhost:3001/api/resize`, {
+            filename: imageData.filename,
+            width: parseInt(width),
+            height: parseInt(height),
+          })
+          .then((response) => {
+            const base64String = response.data.base64String;
 
-          fetch(base64String)
-            .then((res) => res.blob())
-            .then((blob) => {
-              const url = URL.createObjectURL(blob);
+            return fetch(base64String)
+              .then((res) => res.blob())
+              .then((blob) => {
+                const url = URL.createObjectURL(blob);
 
-              const a = document.createElement(`a`);
-              a.style.display = `none`;
-              a.href = url;
-              a.download = response.data.filename;
+                const a = document.createElement(`a`);
+                a.style.display = `none`;
+                a.href = url;
+                a.download = response.data.filename;
 
-              document.body.appendChild(a);
-              a.click();
+                document.body.appendChild(a);
+                a.click();
 
-              URL.revokeObjectURL(url);
-              document.body.removeChild(a);
-            });
-        })
-        .catch((error) => {
-          console.log(`Error resizing image ${imageData.filename}: `, error);
-        });
-    });
+                URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+                return true;
+              });
+          })
+          .catch((error) => {
+            console.log(`Error resizing image ${imageData.filename}: `, error);
+            setError(
+              `Error resizing image ${imageData.filename}: ${error.message}`,
+            );
+            return false;
+          });
+      });
+
+      Promise.all(resizePromises).then((results) => {
+        const successCount = results.filter((res) => res).length;
+        alert(`${successCount} image(s) resized.`);
+      });
+
+      setError(null);
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
+
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
+      {error && <div className="text-red-500">{error}</div>}
       {inputFields.map((field, index) => (
         <div key={index} className="space-x-4">
           <input
