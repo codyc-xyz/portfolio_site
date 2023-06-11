@@ -53,7 +53,17 @@ app.post(`/api/resize`, async (req: Request, res: Response) => {
       const base64String =
         `data:${req.file ? req.file.mimetype : `image/jpeg`};base64,` +
         data.toString(`base64`);
-      return res.status(200).json({ filename, base64String });
+      res.status(200).json({ filename, base64String });
+
+      fs.unlink(outputPath, (err) => {
+        if (err)
+          console.log(`Failed to delete file ${outputPath}: ${err.message}`);
+      });
+
+      fs.unlink(inputPath, (err) => {
+        if (err)
+          console.log(`Failed to delete file ${inputPath}: ${err.message}`);
+      });
     });
   } catch (err) {
     console.log(err);
