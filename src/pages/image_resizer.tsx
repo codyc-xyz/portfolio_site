@@ -17,6 +17,9 @@ const ImageUpload = () => {
   const [width, setWidth] = useState<string>(``);
   const [height, setHeight] = useState<string>(``);
   const [error, setError] = useState<string | null>(null);
+  const [key, setKey] = useState<number>(0);
+
+  const maxImages = 10;
 
   const validateImage = (file: File) => {
     const validTypes = [`image/jpeg`, `image/png`, `image/gif`];
@@ -34,7 +37,11 @@ const ImageUpload = () => {
 
   const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (!files) return;
+    if (!files || files.length > maxImages) {
+      setError(`You can upload up to ${maxImages} images at a time.`);
+      return;
+    }
+
     const newImages = [...uploadedImages];
     try {
       for (let i = 0; i < files.length; i++) {
@@ -153,11 +160,21 @@ const ImageUpload = () => {
     }
   };
 
+  const handleReset = () => {
+    setUploadedImages([]);
+    setLinkedImages([]);
+    setInputFields([0]);
+    setWidth(``);
+    setHeight(``);
+    setError(null);
+    setKey((prevKey) => prevKey + 1);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
       {error && <div className="text-red-500">{error}</div>}
       {inputFields.map((field, index) => (
-        <div key={index} className="space-x-4">
+        <div key={key + index} className="space-x-4">
           <input
             type="file"
             multiple
@@ -185,6 +202,7 @@ const ImageUpload = () => {
         <input
           id="width"
           type="text"
+          value={width}
           onChange={handleWidthChange}
           className="px-4 py-2 border rounded-md"
           placeholder="Desired width in px"
@@ -195,6 +213,7 @@ const ImageUpload = () => {
         <input
           id="height"
           type="text"
+          value={height}
           onChange={handleHeightChange}
           className="px-4 py-2 border rounded-md"
           placeholder="Desired height in px"
@@ -205,6 +224,9 @@ const ImageUpload = () => {
         className="px-4 py-2 border rounded-md"
       >
         Resize Images
+      </button>
+      <button onClick={handleReset} className="px-4 py-2 border rounded-md">
+        Reset
       </button>
     </div>
   );

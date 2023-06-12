@@ -48,19 +48,19 @@ app.post(`/api/resize`, async (req: Request, res: Response) => {
       .resize(parseInt(width), parseInt(height))
       .toFile(outputPath);
 
-    fs.readFile(outputPath, (err: any, data: any) => {
+    fs.readFile(outputPath, (err: Error, data: any) => {
       if (err) throw err;
       const base64String =
         `data:${req.file ? req.file.mimetype : `image/jpeg`};base64,` +
         data.toString(`base64`);
       res.status(200).json({ filename, base64String });
 
-      fs.unlink(outputPath, (err) => {
+      fs.unlink(outputPath, (err: Error) => {
         if (err)
           console.log(`Failed to delete file ${outputPath}: ${err.message}`);
       });
 
-      fs.unlink(inputPath, (err) => {
+      fs.unlink(inputPath, (err: Error) => {
         if (err)
           console.log(`Failed to delete file ${inputPath}: ${err.message}`);
       });
