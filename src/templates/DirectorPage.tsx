@@ -28,7 +28,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
   return (
     <div className="container font-medium text-text">
       <Header />
-      <div className="flex" style={{ marginTop: `24px` }}>
+      <div className="flex mt-4">
         <div className="w-2/3 pr-4">
           <h1 className="text-2xl">{directorName}</h1>
           <div className="mt-2">

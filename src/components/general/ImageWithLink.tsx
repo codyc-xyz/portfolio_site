@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Spinner from './Spinner';
+import { Link } from 'gatsby';
 
 export interface ImageWithLinkProps {
   src: string;
@@ -20,12 +21,7 @@ export const ImageWithLink: React.FC<ImageWithLinkProps> = ({
 
   return (
     <div className="flex flex-col items-center m-2 mb-4 bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm">
-      <a
-        href={link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="relative"
-      >
+      <Link to={link} className="relative">
         <div className="w-10.5 h-11.5 flex justify-center items-center">
           {isLoading && <Spinner />}
           <img
@@ -36,7 +32,7 @@ export const ImageWithLink: React.FC<ImageWithLinkProps> = ({
             style={isLoading ? { display: `none` } : {}}
           />
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

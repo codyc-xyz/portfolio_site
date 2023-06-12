@@ -11,26 +11,9 @@ export const wrapRootElement = ({ element }) => (
 );
 
 export const wrapPageElement = ({ element, props }) => {
-  const excludePaths = [
-    `/movies/`,
-    `/directors/`,
-    `/philosophy/`,
-    `/authors/`,
-    `/`,
-  ];
-  const isMainPage = excludePaths.some(
-    (path) =>
-      props.path.startsWith(path) &&
-      !props.path.substring(path.length).includes(`/`),
+  return (
+    <Provider store={store}>
+      <Layout {...props}>{element}</Layout>
+    </Provider>
   );
-
-  if (isMainPage) {
-    return (
-      <Provider store={store}>
-        <Layout {...props}>{element}</Layout>
-      </Provider>
-    );
-  }
-
-  return element;
 };

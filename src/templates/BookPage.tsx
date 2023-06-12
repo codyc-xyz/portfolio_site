@@ -1,6 +1,7 @@
 import Header from '../components/general/Header';
 import { ExcerptAttributes } from '../types/ExcerptAttributes';
 import React, { useState } from 'react';
+import { Link } from 'gatsby';
 
 interface BookPageProps {
   pageContext: {
@@ -87,14 +88,9 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
 
             <p className="text-sm">
               <strong>By: </strong>
-              <a
-                href={`/authors/${authorUid}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-50"
-              >
+              <Link to={`/authors/${authorUid}`} className="hover:opacity-50">
                 {authorName}
-              </a>
+              </Link>
             </p>
             <p className="text-sm">
               <strong>Subjects: </strong> {subjects.join(`, `)}

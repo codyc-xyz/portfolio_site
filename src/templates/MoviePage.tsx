@@ -1,5 +1,6 @@
 import Header from '../components/general/Header';
 import React, { useState } from 'react';
+import { Link } from 'gatsby';
 
 interface MoviePageProps {
   pageContext: {
@@ -54,14 +55,12 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
             </p>
             <p className="text-sm">
               <strong>By: </strong>
-              <a
-                href={`/directors/${directorUid}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to={`/directors/${directorUid}`}
                 className="hover:opacity-50"
               >
                 {directorName}
-              </a>
+              </Link>
             </p>
             <p className="text-sm">
               <strong>From:</strong> {countryOfOrigin}

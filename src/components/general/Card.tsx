@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 
 interface CardProps {
   title?: string;
@@ -19,12 +20,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <a
-        href={pageUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="relative"
-      >
+      <Link to={pageUrl} className="relative">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm">
           <img
             src={imageUrl}
@@ -33,7 +29,7 @@ const Card: React.FC<CardProps> = ({
             style={{ objectFit: `cover`, height: imageHeight }}
           />
         </div>
-      </a>
+      </Link>
       <div className="font-medium text-text">
         {title && <p>{title}</p>}
         {secondaryText && <p>{secondaryText}</p>}
