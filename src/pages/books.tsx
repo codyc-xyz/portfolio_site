@@ -503,7 +503,7 @@ const Books: React.FC = () => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-2">
+        <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
           {filteredBooks.map((book) => {
             return (
               <Card
@@ -513,7 +513,6 @@ const Books: React.FC = () => {
                 title={book.author.author_name}
                 secondaryText={book.country_of_origin}
                 imageUrl={book.book_cover_image}
-                imageHeight="400px"
               />
             );
           })}
