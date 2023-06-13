@@ -299,6 +299,30 @@ const root = {
       throw new Error(`Internal Server Error`);
     }
   },
+  allProjects: async () => {
+    try {
+      const projects = await Project.findAll({
+        attributes: [
+          `project_uid`,
+          `project_name`,
+          `project_description`,
+          `project_status`,
+          `date_started`,
+          `technologies`,
+          `project_image`,
+          `project_size`,
+          `project_link`,
+          `github_project_link`,
+          `github_ui_link`,
+        ],
+        tableName: `projects`,
+      });
+      return projects;
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Internal Service Error`);
+    }
+  },
 };
 
 let dbUrl;
@@ -312,6 +336,56 @@ const db = new Sequelize(dbUrl, {
   host: `localhost`,
   dialect: `postgres`,
 });
+
+Project.init(
+  {
+    project_uid: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    project_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    project_description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    project_status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    date_started: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    technologies: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
+    project_image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    project_size: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    project_link: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    github_project_link: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    github_ui_link: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  { sequelize: db, modelName: `project`, timestamps: false },
+);
 
 Excerpt.init(
   {
