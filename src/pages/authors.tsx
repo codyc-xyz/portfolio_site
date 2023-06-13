@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/general/Header';
 import { AuthorAttributes } from '../types/AuthorAttributes';
 import Card from '../components/general/Card';
 import LinkComponent from '../components/general/LinkComponent';
@@ -171,7 +170,6 @@ const Authors: React.FC = () => {
 
   return (
     <div className="container">
-      <Header />
       <div className="flex flex-col gap-2">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center">
@@ -200,7 +198,7 @@ const Authors: React.FC = () => {
             onClear={handleClearSearch}
           />
         </div>
-        <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-2">
+        <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
           {filteredAuthors.map((author) => {
             return (
               <Card
@@ -210,7 +208,6 @@ const Authors: React.FC = () => {
                 title={author.author_name}
                 secondaryText={author.country_of_birth}
                 imageUrl={author.author_image}
-                imageHeight="350px"
               />
             );
           })}

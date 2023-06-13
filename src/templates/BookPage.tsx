@@ -1,4 +1,3 @@
-import Header from '../components/general/Header';
 import { ExcerptAttributes } from '../types/ExcerptAttributes';
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
@@ -71,7 +70,6 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
 
   return (
     <div className="container font-medium text-text">
-      <Header />
       <div className="flex" style={{ marginTop: `24px` }}>
         <div className="w-2/3 pr-4">
           <h1 className="text-2xl">{bookTitle}</h1>

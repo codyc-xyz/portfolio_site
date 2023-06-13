@@ -12,6 +12,7 @@ const Director = require(`./src/types/DirectorAttributes`);
 const Book = require(`./src/types/BookAttributes`);
 const Excerpt = require(`./src/types/ExcerptAttributes`);
 const Author = require(`./src/types/AuthorAttributes`);
+const Project = require(`./src/types/ProjectAttributes`);
 const { graphqlHTTP } = require(`express-graphql`);
 const { buildSchema } = require(`graphql`);
 
@@ -132,6 +133,20 @@ const schema = buildSchema(`
     section: String
     book_uid: String!
     book: Book!
+  }
+
+  type Project {
+    project_uid: String!
+    project_name: String!
+    project_description: String!
+    project_status: String!
+    date_started: Date!
+    technologies: [String!]!
+    project_image: String!
+    project_size: String!
+    project_link: String!
+    github_project_link: String!
+    github_ui_link: String
   }
 
   type Query {

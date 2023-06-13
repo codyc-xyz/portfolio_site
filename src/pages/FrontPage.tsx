@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/general/Header';
 import { DirectorAttributes } from '../types/DirectorAttributes';
 import { AuthorAttributes } from '../types/AuthorAttributes';
 import { BookAttributes } from '../types/BookAttributes';
@@ -90,7 +89,6 @@ const FrontPage: React.FC = () => {
 
   return (
     <div className="container text-text flex flex-col h-screen">
-      <Header />
       <h1 className="text-center text-3xl flex-grow flex-shrink-0 mx-auto w-1/2">
         At a Glance
       </h1>

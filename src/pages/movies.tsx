@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/general/Header';
 import { MovieAttributes } from '../types/MovieAttributes';
 import { OptionType } from '../components/general/FilterSection';
 import Card from '../components/general/Card';
@@ -477,8 +476,6 @@ const Movies: React.FC = () => {
 
   return (
     <div className="container text-text">
-      <Header />
-
       <div className="flex flex-col gap-2">
         <div className="flex gap-4">
           <ButtonWithDropdown

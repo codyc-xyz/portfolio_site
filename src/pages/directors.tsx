@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/general/Header';
 import { DirectorAttributes } from '../types/DirectorAttributes';
 import Card from '../components/general/Card';
 import LinkComponent from '../components/general/LinkComponent';
@@ -175,7 +174,6 @@ const Directors: React.FC = () => {
 
   return (
     <div className="container text-text">
-      <Header />
       <div className="flex flex-col gap-2">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center">

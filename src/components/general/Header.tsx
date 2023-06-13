@@ -2,7 +2,7 @@ import { Link } from 'gatsby';
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between py-4 px-0">
+    <header className="flex items-center justify-between py-4 px-0 container">
       <div className="w-1/4">
         <Link className="text-xl text-text hover:text-opacity-50" to="/">
           Home

@@ -1,4 +1,3 @@
-import Header from '../components/general/Header';
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 
@@ -42,7 +41,6 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
   };
   return (
     <div className="container font-medium text-text">
-      <Header />
       <div className="flex mt-4">
         <div className="w-2/3 pr-4">
           <h1 className="text-2xl">{movieTitle}</h1>

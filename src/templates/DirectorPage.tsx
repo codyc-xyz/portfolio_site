@@ -1,4 +1,3 @@
-import Header from '../components/general/Header';
 import Card from '../components/general/Card';
 import { MovieAttributes } from '../types/MovieAttributes';
 import React from 'react';
@@ -27,7 +26,6 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
   } = pageContext;
   return (
     <div className="container font-medium text-text">
-      <Header />
       <div className="flex mt-4">
         <div className="w-2/3 pr-4">
           <h1 className="text-2xl">{directorName}</h1>
@@ -64,7 +62,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
               imageUrl={movie.movie_poster}
               altText={`Movie ${movie.movie_title}`}
               pageUrl={`/movies/${movie.movie_uid}`}
-              imageHeight="350px"
+              imageHeight="400px"
             />
           ))}
         </div>

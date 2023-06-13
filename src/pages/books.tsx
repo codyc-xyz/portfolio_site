@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/general/Header';
 import { BookAttributes } from '../types/BookAttributes';
 import Card from '../components/general/Card';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
@@ -470,7 +469,6 @@ const Books: React.FC = () => {
 
   return (
     <div className="container text-text">
-      <Header />
       <div className="flex flex-col gap-2 mb-4">
         <div className="flex gap-4">
           <ButtonWithDropdown

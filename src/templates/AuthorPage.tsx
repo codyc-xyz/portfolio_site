@@ -1,5 +1,4 @@
 import Card from '../components/general/Card';
-import Header from '../components/general/Header';
 import { BookAttributes } from '../types/BookAttributes';
 import React from 'react';
 
@@ -28,7 +27,6 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
   } = pageContext;
   return (
     <div className="container font-medium text-text">
-      <Header />
       <div className="flex" style={{ marginTop: `24px` }}>
         <div className="w-2/3 pr-4">
           <h1 className="text-2xl">{authorName}</h1>
