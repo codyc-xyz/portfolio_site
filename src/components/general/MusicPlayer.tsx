@@ -131,7 +131,7 @@ const MusicPlayer: React.FC = () => {
   };
 
   return (
-    <div className="fixed right-2 bottom-2 flex flex-col space-y-1 md:space-y-2">
+    <div className="fixed right-1 bottom-1 flex flex-col space-y-1 lg:space-y-2 z-50">
       <div className="flex-row text-center">
         <button
           className={`${
@@ -206,7 +206,7 @@ const MusicPlayer: React.FC = () => {
           )}
         </button>
         <button
-          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 hover:opacity-50"
+          className="text-xs sm:text-sm md:text-base xl:text-lg p-1 sm:p-1 md:p-1 xl:p-3 hover:opacity-50"
           onClick={handleNext}
         >
           <div className="h-3 w-3 sm:h-4 md:w-4">
