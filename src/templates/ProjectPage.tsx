@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 
 interface ProjectPageProps {
   pageContext: {
@@ -31,7 +32,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
   } = pageContext;
   return (
     <div className="container font-medium text-text">
-      <div className="flex mt-4">
+      <div className="flex mt-4 items-center">
         <div className="w-2/3 pr-4">
           <h1 className="text-2xl">{projectName}</h1>
           <div className="mt-2">
@@ -49,26 +50,34 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
             </p>
 
             <p className="text-sm">
-              <strong>Project Github:</strong> {projectGithub}
+              <strong>Project Github: </strong>
+              <Link to={projectGithub} className="hover:opacity-50">
+                {projectGithub}
+              </Link>
             </p>
             {uiGithub && (
               <p className="text-sm">
-                <strong>UI Github:</strong>
-                {uiGithub}
+                <strong>UI Github: </strong>
+                <Link to={uiGithub} className="hover:opacity-50">
+                  {uiGithub}
+                </Link>
               </p>
             )}
             <p className="text-sm">
-              <strong>Link to Project:</strong>
-              <a href={projectLink} className="hover:opacity-50">
+              <strong>Link to Project: </strong>
+              <Link to={projectLink} className="hover:opacity-50">
                 {projectLink}
-              </a>
+              </Link>
             </p>
           </div>
           <h2 className="text-xl mt-4">About</h2>
           <p className="text-sm my-4">{projectDescription}</p>
         </div>
-        <div className="w-1/3 pl-4 flex justify-end">
-          <img src={projectImage} alt="Project Image" className="w-full" />
+        <div className="w-1/2 h-1/4 pl-4 flex justify-end items-center">
+          {` `}
+          <div className="text-center">
+            <img src={projectImage} alt="Project Image" className="w-full" />
+          </div>
         </div>
       </div>
     </div>
