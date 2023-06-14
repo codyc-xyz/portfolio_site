@@ -140,7 +140,7 @@ const schema = buildSchema(`
     project_name: String!
     project_description: String!
     project_status: String!
-    date_started: Date!
+    date_started: String!
     technologies: [String!]!
     project_image: String!
     project_size: String!
@@ -155,6 +155,7 @@ const schema = buildSchema(`
     allBooks: [Book!]!
     allAuthors: [Author!]!
     allExcerpts: [Excerpt!]!
+    allProjects: [Project!]!
   }
 `);
 

@@ -176,13 +176,7 @@ const Movies: React.FC = () => {
         filteredMovies.filter((movie) => {
           const movieYear = new Date(movie.date_movie_released).getFullYear();
           const movieDecade = Math.floor(movieYear / 10) * 10;
-          return (
-            movieDecade === decade &&
-            selectedGenres.every((genre) =>
-              movie.movie_genres.includes(genre),
-            ) &&
-            (selectedLength === null || checkMovieLength(movie, selectedLength))
-          );
+          return movieDecade === decade;
         }),
       );
     }

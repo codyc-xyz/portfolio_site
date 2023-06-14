@@ -206,7 +206,7 @@ const Projects: React.FC = () => {
       setFilteredProjects(
         filteredProjects.filter((project) => {
           const projectSize = project.project_size;
-          return projectSize === selectedSize;
+          return projectSize === size;
         }),
       );
     }
@@ -232,7 +232,7 @@ const Projects: React.FC = () => {
       setFilteredProjects(
         filteredProjects.filter((project) => {
           const projectStatus = project.project_status;
-          return projectStatus === selectedStatus;
+          return projectStatus === status;
         }),
       );
     }
@@ -331,7 +331,7 @@ const Projects: React.FC = () => {
       (statuses: string[], project) => {
         const projectStatus = project.project_status;
         if (!statuses.includes(projectStatus)) {
-          statuses.push(status);
+          statuses.push(projectStatus);
         }
         return statuses;
       },
@@ -371,7 +371,7 @@ const Projects: React.FC = () => {
       onButtonClick: () => setSizeExpanded(!isSizeExpanded),
       options: availableSizes,
       selectedOption: selectedSize,
-      onOptionClickNumber: handleSizeClick,
+      onOptionClickString: handleSizeClick,
       displayOption: (option: OptionType) => `${option}`,
     },
     {
@@ -406,7 +406,6 @@ const Projects: React.FC = () => {
   if (loading || error) {
     return <LoadingOrError loading={loading} error={error}></LoadingOrError>;
   }
-
   return (
     <div className="container text-text">
       <div className="flex flex-col gap-2">
@@ -427,28 +426,29 @@ const Projects: React.FC = () => {
             filteredItemsLength={filteredProjects.length}
             itemsLength={projects.length}
           />
+        </div>
+
+        <div>
           <div>
-            <div>
-              <PageHeader
-                randomItem={randomProject}
-                searchValue={searchValue}
-                onSubmit={handleSearchSubmit}
-                onInputChange={handleSearchInputChange}
-                onClear={handleClearSearch}
-                titleText="Movies I Love"
-                onClick={handleRandomClick}
-              />
-              <div className="grid grid-cols-6 gap-4 mt-2">
-                {filteredProjects.map((project) => (
-                  <Card
-                    key={project.project_uid}
-                    pageUrl={`/projects/${project.project_uid}`}
-                    altText={project.project_name}
-                    title={project.project_name}
-                    imageUrl={project.project_image}
-                  />
-                ))}
-              </div>
+            <PageHeader
+              randomItem={randomProject}
+              searchValue={searchValue}
+              onSubmit={handleSearchSubmit}
+              onInputChange={handleSearchInputChange}
+              onClear={handleClearSearch}
+              titleText="Projects I've Built"
+              onClick={handleRandomClick}
+            />
+            <div className="grid grid-cols-4 gap-4 mt-2">
+              {filteredProjects.map((project) => (
+                <Card
+                  key={project.project_uid}
+                  pageUrl={`/projects/${project.project_uid}`}
+                  altText={project.project_name}
+                  title={project.project_name}
+                  imageUrl={project.project_image}
+                />
+              ))}
             </div>
           </div>
         </div>
