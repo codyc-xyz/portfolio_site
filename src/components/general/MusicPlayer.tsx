@@ -131,92 +131,98 @@ const MusicPlayer: React.FC = () => {
   };
 
   return (
-    <div className="fixed right-2 bottom-2 flex flex-col space-y-2">
+    <div className="fixed right-2 bottom-2 flex flex-col space-y-1 md:space-y-2">
       <div className="flex-row text-center">
         <button
           className={`${
-            selectedButton === `starryNight` ? `bg-primary` : ``
-          } text-xl p-1 m-1`}
+            selectedButton === `starryNight` ? `bg-primary rounded-md` : ``
+          } text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 m-1`}
           onClick={() => handleButtonSelect(dreamsPlaylist, `starryNight`)}
         >
           🌙
         </button>
         <button
           className={`${
-            selectedButton === `discoBall` ? `bg-primary` : ``
-          } text-xl p-1 m-1`}
+            selectedButton === `discoBall` ? `bg-primary rounded-md` : ``
+          } text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 m-1`}
           onClick={() => handleButtonSelect(boogiePlaylist, `discoBall`)}
         >
           🪩
         </button>
       </div>
       <div className="flex-row">
-        <button className="p-2 text-text hover:opacity-50" onClick={handlePrev}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            height="24"
-            width="24"
-          >
-            <polygon points="11 19 2 12 11 5 11 19"></polygon>
-            <polygon points="22 19 13 12 22 5 22 19"></polygon>
-          </svg>
+        <button
+          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 hover:opacity-50"
+          onClick={handlePrev}
+        >
+          <div className="h-3 w-3 sm:h-4 md:w-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polygon points="11 19 2 12 11 5 11 19"></polygon>
+              <polygon points="22 19 13 12 22 5 22 19"></polygon>
+            </svg>
+          </div>
         </button>
         <button
-          className="p-2 text-primary hover:opacity-50"
+          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 hover:opacity-50"
           onClick={() => dispatch(togglePlay())}
         >
           {isPlaying ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              height="24"
-              width="24"
-            >
-              <rect x="6" y="4" width="4" height="16"></rect>
-              <rect x="14" y="4" width="4" height="16"></rect>
-            </svg>
+            <div className="h-3 w-3 sm:h-4 md:w-4 text-primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </div>
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              height="24"
-              width="24"
-            >
-              <polygon points="5 3 19 12 5 21 5 3"></polygon>
-            </svg>
+            <div className="h-3 w-3 sm:h-4 md:w-4 text-primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
           )}
         </button>
-        <button className="p-2 text-text hover:opacity-50" onClick={handleNext}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            height="24"
-            width="24"
-          >
-            <polygon points="13 19 22 12 13 5 13 19"></polygon>
-            <polygon points="2 19 11 12 2 5 2 19"></polygon>
-          </svg>
+        <button
+          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 hover:opacity-50"
+          onClick={handleNext}
+        >
+          <div className="h-3 w-3 sm:h-4 md:w-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polygon points="13 19 22 12 13 5 13 19"></polygon>
+              <polygon points="2 19 11 12 2 5 2 19"></polygon>
+            </svg>
+          </div>
         </button>
       </div>
     </div>
