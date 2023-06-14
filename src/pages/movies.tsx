@@ -471,7 +471,7 @@ const Movies: React.FC = () => {
   return (
     <div className="container text-text">
       <div className="flex flex-col gap-2">
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           <ButtonWithDropdown
             widthClass="w-1/4"
             paddingClass="w-full py-2 px-2"

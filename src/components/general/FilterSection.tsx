@@ -26,7 +26,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   return (
     <div>
       <button
-        className="block w-full text-left hover:bg-gray-100 p-1"
+        className="block w-full text-left hover:bg-gray-100 py-1"
         onClick={onButtonClick}
       >
         {label}
@@ -49,7 +49,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
           {options.map((option) => (
             <button
               key={option.toString()}
-              className={`px-1 py-1 rounded-md ${
+              className={`px-1 py-1 rounded-md text-sm md:text-base ${
                 selectedOption === option ||
                 (Array.isArray(selectedOption) &&
                   selectedOption.includes(option))

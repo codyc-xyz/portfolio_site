@@ -15,12 +15,12 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   return (
     <div
-      className={`${className} bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full`}
+      className={`${className} bg-gray-50 py-1 px-0.5 rounded-b-lg border text-xs sm:text-sm md:text-base absolute z-10 w-full`}
     >
       {options.map((option) => (
         <button
           key={option}
-          className={`block w-full text-left hover:bg-gray-100 py-0.5 sm:text-sm md:text-base`}
+          className={`block w-full text-left hover:bg-gray-100 py-0.5`}
           onClick={() => onOptionClick(option)}
         >
           {option}

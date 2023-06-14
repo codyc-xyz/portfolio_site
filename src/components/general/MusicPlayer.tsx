@@ -131,7 +131,7 @@ const MusicPlayer: React.FC = () => {
   };
 
   return (
-    <div className="fixed right-1 bottom-1 flex flex-col space-y-1 lg:space-y-2 z-50">
+    <div className="fixed right-1 bottom-3 flex flex-col space-y-1 lg:space-y-2 z-50">
       <div className="flex-row text-center">
         <button
           className={`${

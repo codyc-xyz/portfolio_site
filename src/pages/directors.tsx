@@ -202,7 +202,7 @@ const Directors: React.FC = () => {
             onClear={handleClearSearch}
           />
         </div>
-        <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
+        <div className="grid grid-cols-2 gap-1 mt-1 md:grid-cols-4 lg:gap-2 lg:grid-cols-6 md:mt-2">
           {filteredDirectors.map((director) => {
             return (
               <Card

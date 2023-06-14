@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Search } from 'react-feather';
 
 const SubmitButton: React.FC = () => {
+  const [iconSize, setIconSize] = useState(20);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setIconSize(12);
+      } else if (width < 768) {
+        setIconSize(16);
+      } else if (width > 768) {
+        setIconSize(20);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener(`resize`, handleResize);
+
+    return () => window.removeEventListener(`resize`, handleResize);
+  }, []);
+
   return (
     <button
       type="submit"
-      className="ml-1 md:ml-2 text-primary text-md lg:text-lg hover:text-opacity-50"
+      className="ml-0.5 md:ml-2 text-primary text-base lg:text-lg hover:text-opacity-50"
     >
-      Go
+      <Search size={iconSize} />
     </button>
   );
 };
