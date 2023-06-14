@@ -1,4 +1,5 @@
 import { Model } from 'sequelize';
+import { ExcerptAttributes } from './ExcerptAttributes';
 
 export type BookAttributes = {
   author: any;
@@ -13,6 +14,7 @@ export type BookAttributes = {
   goodreads_link: string;
   country_of_origin: string;
   author_uid: string;
+  excerpts: ExcerptAttributes[];
 };
 
 class BookClass extends Model<BookAttributes> {}

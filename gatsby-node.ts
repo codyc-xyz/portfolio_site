@@ -1,6 +1,12 @@
 import type { GatsbyNode } from 'gatsby';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import path from 'path';
+import { MovieAttributes } from './src/types/MovieAttributes';
+import { DirectorAttributes } from './src/types/DirectorAttributes';
+import { BookAttributes } from './src/types/BookAttributes';
+import { AuthorAttributes } from './src/types/AuthorAttributes';
+import { ProjectAttributes } from './src/types/ProjectAttributes';
+
 const webpack = require(`webpack`);
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
@@ -116,6 +122,19 @@ export const createPages: GatsbyNode['createPages'] = async ({
             book_cover_image
           }
         }
+        allProjects {
+          project_uid
+          project_name
+          project_description
+          project_status
+          date_started
+          technologies
+          project_image
+          project_size
+          project_link
+          github_project_link
+          github_ui_link
+        }
       }
     }
   `);
@@ -130,9 +149,10 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const directors = result.data.segments.allDirectors;
   const books = result.data.segments.allBooks;
   const authors = result.data.segments.allAuthors;
+  const projects = result.data.segments.allProjects;
 
   if (movies) {
-    movies.forEach((movie: any) => {
+    movies.forEach((movie: MovieAttributes) => {
       createPage({
         path: `movies/${movie.movie_uid}`,
         component: path.resolve(`./src/templates/MoviePage.tsx`),
@@ -155,7 +175,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   }
 
   if (directors) {
-    directors.forEach((director: any) => {
+    directors.forEach((director: DirectorAttributes) => {
       createPage({
         path: `directors/${director.director_uid}`,
         component: path.resolve(`./src/templates/DirectorPage.tsx`),
@@ -177,7 +197,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   }
 
   if (books) {
-    books.forEach((book: any) => {
+    books.forEach((book: BookAttributes) => {
       createPage({
         path: `books/${book.book_uid}`,
         component: path.resolve(`./src/templates/BookPage.tsx`),
@@ -206,7 +226,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   }
 
   if (authors) {
-    authors.forEach((author: any) => {
+    authors.forEach((author: AuthorAttributes) => {
       createPage({
         path: `authors/${author.author_uid}`,
         component: path.resolve(`./src/templates/AuthorPage.tsx`),
@@ -223,6 +243,28 @@ export const createPages: GatsbyNode['createPages'] = async ({
             book_title: book.book_title,
             book_cover_image: book.book_cover_image,
           })),
+        },
+      });
+    });
+  }
+
+  if (projects) {
+    projects.forEach((project: ProjectAttributes) => {
+      createPage({
+        path: `projects/${project.project_uid}`,
+        component: path.resolve(`./src/templates/ProjectPage.tsx`),
+        context: {
+          projectUid: project.project_uid,
+          projectName: project.project_name,
+          projectDescription: project.project_description,
+          dateStarted: project.date_started,
+          projectImage: project.project_image,
+          technologies: project.technologies,
+          projectStatus: project.project_status,
+          projectSize: project.project_size,
+          projectLink: project.project_link,
+          projectGithub: project.github_project_link,
+          uiGithub: project.github_ui_link,
         },
       });
     });
