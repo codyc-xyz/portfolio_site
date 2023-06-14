@@ -2,48 +2,49 @@ import { Link } from 'gatsby';
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between py-4 px-0 container">
-      <div className="w-1/4">
-        <Link className="text-xl text-text hover:text-opacity-50" to="/">
+    <header className="flex items-center justify-between py-1 sm:py-1 md:py-2 lg:py-3 xl:py-3 px-0 container">
+      <div className="ml-0 w-1/6 sm:w-1/6 md:w-1/4 lg:w-1/4 xl:w-1/4 flex items-center justify-start">
+        <Link
+          className="text-xs sm:text-sm md:text-lg lg:text-lg xl:text-xl text-text hover:text-opacity-50"
+          to="/"
+        >
           Home
         </Link>
       </div>
-      <nav className="w-2/4 flex items-center justify-between">
+      <div className="w-2/3 sm:w-2/3 md:w-1/2 lg:w-1/2 xl:w-1/2 flex items-center justify-between">
         <Link
-          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
+          className="text-xs sm:text-sm md:text-lg  lg:text-lg xl:text-xl font-medium text-text hover:text-opacity-50 mx-0.5 sm:mx-1 md:mx-2 lg:mx-3 xl:mx-4"
           to="/movies"
         >
           Movies
         </Link>
         <Link
-          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
+          className="text-xs sm:text-sm md:text-lg  lg:text-lg xl:text-xl font-medium text-text hover:text-opacity-50 mx-0.5 sm:mx-1 md:mx-2 lg:mx-3 xl:mx-4"
           to="/directors"
         >
           Directors
         </Link>
         <Link
-          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
+          className="text-xs sm:text-sm md:text-lg  lg:text-lg xl:text-xl font-medium text-text hover:text-opacity-50 mx-0.5 sm:mx-1 md:mx-2 lg:mx-3 xl:mx-4"
           to="/books"
         >
           Books
         </Link>
         <Link
-          className="text-xl font-medium text-text hover:text-opacity-50 mx-3"
+          className="text-xs sm:text-sm md:text-lg lg:text-lg xl:text-xl font-medium text-text hover:text-opacity-50 mx-0.5 sm:mx-1 md:mx-2 lg:mx-3 xl:mx-4"
           to="/authors"
         >
           Authors
         </Link>
-      </nav>
+      </div>
 
-      <div className="w-1/4 flex items-center justify-end">
-        <div className="mr-0">
-          <Link
-            className="text-xl font-medium text-text hover:text-opacity-50"
-            to="/projects"
-          >
-            Projects
-          </Link>
-        </div>
+      <div className=" mr-0 w-1/6 sm:w-1/6 md:w-1/4 lg:w-1/4 xl:w-1/4 flex items-center justify-end">
+        <Link
+          className="text-xs sm:text-sm md:text-lg lg:text-lg xl:text-xl font-medium text-text hover:text-opacity-50"
+          to="/projects"
+        >
+          Projects
+        </Link>
       </div>
     </header>
   );

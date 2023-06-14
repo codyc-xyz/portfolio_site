@@ -441,7 +441,7 @@ const Projects: React.FC = () => {
               onSubmit={handleSearchSubmit}
               onInputChange={handleSearchInputChange}
               onClear={handleClearSearch}
-              titleText="Projects I've Built"
+              titleText="Personal Projects"
               onClick={handleRandomClick}
             />
             <div className="grid grid-cols-4 gap-4 mt-2">
