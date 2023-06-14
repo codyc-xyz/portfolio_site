@@ -17,7 +17,7 @@ const LinkComponent: React.FC<LinkComponentProps> = ({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-lg xl:text-xl hover:text-opacity-50 text-primary rounded"
+        className="text-lg lg:text-xl hover:text-opacity-50 text-primary rounded"
         onClick={onClick}
       >
         {text}

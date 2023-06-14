@@ -20,13 +20,13 @@ const Dropdown: React.FC<DropdownProps> = ({
       {options.map((option) => (
         <button
           key={option}
-          className={`block w-full text-left hover:bg-gray-100 py-0.5`}
+          className={`block w-full text-left hover:bg-gray-100 py-0.5 sm:text-sm md:text-base`}
           onClick={() => onOptionClick(option)}
         >
           {option}
           {selectedOption === option && (
             <svg
-              className="float-right inline-block"
+              className="float-right inline-block text-right"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

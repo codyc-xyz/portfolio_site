@@ -155,7 +155,7 @@ const MusicPlayer: React.FC = () => {
           className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 hover:opacity-50"
           onClick={handlePrev}
         >
-          <div className="h-3 w-3 sm:h-4 md:w-4">
+          <div className="h-3 w-3 md:h-4 md:w-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -175,7 +175,7 @@ const MusicPlayer: React.FC = () => {
           onClick={() => dispatch(togglePlay())}
         >
           {isPlaying ? (
-            <div className="h-3 w-3 sm:h-4 md:w-4 text-primary">
+            <div className="h-3 w-3 md:h-4 md:w-4 text-primary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -190,7 +190,7 @@ const MusicPlayer: React.FC = () => {
               </svg>
             </div>
           ) : (
-            <div className="h-3 w-3 sm:h-4 md:w-4 text-primary">
+            <div className="h-3 w-3 md:h-4 md:w-4 text-primary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -209,7 +209,7 @@ const MusicPlayer: React.FC = () => {
           className="text-xs sm:text-sm md:text-base xl:text-lg p-1 sm:p-1 md:p-1 xl:p-3 hover:opacity-50"
           onClick={handleNext}
         >
-          <div className="h-3 w-3 sm:h-4 md:w-4">
+          <div className="h-3 w-3 md:h-4 md:w-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
