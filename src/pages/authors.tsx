@@ -42,7 +42,7 @@ const Authors: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value);
+    setSearchValue(event.target.value.toLowerCase());
   };
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,8 +50,8 @@ const Authors: React.FC = () => {
 
     const filteredResults = authors.filter((author) => {
       return (
-        author.author_name.includes(searchValue) ||
-        author.country_of_birth.includes(searchValue)
+        author.author_name.toLowerCase().includes(searchValue) ||
+        author.country_of_birth.toLowerCase().includes(searchValue)
       );
     });
     const sortedFilteredResults = sortAuthors(

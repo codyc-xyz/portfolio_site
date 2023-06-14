@@ -53,7 +53,7 @@ const Projects: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value);
+    setSearchValue(event.target.value.toLowerCase());
   };
 
   const [selectedSortOption, setSelectedSortOption] =
@@ -68,7 +68,9 @@ const Projects: React.FC = () => {
 
   const handleFilterClear = () => {
     setFilteredProjects(
-      projects.filter((project) => project.project_name.includes(searchValue)),
+      projects.filter((project) =>
+        project.project_name.toLowerCase().includes(searchValue),
+      ),
     );
 
     setSelectedTechnologies([]);
@@ -89,7 +91,7 @@ const Projects: React.FC = () => {
           )) &&
         (selectedSize === null || projectSize === selectedSize) &&
         (selectedStatus === null || selectedStatus === projectStatus) &&
-        project.project_name.includes(searchValue)
+        project.project_name.toLowerCase().includes(searchValue)
       );
     });
     const sortedFilteredResults = sortProjects(
@@ -169,7 +171,8 @@ const Projects: React.FC = () => {
             (selectedSize === null || projectSize === selectedSize) &&
             updatedTech.every((tech) => project.technologies.includes(tech)) &&
             (selectedStatus === null || selectedStatus === projectStatus) &&
-            (searchValue === `` || project.project_name.includes(searchValue))
+            (searchValue === `` ||
+              project.project_name.toLowerCase().includes(searchValue))
           );
         }),
       );
@@ -196,7 +199,8 @@ const Projects: React.FC = () => {
               project.technologies.includes(tech),
             ) &&
             (selectedStatus === null || selectedStatus === projectStatus) &&
-            (searchValue === `` || project.project_name.includes(searchValue))
+            (searchValue === `` ||
+              project.project_name.toLowerCase().includes(searchValue))
           );
         }),
       );
@@ -223,7 +227,8 @@ const Projects: React.FC = () => {
               project.technologies.includes(tech),
             ) &&
             (selectedSize === null || selectedSize === projectSize) &&
-            (searchValue === `` || project.project_name.includes(searchValue))
+            (searchValue === `` ||
+              project.project_name.toLowerCase().includes(searchValue))
           );
         }),
       );

@@ -61,7 +61,7 @@ const Movies: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value);
+    setSearchValue(event.target.value.toLowerCase());
   };
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -77,9 +77,9 @@ const Movies: React.FC = () => {
           )) &&
         (selectedDecade === null || movieDecade === selectedDecade) &&
         (selectedLength === null || checkMovieLength(movie, selectedLength)) &&
-        (movie.movie_title.includes(searchValue) ||
-          movie.country_of_origin.includes(searchValue) ||
-          movie.director.director_name.includes(searchValue))
+        (movie.movie_title.toLowerCase().includes(searchValue) ||
+          movie.country_of_origin.toLowerCase().includes(searchValue) ||
+          movie.director.director_name.toLowerCase().includes(searchValue))
       );
     });
     const sortedFilteredResults = sortMovies(
@@ -133,9 +133,9 @@ const Movies: React.FC = () => {
             (selectedLength === null ||
               checkMovieLength(movie, selectedLength)) &&
             (searchValue === `` ||
-              movie.movie_title.includes(searchValue) ||
-              movie.country_of_origin.includes(searchValue) ||
-              movie.director.director_name.includes(searchValue))
+              movie.movie_title.toLowerCase().includes(searchValue) ||
+              movie.country_of_origin.toLowerCase().includes(searchValue) ||
+              movie.director.director_name.toLowerCase().includes(searchValue))
           );
         }),
       );
@@ -163,9 +163,9 @@ const Movies: React.FC = () => {
             (selectedLength === null ||
               checkMovieLength(movie, selectedLength)) &&
             (searchValue === `` ||
-              movie.movie_title.includes(searchValue) ||
-              movie.country_of_origin.includes(searchValue) ||
-              movie.director.director_name.includes(searchValue))
+              movie.movie_title.toLowerCase().includes(searchValue) ||
+              movie.country_of_origin.toLowerCase().includes(searchValue) ||
+              movie.director.director_name.toLowerCase().includes(searchValue))
           );
         }),
       );
@@ -196,9 +196,9 @@ const Movies: React.FC = () => {
               movie.movie_genres.includes(genre),
             ) &&
             (searchValue === `` ||
-              movie.movie_title.includes(searchValue) ||
-              movie.country_of_origin.includes(searchValue) ||
-              movie.director.director_name.includes(searchValue))
+              movie.movie_title.toLowerCase().includes(searchValue) ||
+              movie.country_of_origin.toLowerCase().includes(searchValue) ||
+              movie.director.director_name.toLowerCase().includes(searchValue))
           );
         }),
       );
@@ -233,9 +233,9 @@ const Movies: React.FC = () => {
     setFilteredMovies(
       movies.filter(
         (movie) =>
-          movie.movie_title.includes(searchValue) ||
-          movie.country_of_origin.includes(searchValue) ||
-          movie.director.director_name.includes(searchValue),
+          movie.movie_title.toLowerCase().includes(searchValue) ||
+          movie.country_of_origin.toLowerCase().includes(searchValue) ||
+          movie.director.director_name.toLowerCase().includes(searchValue),
       ),
     );
 

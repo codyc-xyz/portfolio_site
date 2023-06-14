@@ -42,7 +42,7 @@ const Directors: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value);
+    setSearchValue(event.target.value.toLowerCase());
   };
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,8 +50,8 @@ const Directors: React.FC = () => {
 
     const filteredResults = directors.filter((director) => {
       return (
-        director.director_name.includes(searchValue) ||
-        director.director_country_of_birth.includes(searchValue)
+        director.director_name.toLowerCase().includes(searchValue) ||
+        director.director_country_of_birth.toLowerCase().includes(searchValue)
       );
     });
     const sortedFilteredResults = sortDirectors(
