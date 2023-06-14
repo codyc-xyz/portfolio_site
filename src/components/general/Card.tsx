@@ -7,7 +7,6 @@ interface CardProps {
   secondaryText?: string;
   pageUrl: string;
   altText: string;
-  imageHeight?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -16,7 +15,6 @@ const Card: React.FC<CardProps> = ({
   secondaryText,
   pageUrl,
   altText,
-  imageHeight = `250px`,
 }) => {
   return (
     <div className="flex flex-col">
@@ -26,7 +24,7 @@ const Card: React.FC<CardProps> = ({
             src={imageUrl}
             alt={altText}
             className="w-full h-auto"
-            style={{ objectFit: `cover`, height: imageHeight }}
+            style={{ objectFit: `cover` }}
           />
         </div>
       </Link>
