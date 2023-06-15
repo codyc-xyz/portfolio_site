@@ -169,7 +169,7 @@ const Authors: React.FC = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container text-text">
       <div className="flex flex-col gap-2">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center">
@@ -183,8 +183,8 @@ const Authors: React.FC = () => {
               isExpanded={isSortExpanded}
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
-              widthClass="w-full"
-              paddingClass=" w-full py-1 px-5 ml-5 mr-7"
+              widthClass="w-1/2 lg:w-2/3 xl:w-full"
+              paddingClass=" w-full py-0.5 px-2 md:px-3 lg: py-2 lg:px-5 ml-5 md:ml-5 mr-0 md:mr-5  xl:mr-7"
             />
           </div>
           <TitleComponent
@@ -198,7 +198,7 @@ const Authors: React.FC = () => {
             onClear={handleClearSearch}
           />
         </div>
-        <div className="grid grid-cols-6 grid-rows-2 gap-4 mt-2">
+        <div className="grid grid-cols-2 gap-1 mt-1 md:grid-cols-4 lg:gap-2 lg:grid-cols-6 md:mt-2">
           {filteredAuthors.map((author) => {
             return (
               <Card

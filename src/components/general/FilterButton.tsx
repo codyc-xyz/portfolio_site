@@ -10,7 +10,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   onClick,
 }) => (
   <button
-    className={`w-full ${
+    className={`w-full text-sm md:text-base lg:text-lg ${
       isFilterExpanded ? `rounded-t-lg` : `rounded-lg`
     } bg-white shadow-sm border border-gray-300 p-2`}
     onClick={onClick}

@@ -10,7 +10,6 @@
   .container {
     margin-left: 2rem;
     margin-right: 2rem;
-    max-width: calc(100% - 4rem);
     width: auto;
   }
 
@@ -18,7 +17,7 @@
     .container {
       margin-left: 4rem;
       margin-right: 4rem;
-      max-width: calc(100% - 8rem);
+      width: auto;
     }
   }
 
@@ -26,7 +25,7 @@
     .container {
       margin-left: 9rem;
       margin-right: 9rem;
-      max-width: calc(100% - 18rem);
+      width: auto;
     }
   }
 
@@ -35,7 +34,7 @@
     .container {
       margin-left: 12rem;
       margin-right: 12rem;
-      max-width: calc(100% - 24rem);
+      width: auto;
     }
   }
 }

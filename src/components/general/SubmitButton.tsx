@@ -8,11 +8,11 @@ const SubmitButton: React.FC = () => {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setIconSize(12);
-      } else if (width < 768) {
         setIconSize(14);
-      } else if (width > 768) {
+      } else if (width < 976) {
         setIconSize(16);
+      } else if (width >= 976) {
+        setIconSize(20);
       }
     };
 
