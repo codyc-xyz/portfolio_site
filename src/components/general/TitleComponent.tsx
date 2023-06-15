@@ -5,9 +5,11 @@ interface TitleComponentProps {
   className?: string;
 }
 
-const TitleComponent: React.FC<TitleComponentProps> = ({ text }) => {
+const TitleComponent: React.FC<TitleComponentProps> = ({ text, className }) => {
   return (
-    <h1 className="text-center text-xl lg:text-2xl xl:text-3xl flex-grow flex-shrink-0 ml-auto mr-auto w-1/3 xl:w-1/2">
+    <h1
+      className={`${className} text-center text-base lg:text-xl xl:text-2xl flex-grow flex-shrink-0 ml-auto mr-auto w-full md:w-1/2`}
+    >
       {text}
     </h1>
   );

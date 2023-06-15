@@ -39,3 +39,13 @@
   }
   
 }
+
+  @media (min-width: 1250px) {
+      .container {
+        margin-left: 14rem;
+        margin-right: 14rem;
+        width: auto;
+    }
+  }
+  
+    
