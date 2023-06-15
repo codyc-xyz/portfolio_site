@@ -41,8 +41,8 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
   };
   return (
     <div className="container font-medium text-text">
-      <div className="flex mt-4">
-        <div className="w-2/3 pr-4">
+      <div className="flex flex-col lg:flex-row mt-4">
+        <div className="w-full lg:w-3/5 xl:w-2/3 pr-2 lg:pr-4 ">
           <h1 className="text-2xl">{movieTitle}</h1>
           <div className="mt-2">
             <p className="text-sm">
@@ -102,13 +102,13 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
             </div>
           )}
         </div>
-        <div className="w-1/3 pl-4 flex justify-end">
+        <div className="w-full lg:w-2/5 xl:w-1/3 pl-0 lg:pl-4">
           <img src={moviePoster} alt="Movie Poster" className="w-full" />
         </div>
       </div>
       <div className="mt-2">
         <h2 className="text-xl">Screenshots</h2>
-        <div className="grid grid-cols-2 gap-4 my-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
           {screenshotLinks.map((screenshot, index) => (
             <img
               key={index}
