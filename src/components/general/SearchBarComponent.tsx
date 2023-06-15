@@ -16,12 +16,12 @@ const SearchBarComponent: React.FC<SearchBarComponentProps> = ({
   onClear,
 }) => {
   return (
-    <div className="w-1/4 flex text-right justify-end text-xs sm:text-sm md:text-base lg:text-lg">
+    <div className="w-1/3 xl:w-1/4 flex text-right justify-end text-xs sm:text-sm md:text-base">
       <form onSubmit={onSubmit} className="relative">
         <input
           type="text"
           placeholder="Search"
-          className="border border-gray-300 rounded-lg px-0.5 py-1 md:px-2 lg:px-4 lg:py-2 w-2/3 h-3/4 lg:w-3/4 mt-1"
+          className="border border-gray-300 rounded-lg px-1 py-0.5 md:px-2 xl:px-4 xl:py-2 w-2/3 h-3/4 lg:w-3/4 mt-1"
           value={searchValue}
           onChange={onInputChange}
         />

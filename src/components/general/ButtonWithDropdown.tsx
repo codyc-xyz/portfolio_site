@@ -25,7 +25,7 @@ const ButtonWithDropdown: React.FC<ButtonWithDropdownProps> = ({
         } bg-white shadow-sm border border-gray-300`}
         onClick={onButtonClick}
       >
-        <div className="flex-grow">{label}</div>
+        <div className="flex-grow text-sm md:text-base xl:text-lg">{label}</div>
         <svg
           className={`transform ${isExpanded ? `rotate-180` : ``}`}
           xmlns="http://www.w3.org/2000/svg"
