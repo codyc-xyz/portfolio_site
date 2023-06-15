@@ -21,7 +21,7 @@ const SearchBarComponent: React.FC<SearchBarComponentProps> = ({
         <input
           type="text"
           placeholder="Search"
-          className="border border-gray-300 rounded-lg px-1 py-1 md:px-2 xl:px-4 xl:py-2 w-2/3 h-3/4 lg:w-3/4 mt-1"
+          className="border border-gray-300 rounded-lg px-0.5 py-1 sm:px-1 md:px-2 xl:px-4 xl:py-2 w-2/3 h-3/4 lg:w-3/4 mt-1"
           value={searchValue}
           onChange={onInputChange}
         />

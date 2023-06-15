@@ -15,7 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   return (
     <div
-      className={`${className} bg-gray-50 py-1 px-0.5 rounded-b-lg border text-xs sm:text-sm md:text-base absolute z-10 w-full`}
+      className={`${className} bg-gray-50 p-0.5 rounded-b-lg border text-xs sm:text-sm md:text-base absolute z-10 w-full`}
     >
       {options.map((option) => (
         <button
