@@ -77,6 +77,9 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
                 {letterboxdLink}
               </a>
             </p>
+            <div className="lg:hidden w-1/2 mt-2">
+              <img src={moviePoster} alt="Movie Poster" className="w-full" />
+            </div>
           </div>
           <h2 className="text-xl mt-4">About</h2>
           <p className="text-sm my-4">{movieDescription}</p>
@@ -102,7 +105,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
             </div>
           )}
         </div>
-        <div className="w-full lg:w-2/5 xl:w-1/3 pl-0 lg:pl-4">
+        <div className="hidden lg:block w-full lg:w-2/5 xl:w-1/3 pl-0 lg:pl-4">
           <img src={moviePoster} alt="Movie Poster" className="w-full" />
         </div>
       </div>
