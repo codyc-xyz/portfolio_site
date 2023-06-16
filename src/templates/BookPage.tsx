@@ -71,7 +71,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
   return (
     <div className="container font-medium text-text mb-4">
       <div className="flex mt-4">
-        <div className="w-2/3 pr-4">
+        <div className="w-full lg:w-3/5 xl:w-2/3 pr-2 lg:pr-4 ">
           <h1 className="text-2xl">{bookTitle}</h1>
           <div className="mt-2">
             <p className="text-sm">
@@ -107,23 +107,57 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
             <p className="text-sm">
               <strong>isbn:</strong> {isbn}
             </p>
+            <div className="lg:hidden w-1/2 mt-2">
+              <img src={coverImage} alt="Book Cover" className="w-full" />
+            </div>
           </div>
           <h2 className="text-xl mt-4">About</h2>
           <p className="text-sm mt-2">{bookDescription}</p>
         </div>
-        <div className="w-1/3 pl-4 flex justify-end">
-          <img
-            src={coverImage}
-            alt="Book Poster"
-            className="w-full"
-            style={{ height: `450px`, width: `300px` }}
-          />
+        <div className="hidden lg:block w-full lg:w-2/5 xl:w-1/3 pl-0 lg:pl-4">
+          <img src={coverImage} alt="Book Cover" className="w-full" />
         </div>
       </div>
       <div className="mt-4">
         <h2 className="text-xl">Excerpts I Find Interesting</h2>
+        <div className="flex lg:hidden items-center justify-center mt-4 lg:mt-0">
+          <button
+            className="text-2xl text-gray-500"
+            onClick={handlePreviousExcerpt}
+            disabled={currentExcerptIndex === 0}
+          >
+            &lt;
+          </button>
+          <div className="mx-4 text-xs">
+            <p>
+              Page: {currentExcerpt.page_number} / {pages}
+            </p>
+            {currentExcerpt.section && (
+              <p>
+                <span className="font-semibold">Section:</span>
+                {` `}
+                {currentExcerpt.section}
+              </p>
+            )}
+            {currentExcerpt.chapter && (
+              <p>
+                <span className="font-semibold">Chapter:</span>
+                {` `}
+                {currentExcerpt.chapter}
+              </p>
+            )}
+          </div>
+          <button
+            className="text-2xl text-gray-500"
+            onClick={handleNextExcerpt}
+            disabled={currentExcerptIndex === excerpts.length - 1}
+          >
+            &gt;
+          </button>
+        </div>
+
         <div className="grid grid-cols-12">
-          <div className="col-start-1 col-span-4 flex items-center justify-start mt-4">
+          <div className="col-start-1 col-span-4 flex items-center justify-start my-2 lg:mt-4">
             <form onSubmit={handleSubmit} className="flex items-center">
               <input
                 className="rounded p-2"
@@ -142,7 +176,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
               </button>
             </form>
           </div>
-          <div className="col-start-5 col-span-4 flex items-center justify-center mt-4">
+          <div className="hidden lg:flex col-start-5 col-span-5 flex-row items-center justify-center my-2 lg:mt-4">
             <button
               className="text-2xl text-gray-500"
               onClick={handlePreviousExcerpt}
@@ -177,16 +211,16 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
               &gt;
             </button>
           </div>
-          <div className="col-start-12 col-span-1 flex items-center justify-end mt-4">
+          <div className="col-start-12 col-span-1 flex items-center justify-end my-2 lg:mt-4">
             <button
-              className="text-xl text-primary hover:opacity-50"
+              className="text-base md:text-lg lg:text-xl text-primary hover:opacity-50"
               onClick={handleRandomExcerpt}
             >
               Random
             </button>
           </div>
         </div>
-        <div className="col-start-4 col-span-6 flex justify-center my-4">
+        <div className="col-start-4 col-span-6 flex justify-center my-0 lg:my-4">
           <p>{currentExcerpt.text}</p>
         </div>
       </div>
