@@ -189,7 +189,7 @@ const Authors: React.FC = () => {
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
               widthClass="w-full h-1/2 md:w-1/2 lg:w-2/3 xl:w-full"
-              paddingClass=" w-full py-0.5 px-2 md:px-3 lg: py-2 lg:px-5 ml-5 md:ml-5 mr-0 md:mr-5  xl:mr-7"
+              paddingClass="mx-5 w-full py-2 px-2"
             />
           </div>
           <TitleComponent
