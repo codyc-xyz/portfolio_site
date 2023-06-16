@@ -28,8 +28,8 @@ const GuessResultDisplay: React.FC<GuessResultProps> = ({ guessResult }) => {
   const { correct, selectedHashtag, unselectedHashtag } = guessResult;
 
   return (
-    <div className="p-4 bg-gray-100 rounded-lg shadow-lg mb-6">
-      <p className={`text-xl m-2 font-bold`}>
+    <div className="p-2 sm:p-4 bg-gray-100 rounded-lg shadow-sm mb-4 sm:mb-6">
+      <p className={`text-lg sm:text-xl m-2 font-bold text-center`}>
         {correct ? `Nice guess!` : `Unlucky!`}
         {` `}
         {selectedHashtag.Hashtag}
@@ -45,7 +45,7 @@ const GuessResultDisplay: React.FC<GuessResultProps> = ({ guessResult }) => {
         </span>
         .
       </p>
-      <p className={`text-xl m-2 font-bold`}>
+      <p className={`text-lg sm:text-xl m-2 font-bold text-center`}>
         {unselectedHashtag.Hashtag} was tweeted{` `}
         <span className={`${!correct ? `text-green-600` : `text-red-600`}`}>
           {unselectedHashtag.Count}
@@ -68,10 +68,12 @@ const HashtagDisplay: React.FC<HashtagDisplayProps> = ({
 }) => {
   const cleanedHashtag = hashtag.replace(`#`, ``);
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg flex flex-col items-center space-y-3">
-      <p className="text-xl font-bold text-gray-800">{hashtag}</p>
+    <div className="p-4 sm:p-6 bg-gray-100 rounded-lg shadow-sm flex flex-col items-center space-y-2 sm:space-y-3">
+      <p className="text-lg sm:text-xl font-bold text-gray-800 text-center">
+        {hashtag}
+      </p>
       <button
-        className="bg-blue-500 text-white rounded-full px-6 py-2 transition-colors duration-200 ease-in-out hover:bg-blue-600"
+        className="bg-blue-500 text-white rounded-full px-4 sm:px-6 py-2 transition-colors duration-200 ease-in-out hover:bg-blue-600"
         onClick={() => selectHashtag(hashtag)}
       >
         Select
@@ -98,11 +100,13 @@ const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
   highScore,
 }) => {
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg mb-6">
-      <p className="text-xl font-bold text-gray-800 mb-2">
+    <div className="p-4 sm:p-6 bg-gray-100 rounded-lg shadow-sm mb-4 sm:mb-6">
+      <p className="text-lg sm:text-xl font-bold text-gray-800 mb-2 text-center">
         Score: {currentScore}
       </p>
-      <p className="text-xl font-bold text-gray-800">High Score: {highScore}</p>
+      <p className="text-lg sm:text-xl font-bold text-gray-800 text-center">
+        High Score: {highScore}
+      </p>
     </div>
   );
 };
@@ -194,14 +198,14 @@ const Game: React.FC = () => {
 
   if (!gameStarted) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 py-6 px-4">
-        <div className="p-6 bg-gray-100 rounded-lg shadow-lg flex flex-col space-y-3">
-          <p className="text-xl font-bold text-gray-800">
+      <div className="flex flex-col items-center justify-center py-4 px-2 sm:px-4">
+        <div className="p-4 sm:p-6 bg-gray-100 rounded-lg shadow-lg flex flex-col space-y-3">
+          <p className="text-lg sm:text-xl font-bold text-gray-800 text-center">
             Given two hashtags, guess which one was most popular from a dataset
             of millions of tweets scraped from the February 9th 2023 to February
             13th 2023.
           </p>
-          <p className="text-xl font-bold text-gray-800">
+          <p className="text-lg sm:text-xl font-bold text-gray-800 text-center">
             Click <span className="text-blue-500">View on Twitter</span>
             {` `}
             to open current search results for the given hashtags. But be
@@ -210,7 +214,7 @@ const Game: React.FC = () => {
           </p>
           <div className="flex justify-center">
             <button
-              className="bg-blue-500 text-white rounded-full px-6 py-2 transition-colors duration-200 ease-in-out hover:bg-blue-600"
+              className="bg-blue-500 text-white rounded-full px-4 sm:px-6 py-2 transition-colors duration-200 ease-in-out hover:bg-blue-600"
               onClick={startButtonHandler}
             >
               Play
@@ -220,12 +224,11 @@ const Game: React.FC = () => {
       </div>
     );
   }
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 py-6 px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen py-4 px-2 sm:px-4">
       <GuessResultDisplay guessResult={guessResult} />
 
-      <div className="flex justify-around w-full max-w-4xl my-6 gap-4">
+      <div className="flex flex-col sm:flex-row justify-around w-full my-4 sm:my-6 gap-2 sm:gap-4">
         {hashtag1 && (
           <HashtagDisplay
             hashtag={hashtag1.Hashtag}
@@ -239,6 +242,7 @@ const Game: React.FC = () => {
           />
         )}
       </div>
+
       <ScoreDisplay currentScore={currentScore} highScore={highScore} />
     </div>
   );
