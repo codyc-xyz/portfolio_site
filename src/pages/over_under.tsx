@@ -228,7 +228,7 @@ const Game: React.FC = () => {
     <div className="flex flex-col items-center justify-center min-h-screen py-4 px-2 sm:px-4">
       <GuessResultDisplay guessResult={guessResult} />
 
-      <div className="flex flex-col sm:flex-row justify-around w-full my-4 sm:my-6 gap-2 sm:gap-4">
+      <div className="flex flex-col sm:flex-row justify-around w-full sm:w-1/2 my-4 sm:my-6 gap-2 sm:gap-4">
         {hashtag1 && (
           <HashtagDisplay
             hashtag={hashtag1.Hashtag}
