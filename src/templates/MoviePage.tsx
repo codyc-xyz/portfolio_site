@@ -67,14 +67,13 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
               <strong>Genres:</strong> {movieGenres.join(`, `)}
             </p>
             <p className="text-sm">
-              <strong>Letterboxd:</strong>
               <a
                 href={letterboxdLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-50"
+                className="underline hover:opacity-50"
               >
-                {letterboxdLink}
+                Letterboxd
               </a>
             </p>
             <div className="lg:hidden w-1/2 mt-2">

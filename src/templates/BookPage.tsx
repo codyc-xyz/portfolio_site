@@ -94,18 +94,18 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
               <strong>Subjects: </strong> {subjects.join(`, `)}
             </p>
             <p className="text-sm">
-              <strong>Goodreads: </strong>
+              <strong>isbn:</strong> {isbn}
+            </p>
+
+            <p className="text-sm">
               <a
                 href={goodreadsLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-50"
+                className="underline hover:opacity-50"
               >
-                {goodreadsLink}
+                Goodreads
               </a>
-            </p>
-            <p className="text-sm">
-              <strong>isbn:</strong> {isbn}
             </p>
             <div className="lg:hidden w-1/2 mt-2">
               <img src={coverImage} alt="Book Cover" className="w-full" />

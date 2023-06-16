@@ -33,7 +33,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
   return (
     <div className="container font-medium text-text mb-4">
       <div className="flex mt-4 items-center">
-        <div className="w-2/3 pr-4">
+        <div className="w-full">
           <h1 className="text-2xl">{projectName}</h1>
           <div className="mt-2">
             <p className="text-sm">
@@ -48,36 +48,35 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
             <p className="text-sm">
               <strong>Technologies:</strong> {technologies.join(`, `)}
             </p>
-
             <p className="text-sm">
-              <strong>Project Github: </strong>
-              <Link to={projectGithub} className="hover:opacity-50">
-                {projectGithub}
-              </Link>
+              <a
+                href={projectGithub}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:opacity-50"
+              >
+                Project Github
+              </a>
             </p>
             {uiGithub && (
               <p className="text-sm">
-                <strong>UI Github: </strong>
-                <Link to={uiGithub} className="hover:opacity-50">
-                  {uiGithub}
+                <Link to={uiGithub} className="underline hover:opacity-50">
+                  UI Github
                 </Link>
               </p>
             )}
             <p className="text-sm">
-              <strong>Link to Project: </strong>
-              <Link to={projectLink} className="hover:opacity-50">
-                {projectLink}
+              <Link to={projectLink} className="underline hover:opacity-50">
+                Project Link
               </Link>
             </p>
           </div>
-          <h2 className="text-xl mt-4">About</h2>
-          <p className="text-sm my-4">{projectDescription}</p>
-        </div>
-        <div className="w-1/2 h-1/4 pl-4 flex justify-end items-center">
-          {` `}
-          <div className="text-center">
+          <div className="block w-full lg:w-1/2 mt-2">
             <img src={projectImage} alt="Project Image" className="w-full" />
           </div>
+
+          <h2 className="text-xl mt-4">About</h2>
+          <p className="text-sm my-4 w-full">{projectDescription}</p>
         </div>
       </div>
     </div>
