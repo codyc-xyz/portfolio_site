@@ -174,62 +174,71 @@ const ImageUpload = () => {
     <div className="flex flex-col items-center justify-center space-y-4">
       {error && <div className="text-red-500">{error}</div>}
       {inputFields.map((field, index) => (
-        <div key={key + index} className="space-x-4">
+        <div
+          key={key + index}
+          className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-4"
+        >
           <input
             type="file"
             multiple
             onChange={handleImageUpload}
-            className="px-4 py-2 border rounded-md"
+            className="px-4 py-2 border rounded-md w-full sm:w-auto"
           />
           <input
             type="text"
             onChange={handleImageLink}
-            className="px-4 py-2 border rounded-md"
+            className="px-4 py-2 border rounded-md w-full sm:w-auto"
             placeholder="Or, enter link "
           />
         </div>
       ))}
       <button
         onClick={handleAddMoreFields}
-        className="px-4 py-2 border rounded-md"
+        className="px-4 py-2 border rounded-md w-full sm:w-auto"
       >
         Add More Fields
       </button>
-      <div className="flex-row rows-1">
-        <label htmlFor="width" className="m-2">
-          Width:
-        </label>
-        <input
-          id="width"
-          type="text"
-          value={width}
-          onChange={handleWidthChange}
-          className="px-4 py-2 border rounded-md"
-          placeholder="Desired width in px"
-        />
-        <label htmlFor="height" className="m-2">
-          Height:
-        </label>
-        <input
-          id="height"
-          type="text"
-          value={height}
-          onChange={handleHeightChange}
-          className="px-4 py-2 border rounded-md"
-          placeholder="Desired height in px"
-        />
+      <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-4">
+        <div className="flex flex-col items-start">
+          <label htmlFor="width" className="m-2">
+            Width:
+          </label>
+          <input
+            id="width"
+            type="text"
+            value={width}
+            onChange={handleWidthChange}
+            className="px-4 py-2 border rounded-md w-full sm:w-auto"
+            placeholder="Desired width in px"
+          />
+        </div>
+        <div className="flex flex-col items-start">
+          <label htmlFor="height" className="m-2">
+            Height:
+          </label>
+          <input
+            id="height"
+            type="text"
+            value={height}
+            onChange={handleHeightChange}
+            className="px-4 py-2 border rounded-md w-full sm:w-auto"
+            placeholder="Desired height in px"
+          />
+        </div>
       </div>
       <button
         onClick={handleFormSubmit}
-        className="px-4 py-2 border rounded-md"
+        className="px-4 py-2 border rounded-md w-full sm:w-auto mt-4"
       >
         Resize Images
       </button>
-      <button onClick={handleReset} className="px-4 py-2 border rounded-md">
+      <button
+        onClick={handleReset}
+        className="px-4 py-2 border rounded-md w-full sm:w-auto mt-4"
+      >
         Reset
       </button>
     </div>
   );
 };
-
 export default ImageUpload;
