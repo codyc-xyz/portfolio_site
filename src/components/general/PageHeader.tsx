@@ -9,6 +9,7 @@ interface PageHeaderProps extends SearchBarComponentProps {
   randomItem: string;
   titleText: string;
   onClick?: () => void;
+  titleClassName?: string;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
@@ -19,11 +20,12 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   onClear,
   titleText,
   onClick,
+  titleClassName = ``,
 }) => {
   return (
     <div className="w-full flex items-center">
       <LinkComponent href={randomItem} text="Random" onClick={onClick} />
-      <TitleComponent text={titleText} />
+      <TitleComponent text={titleText} className={titleClassName} />
       <SearchBarComponent
         searchValue={searchValue}
         onSubmit={onSubmit}

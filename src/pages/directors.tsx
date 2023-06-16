@@ -173,9 +173,14 @@ const Directors: React.FC = () => {
   }
 
   return (
-    <div className="container text-text">
+    <div className="container text-text mb-4">
       <div className="flex flex-col gap-2">
-        <div className="w-full flex items-center justify-between">
+        <TitleComponent
+          text={`Directors I Love`}
+          className="block md:hidden self-center mx-auto"
+        />
+
+        <div className="w-full flex items-center justify-between gap-1">
           <div className="flex items-center">
             <LinkComponent
               href={randomDirector}
@@ -187,13 +192,13 @@ const Directors: React.FC = () => {
               isExpanded={isSortExpanded}
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
-              widthClass="w/1-4 md:w-1/2 lg:w-2/3 xl:w-full"
+              widthClass="w-full h-1/2 md:w-1/2 lg:w-2/3 xl:w-full"
               paddingClass=" w-full py-0.5 px-2 md:px-3 lg: py-2 lg:px-5 ml-5 md:ml-5 mr-0 md:mr-5  xl:mr-7"
             />
           </div>
           <TitleComponent
             text={`Directors I Love`}
-            className="self-center mx-auto"
+            className="hidden md:block self-center mx-auto"
           />
           <SearchBarComponent
             searchValue={searchValue}

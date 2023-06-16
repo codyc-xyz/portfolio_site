@@ -22,7 +22,7 @@ export const ImageWithLink: React.FC<ImageWithLinkProps> = ({
   return (
     <div className="flex flex-col items-center m-1 lg:mb-4 bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm">
       <Link to={link} className="relative">
-        <div className="md:w-9 md:h-10 lg:w-10.5 lg:h-11.5 flex justify-center items-center">
+        <div className="md:w-10 md:h-9 lg:w-12 lg:h-10 flex justify-center items-center">
           {isLoading && <Spinner />}
           <img
             className="w-full h-full"

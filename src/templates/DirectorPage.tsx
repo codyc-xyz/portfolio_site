@@ -25,7 +25,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
     movies,
   } = pageContext;
   return (
-    <div className="container font-medium text-text">
+    <div className="container font-medium text-text mb-4">
       <div className="flex flex-col lg:flex-row mt-4">
         <div className="w-full lg:w-3/5 xl:w-2/3 pr-2 lg:pr-4 ">
           <h1 className="text-2xl">{directorName}</h1>

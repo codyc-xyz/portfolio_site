@@ -8,6 +8,7 @@ import PageHeader from '../components/general/PageHeader';
 import { OptionType } from '../components/general/FilterSection';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
+import TitleComponent from '../components/general/TitleComponent';
 
 export const GET_BOOKS = gql`
   {
@@ -468,11 +469,16 @@ const Books: React.FC = () => {
   }
 
   return (
-    <div className="container text-text">
-      <div className="flex flex-col gap-2 mb-4">
-        <div className="flex gap-4">
+    <div className="container text-text mb-4">
+      <div className="flex flex-col gap-2">
+        <TitleComponent
+          text={`Books I Find Interesting`}
+          className="block md:hidden mx-auto"
+        />
+
+        <div className="flex gap-2 md:gap-3">
           <ButtonWithDropdown
-            widthClass="w-1/4"
+            widthClass="w-1/3 md:w-1/4"
             paddingClass="w-full py-2 px-2"
             label="Sort"
             isExpanded={isSortExpanded}
@@ -498,6 +504,7 @@ const Books: React.FC = () => {
               onInputChange={handleSearchInputChange}
               onClear={handleClearSearch}
               titleText="Books I Find Interesting"
+              titleClassName="hidden md:block mx-auto"
             />
           </div>
         </div>

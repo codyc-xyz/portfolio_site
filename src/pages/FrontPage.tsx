@@ -4,17 +4,21 @@ import { AuthorAttributes } from '../types/AuthorAttributes';
 import { BookAttributes } from '../types/BookAttributes';
 import { MovieAttributes } from '../types/MovieAttributes';
 import Scrollbar from '../components/general/Scrollbar';
+import ProjectScrollbar from '../components/general/ProjectScrollbar';
 import { GET_AUTHORS } from './authors';
 import { GET_BOOKS } from './books';
 import { GET_MOVIES } from './movies';
 import { GET_DIRECTORS } from './directors';
+import { GET_PROJECTS } from './projects';
 import { useQuery } from '@apollo/client';
+import { ProjectAttributes } from '../types/ProjectAttributes';
 
 const FrontPage: React.FC = () => {
   const [directors, setDirectors] = useState<DirectorAttributes[]>([]);
   const [authors, setAuthors] = useState<AuthorAttributes[]>([]);
   const [books, setBooks] = useState<BookAttributes[]>([]);
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
+  const [projects, setProjects] = useState<ProjectAttributes[]>([]);
 
   const {
     loading: booksLoading,
@@ -36,6 +40,11 @@ const FrontPage: React.FC = () => {
     error: moviesError,
     data: moviesData,
   } = useQuery(GET_MOVIES);
+  const {
+    loading: projectsLoading,
+    error: projectsError,
+    data: projectsData,
+  } = useQuery(GET_PROJECTS);
 
   const shuffleArray = (inputArray: any[]): any[] => {
     const array = [...inputArray];
@@ -87,9 +96,17 @@ const FrontPage: React.FC = () => {
     }
   }, [booksLoading, booksError, booksData]);
 
+  useEffect(() => {
+    if (!projectsLoading && !projectsError && projectsData) {
+      const fetchedProjects = projectsData.allProjects;
+      const shuffledFetchedProjects = shuffleArray(fetchedProjects);
+      setProjects(shuffledFetchedProjects);
+    }
+  }, [projectsLoading, projectsError, projectsData]);
+
   return (
-    <div className="container text-text flex flex-col h-screen">
-      <h1 className="text-center text-3xl flex-grow flex-shrink-0 mx-auto w-1/2">
+    <div className="container text-text flex flex-col mb-4">
+      <h1 className="text-center text-lg md:text-xl lg:text-2xl flex-grow flex-shrink-0 mx-auto w-1/2">
         At a Glance
       </h1>
 
@@ -97,6 +114,7 @@ const FrontPage: React.FC = () => {
       <Scrollbar title="Directors I Love" data={directors} />
       <Scrollbar title="Books I Find Interesting" data={books} />
       <Scrollbar title="Authors I Find Interesting" data={authors} />
+      <ProjectScrollbar title="Personal Projects" data={projects} />
     </div>
   );
 };

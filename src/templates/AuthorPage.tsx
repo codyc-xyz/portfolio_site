@@ -26,8 +26,8 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
     books,
   } = pageContext;
   return (
-    <div className="container font-medium text-text">
-      <div className="flex" style={{ marginTop: `24px` }}>
+    <div className="container font-medium text-text mb-4">
+      <div className="flex mt-4">
         <div className="w-2/3 pr-4">
           <h1 className="text-2xl">{authorName}</h1>
           <div className="mt-2">
@@ -64,7 +64,6 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
               imageUrl={book.book_cover_image}
               altText={`Book ${book.book_title}`}
               pageUrl={`/philosophy/${book.book_uid}`}
-              imageHeight="400px"
             />
           ))}
         </div>

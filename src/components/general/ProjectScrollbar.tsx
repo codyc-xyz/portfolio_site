@@ -1,4 +1,4 @@
-import { ImageWithLink } from './ImageWithLink';
+import { ImageWithLink } from './ProjectImageWithLink';
 import React, { useState, useEffect } from 'react';
 
 interface ScrollbarProps {
@@ -6,18 +6,18 @@ interface ScrollbarProps {
   data: any[];
 }
 
-const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
+const ProjectScrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
   useEffect(() => {
     const updateItemsPerPage = () => {
       if (window.matchMedia(`(max-width: 768px)`).matches) {
-        setItemsPerPage(2);
+        setItemsPerPage(1);
       } else if (window.matchMedia(`(max-width: 1024px)`).matches) {
-        setItemsPerPage(4);
+        setItemsPerPage(2);
       } else {
-        setItemsPerPage(6);
+        setItemsPerPage(3);
       }
     };
 
@@ -64,42 +64,15 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
             &lt;
           </button>
         </div>
-        <div className="overflow-x-scroll hide-scrollbar grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 flex-grow">
+        <div className="overflow-x-scroll hide-scrollbar grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex-grow">
           {dataToDisplay.map((item) => {
-            if (title === `Movies I Love`) {
+            if (title === `Personal Projects`) {
               return (
                 <ImageWithLink
-                  key={item.movie_uid}
-                  src={item.movie_poster}
-                  alt={item.title}
-                  link={`/movies/${item.movie_uid}`}
-                />
-              );
-            } else if (title === `Directors I Love`) {
-              return (
-                <ImageWithLink
-                  key={item.director_uid}
-                  src={item.director_image}
-                  alt={item.director_name}
-                  link={`/directors/${item.director_uid}`}
-                />
-              );
-            } else if (title === `Authors I Find Interesting`) {
-              return (
-                <ImageWithLink
-                  key={item.author_uid}
-                  src={item.author_image}
-                  alt={item.author_name}
-                  link={`/authors/${item.author_uid}`}
-                />
-              );
-            } else if (title === `Books I Find Interesting`) {
-              return (
-                <ImageWithLink
-                  key={item.book_uid}
-                  src={item.book_cover_image}
-                  alt={item.book_title}
-                  link={`/books/${item.book_uid}`}
+                  key={item.project_uid}
+                  src={item.project_image}
+                  alt={item.project_name}
+                  link={`/projects/${item.project_uid}`}
                 />
               );
             } else {
@@ -125,4 +98,4 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
     </div>
   );
 };
-export default Scrollbar;
+export default ProjectScrollbar;

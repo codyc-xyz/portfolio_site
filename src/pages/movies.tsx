@@ -8,6 +8,7 @@ import Dropdown from '../components/general/Dropdown';
 import Filter from '../components/general/Filter';
 import { useQuery, gql } from '@apollo/client';
 import LoadingOrError from '../components/general/LoadingOrError';
+import TitleComponent from '../components/general/TitleComponent';
 
 export const GET_MOVIES = gql`
   {
@@ -469,11 +470,16 @@ const Movies: React.FC = () => {
   }
 
   return (
-    <div className="container text-text">
+    <div className="container text-text mb-4">
       <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
+        <TitleComponent
+          text={`Movies I Love`}
+          className="block md:hidden mx-auto"
+        />
+
+        <div className="flex gap-2 md:gap-3">
           <ButtonWithDropdown
-            widthClass="w-1/4"
+            widthClass="w-1/3 md:w-1/4"
             paddingClass="w-full py-2 px-2"
             label="Sort"
             isExpanded={isSortExpanded}
@@ -499,6 +505,7 @@ const Movies: React.FC = () => {
               onClear={handleClearSearch}
               titleText="Movies I Love"
               onClick={handleRandomClick}
+              titleClassName="hidden md:block mx-auto"
             />
             <div className="grid grid-cols-2 gap-1 mt-1 md:grid-cols-4 lg:gap-2 lg:grid-cols-6 md:mt-2">
               {filteredMovies.map((movie) => (
