@@ -504,7 +504,7 @@ const Books: React.FC = () => {
               onInputChange={handleSearchInputChange}
               onClear={handleClearSearch}
               titleText="Books I Find Interesting"
-              titleClassName="hidden md:block mx-auto"
+              titleClassName="hidden md:block mx-auto md:w-1/3"
             />
           </div>
         </div>

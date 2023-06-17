@@ -198,7 +198,7 @@ const Directors: React.FC = () => {
           </div>
           <TitleComponent
             text={`Directors I Love`}
-            className="hidden lg:block self-center mx-auto"
+            className="hidden text-xl lg:block self-center mx-auto"
           />
           <SearchBarComponent
             searchValue={searchValue}

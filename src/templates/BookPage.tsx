@@ -69,7 +69,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
   };
 
   return (
-    <div className="container font-medium text-text mb-4">
+    <div className="container font-medium text-text mb-8 sm:mb-4">
       <div className="flex mt-4">
         <div className="w-full lg:w-3/5 xl:w-2/3 pr-2 lg:pr-4 ">
           <h1 className="text-2xl">{bookTitle}</h1>

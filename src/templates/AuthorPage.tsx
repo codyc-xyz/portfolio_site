@@ -60,7 +60,7 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
         </div>
       </div>
       <div className="my-2">
-        <h2 className="text-xl">Books I Found Interesting</h2>
+        <h2 className="text-xl">Books I Find Interesting</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {books.map((book: BookAttributes) => (
             <Card

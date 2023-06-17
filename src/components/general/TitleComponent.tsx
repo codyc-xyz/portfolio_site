@@ -8,7 +8,7 @@ interface TitleComponentProps {
 const TitleComponent: React.FC<TitleComponentProps> = ({ text, className }) => {
   return (
     <h1
-      className={`${className} w-full text-center text-base md:text-base lg:text-2xl flex-grow flex-shrink-0 md:w-1/3`}
+      className={`${className} w-full text-center text-xl md:text-lg lg:text-xl xl:text-2xl flex-grow flex-shrink-0`}
     >
       {text}
     </h1>

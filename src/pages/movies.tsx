@@ -505,7 +505,7 @@ const Movies: React.FC = () => {
               onClear={handleClearSearch}
               titleText="Movies I Love"
               onClick={handleRandomClick}
-              titleClassName="hidden md:block mx-auto"
+              titleClassName="hidden md:block md:w-1/3 mx-auto"
             />
             <div className="grid grid-cols-2 gap-1 mt-1 md:grid-cols-4 lg:gap-2 lg:grid-cols-6 md:mt-2">
               {filteredMovies.map((movie) => (

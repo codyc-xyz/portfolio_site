@@ -31,7 +31,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
     uiGithub,
   } = pageContext;
   return (
-    <div className="container font-medium text-text mb-4">
+    <div className="container font-medium text-text mb-7 sm:mb-4">
       <div className="flex mt-4 items-center">
         <div className="w-full">
           <h1 className="text-2xl">{projectName}</h1>

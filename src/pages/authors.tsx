@@ -173,7 +173,7 @@ const Authors: React.FC = () => {
       <div className="flex flex-col gap-2">
         <TitleComponent
           text={`Authors I Find Interesting`}
-          className="block lg:hidden self-center mx-auto"
+          className="block lg:hidden self-center mx-auto w-full"
         />
 
         <div className="w-full flex items-center justify-between gap-1">
@@ -194,7 +194,7 @@ const Authors: React.FC = () => {
           </div>
           <TitleComponent
             text={`Authors I Find Interesting`}
-            className="hidden lg:block mx-auto"
+            className="hidden lg:block mx-auto w-full"
           />
           <SearchBarComponent
             searchValue={searchValue}
