@@ -173,7 +173,7 @@ const Authors: React.FC = () => {
       <div className="flex flex-col gap-2">
         <TitleComponent
           text={`Authors I Find Interesting`}
-          className="block md:hidden self-center mx-auto"
+          className="block lg:hidden self-center mx-auto"
         />
 
         <div className="w-full flex items-center justify-between gap-1">
@@ -188,13 +188,13 @@ const Authors: React.FC = () => {
               isExpanded={isSortExpanded}
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
-              widthClass="w-full h-1/2 md:w-1/2 lg:w-2/3 xl:w-full"
+              widthClass="w-full h-1/2"
               paddingClass="mx-5 w-full py-2 px-2"
             />
           </div>
           <TitleComponent
             text={`Authors I Find Interesting`}
-            className="hidden md:block mx-auto"
+            className="hidden lg:block mx-auto"
           />
           <SearchBarComponent
             searchValue={searchValue}

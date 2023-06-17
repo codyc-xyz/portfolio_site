@@ -177,7 +177,7 @@ const Directors: React.FC = () => {
       <div className="flex flex-col gap-2">
         <TitleComponent
           text={`Directors I Love`}
-          className="block md:hidden self-center mx-auto"
+          className="block lg:hidden self-center mx-auto"
         />
 
         <div className="w-full flex items-center justify-between gap-1">
@@ -192,13 +192,13 @@ const Directors: React.FC = () => {
               isExpanded={isSortExpanded}
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
-              widthClass="w-full h-1/2 md:w-1/2 lg:w-2/3 xl:w-full"
+              widthClass="w-full h-1/2"
               paddingClass="mx-5 w-full py-2 px-2"
             />
           </div>
           <TitleComponent
             text={`Directors I Love`}
-            className="hidden md:block self-center mx-auto"
+            className="hidden lg:block self-center mx-auto"
           />
           <SearchBarComponent
             searchValue={searchValue}

@@ -474,7 +474,7 @@ const Movies: React.FC = () => {
       <div className="flex flex-col gap-2">
         <TitleComponent
           text={`Movies I Love`}
-          className="block md:hidden mx-auto"
+          className="block text-xl md:hidden mx-auto"
         />
 
         <div className="flex gap-2 md:gap-3">
