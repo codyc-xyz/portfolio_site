@@ -28,7 +28,7 @@ const config: GatsbyConfig = {
       options: {
         typeName: `segments`,
         fieldName: `segments`,
-        url: `http://localhost:3001/graphql`,
+        url: process.env.DB_URL,
       },
     },
   ],
