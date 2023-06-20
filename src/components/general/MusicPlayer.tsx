@@ -76,34 +76,39 @@ const MusicPlayer: React.FC = () => {
   const selectedButton = useSelector((state: AppState) => state.selectedButton);
   const dispatch = useDispatch();
 
-  const audioRef = useRef(
-    new Audio(currentPlaylist[currentSongIndex]?.audioSrc),
-  );
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (currentSongIndex > currentPlaylist.length) {
-      dispatch(setCurrentSongIndex(0));
+    if (typeof window !== `undefined`) {
+      audioRef.current = new Audio(currentPlaylist[currentSongIndex]?.audioSrc);
     }
-    audioRef.current.src = currentPlaylist[currentSongIndex]?.audioSrc;
+  }, [currentSongIndex, currentPlaylist]);
 
-    if (isPlaying) {
-      audioRef.current
-        .play()
-        .catch((error) => console.error(`Audio playback error: `, error));
-    } else {
-      audioRef.current.pause();
+  useEffect(() => {
+    if (audioRef.current) {
+      if (currentSongIndex > currentPlaylist.length) {
+        dispatch(setCurrentSongIndex(0));
+      }
+      audioRef.current.src = currentPlaylist[currentSongIndex]?.audioSrc;
+
+      if (isPlaying) {
+        audioRef.current
+          .play()
+          .catch((error) => console.error(`Audio playback error: `, error));
+      } else {
+        audioRef.current.pause();
+      }
+
+      const handleEnd = () => {
+        handleNext();
+      };
+
+      audioRef.current.addEventListener(`ended`, handleEnd);
+
+      return () => {
+        audioRef.current?.removeEventListener(`ended`, handleEnd);
+      };
     }
-
-    const handleEnd = () => {
-      handleNext();
-    };
-
-    audioRef.current.addEventListener(`ended`, handleEnd);
-
-    return () => {
-      audioRef.current.removeEventListener(`ended`, handleEnd);
-    };
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSongIndex, isPlaying, currentPlaylist]);
   const handleNext = () => {
