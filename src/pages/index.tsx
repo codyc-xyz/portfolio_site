@@ -7,9 +7,10 @@ import Directors from './directors';
 import Books from './books';
 import Authors from './authors';
 import Projects from './projects';
+require(`dotenv`).config();
 
 export const client = new ApolloClient({
-  uri: `http://localhost:3001/graphql`,
+  uri: `${process.env.SERVER_URL}/graphql`,
   cache: new InMemoryCache(),
 });
 

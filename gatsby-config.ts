@@ -1,6 +1,7 @@
 // gatsby-config.ts
 
 import type { GatsbyConfig } from 'gatsby';
+require(`dotenv`).config();
 
 const config: GatsbyConfig = {
   // Since `gatsby-plugin-typescript` is automatically included in Gatsby you
