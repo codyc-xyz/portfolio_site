@@ -35,6 +35,7 @@ const config: GatsbyConfig = {
       },
     },
   ],
+  flags: { DEV_SSR: true },
   jsxRuntime: `automatic`,
 };
 
