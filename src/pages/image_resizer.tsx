@@ -107,6 +107,19 @@ const ImageUpload = () => {
     setHeight(event.target.value);
   };
 
+  const downloadImage = (url: string, filename: string) => {
+    const a = document.createElement(`a`);
+    a.style.display = `none`;
+    a.href = url;
+    a.download = filename;
+
+    document.body.appendChild(a);
+    a.click();
+
+    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
   const handleFormSubmit = () => {
     try {
       validateDimension(width);
@@ -126,16 +139,9 @@ const ImageUpload = () => {
               .then((blob) => {
                 const url = URL.createObjectURL(blob);
 
-                const a = document.createElement(`a`);
-                a.style.display = `none`;
-                a.href = url;
-                a.download = response.data.filename;
-
-                document.body.appendChild(a);
-                a.click();
-
-                URL.revokeObjectURL(url);
-                document.body.removeChild(a);
+                if (typeof window !== `undefined`) {
+                  downloadImage(url, response.data.filename);
+                }
 
                 return true;
               });
