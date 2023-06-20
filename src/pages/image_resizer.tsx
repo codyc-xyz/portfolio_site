@@ -49,7 +49,7 @@ const ImageUpload = () => {
         const formData = new FormData();
         formData.append(`file`, files[i]);
         const response = await axios.post(
-          `${process.env.SERVER_URL}/api/upload`,
+          `${process.env.GATSBY_SERVER_URL}/api/upload`,
           formData,
         );
         newImages.push({
@@ -79,7 +79,7 @@ const ImageUpload = () => {
       const formData = new FormData();
       formData.append(`file`, file);
       const uploadResponse = await axios.post(
-        `${process.env.SERVER_URL}/api/upload`,
+        `${process.env.GATSBY_SERVER_URL}/api/upload`,
         formData,
       );
       setUploadedImages([
@@ -113,7 +113,7 @@ const ImageUpload = () => {
       validateDimension(height);
       const resizePromises = uploadedImages.map((imageData) => {
         return axios
-          .post(`${process.env.SERVER_URL}/api/resize`, {
+          .post(`${process.env.GATSBY_SERVER_URL}/api/resize`, {
             filename: imageData.filename,
             width: parseInt(width),
             height: parseInt(height),

@@ -1,7 +1,9 @@
 // gatsby-config.ts
 
 import type { GatsbyConfig } from 'gatsby';
-require(`dotenv`).config();
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const config: GatsbyConfig = {
   // Since `gatsby-plugin-typescript` is automatically included in Gatsby you
@@ -29,7 +31,7 @@ const config: GatsbyConfig = {
       options: {
         typeName: `segments`,
         fieldName: `segments`,
-        url: `${process.env.SERVER_URL}/graphql`,
+        url: `${process.env.GATSBY_SERVER_URL}/graphql`,
       },
     },
   ],

@@ -36,6 +36,7 @@
     "@reduxjs/toolkit": "1.9.5",
     "autoprefixer": "10.4.14",
     "axios": "1.4.0",
+    "dotenv": "16.3.1",
     "gatsby": "5.9.0",
     "gatsby-plugin-layout": "4.10.0",
     "gatsby-plugin-offline": "6.9.0",
