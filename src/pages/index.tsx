@@ -11,12 +11,12 @@ export default function Home() {
   return (
     <ApolloProvider client={client}>
       <div>
-        <Link to="/">FrontPage</Link>
-        <Link to="/movies">Movies</Link>
-        <Link to="/directors">Directors</Link>
-        <Link to="/books">Books</Link>
-        <Link to="/authors">Authors</Link>
-        <Link to="/projects">Projects</Link>
+        <Link to="/"></Link>
+        <Link to="/movies"></Link>
+        <Link to="/directors"></Link>
+        <Link to="/books"></Link>
+        <Link to="/authors"></Link>
+        <Link to="/projects"></Link>
       </div>
     </ApolloProvider>
   );
