@@ -79,9 +79,20 @@ const MusicPlayer: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
     if (typeof window !== `undefined`) {
       audioRef.current = new Audio(currentPlaylist[currentSongIndex]?.audioSrc);
     }
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
   }, [currentSongIndex, currentPlaylist]);
 
   useEffect(() => {
