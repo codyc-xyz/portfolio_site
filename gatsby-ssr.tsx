@@ -2,7 +2,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ApolloProvider } from '@apollo/client';
-import { client } from './src/pages/index';
+import { client } from './src/app';
 import store from './src/redux/store';
 import Layout from './src/Layout';
 
