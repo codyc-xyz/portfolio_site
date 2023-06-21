@@ -13,7 +13,7 @@ export const dreamsPlaylist: Song[] = [
   {
     title: `Dream a Little Dream of Me`,
     artist: `Dean Martin`,
-    audioSrc: `/static/audio/Dream_a_Little_Dream_of_Me.mp3`,
+    audioSrc: `/public/static/audio/Dream_a_Little_Dream_of_Me.mp3`,
   },
   {
     title: `Fruit of Dreams`,
@@ -23,17 +23,17 @@ export const dreamsPlaylist: Song[] = [
   {
     title: `Look To The Sky`,
     artist: `Antônio Carlos Jobim`,
-    audioSrc: `/static/audio/Look_To_The_Sky.mp3`,
+    audioSrc: `/public/static/audio/Look_To_The_Sky.mp3`,
   },
   {
     title: `Tenderly`,
     artist: `Les Baxter`,
-    audioSrc: `/static/audio/Tenderly.mp3`,
+    audioSrc: `/public/static/audio/Tenderly.mp3`,
   },
   {
     title: `Here's To Life`,
     artist: `Shirley Horn`,
-    audioSrc: `/static/audio/Here's_To_Life.mp3`,
+    audioSrc: `/public/static/audio/Here's_To_Life.mp3`,
   },
 ];
 
