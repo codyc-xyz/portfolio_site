@@ -104,7 +104,8 @@ const FrontPage: React.FC = () => {
         setProjects(shuffleArray(projects));
       }, 0);
     }
-  }, [directors, authors, books, movies, projects]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="container text-text flex flex-col mb-4">
