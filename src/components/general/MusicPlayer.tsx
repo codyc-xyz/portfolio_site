@@ -13,27 +13,27 @@ export const dreamsPlaylist: Song[] = [
   {
     title: `Dream a Little Dream of Me`,
     artist: `Dean Martin`,
-    audioSrc: `/public/static/audio/Dream_a_Little_Dream_of_Me.mp3`,
+    audioSrc: `/audio/Dream_a_Little_Dream_of_Me.mp3`,
   },
   {
     title: `Fruit of Dreams`,
     artist: `Les Baxter`,
-    audioSrc: `/static/audio/Fruit_Of_Dreams.mp3`,
+    audioSrc: `/audio/Fruit_Of_Dreams.mp3`,
   },
   {
     title: `Look To The Sky`,
     artist: `Antônio Carlos Jobim`,
-    audioSrc: `/public/static/audio/Look_To_The_Sky.mp3`,
+    audioSrc: `/audio/Look_To_The_Sky.mp3`,
   },
   {
     title: `Tenderly`,
     artist: `Les Baxter`,
-    audioSrc: `/public/static/audio/Tenderly.mp3`,
+    audioSrc: `/audio/Tenderly.mp3`,
   },
   {
     title: `Here's To Life`,
     artist: `Shirley Horn`,
-    audioSrc: `/public/static/audio/Here's_To_Life.mp3`,
+    audioSrc: `/audio/Here's_To_Life.mp3`,
   },
 ];
 
@@ -41,27 +41,27 @@ const boogiePlaylist: Song[] = [
   {
     title: `Looking Up to You`,
     artist: `Michael Wycoff`,
-    audioSrc: `/static/audio/Looking_Up_To_You.mp3`,
+    audioSrc: `/audio/Looking_Up_To_You.mp3`,
   },
   {
     title: `Ha Ha, Hee Hee`,
     artist: `Sly & The Family Stone`,
-    audioSrc: `/static/audio/Ha_Ha_Hee_Hee.mp3`,
+    audioSrc: `/audio/Ha_Ha_Hee_Hee.mp3`,
   },
   {
     title: `Let Love Enter`,
     artist: `Michael Henderson`,
-    audioSrc: `/static/audio/Let_Love_Enter.mp3`,
+    audioSrc: `/audio/Let_Love_Enter.mp3`,
   },
   {
     title: `Mr Magician`,
     artist: `Mystic Merlin`,
-    audioSrc: `/static/audio/Mr_Magician.mp3`,
+    audioSrc: `/audio/Mr_Magician.mp3`,
   },
   {
     title: `I'll Never Forget (My Favorite Disco)`,
     artist: `Dexter Wansel, The Jones Girls`,
-    audioSrc: `/static/audio/I'll_Never_Forget.mp3`,
+    audioSrc: `/audio/I'll_Never_Forget.mp3`,
   },
 ];
 
