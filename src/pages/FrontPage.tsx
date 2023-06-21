@@ -66,43 +66,46 @@ const FrontPage: React.FC = () => {
 
   useEffect(() => {
     if (!authorsLoading && !authorsError && authorsData) {
-      const fetchedAuthors = authorsData.allAuthors;
-      const shuffledFetchedAuthors = shuffleArray(fetchedAuthors);
-      setAuthors(shuffledFetchedAuthors);
+      setAuthors(authorsData.allAuthors);
     }
   }, [authorsLoading, authorsError, authorsData]);
 
   useEffect(() => {
     if (!moviesLoading && !moviesError && moviesData) {
-      const fetchedMovies = moviesData.allMovies;
-      const shuffledFetchedMovies = shuffleArray(fetchedMovies);
-      setMovies(shuffledFetchedMovies);
+      setMovies(moviesData.allMovies);
     }
   }, [moviesLoading, moviesError, moviesData]);
 
   useEffect(() => {
     if (!directorsLoading && !directorsError && directorsData) {
-      const fetchedDirectors = directorsData.allDirectors;
-      const shuffledFetchedDirectors = shuffleArray(fetchedDirectors);
-      setDirectors(shuffledFetchedDirectors);
+      setDirectors(directorsData.allDirectors);
     }
   }, [directorsLoading, directorsError, directorsData]);
 
   useEffect(() => {
     if (!booksLoading && !booksError && booksData) {
-      const fetchedBooks = booksData.allBooks;
-      const shuffledFetchedBooks = shuffleArray(fetchedBooks);
-      setBooks(shuffledFetchedBooks);
+      setBooks(booksData.allBooks);
     }
   }, [booksLoading, booksError, booksData]);
 
   useEffect(() => {
     if (!projectsLoading && !projectsError && projectsData) {
-      const fetchedProjects = projectsData.allProjects;
-      const shuffledFetchedProjects = shuffleArray(fetchedProjects);
-      setProjects(shuffledFetchedProjects);
+      setProjects(projectsData.allProjects);
     }
   }, [projectsLoading, projectsError, projectsData]);
+
+  useEffect(() => {
+    if (typeof window !== `undefined`) {
+      setTimeout(() => {
+        setDirectors(shuffleArray(directors));
+        setAuthors(shuffleArray(authors));
+        setBooks(shuffleArray(books));
+        setMovies(shuffleArray(movies));
+        setProjects(shuffleArray(projects));
+      }, 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="container text-text flex flex-col mb-4">
