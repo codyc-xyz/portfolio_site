@@ -51,7 +51,7 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
           <p className="text-sm mt-2">{authorBiography}</p>
         </div>
         <div className="hidden lg:block w-full lg:w-2/5 xl:w-1/3 pl-4">
-          <img src={authorImage} alt="Director Image" className="w-full" />
+          <img src={authorImage} alt="Author Image" className="w-full" />
         </div>
       </div>
       <div className="my-2">
