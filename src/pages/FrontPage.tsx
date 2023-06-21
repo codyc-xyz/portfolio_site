@@ -46,23 +46,23 @@ const FrontPage: React.FC = () => {
     data: projectsData,
   } = useQuery(GET_PROJECTS);
 
-  const shuffleArray = (inputArray: any[]): any[] => {
-    const array = [...inputArray];
-    let currentIndex = array.length;
-    let temporaryValue;
-    let randomIndex;
+  // const shuffleArray = (inputArray: any[]): any[] => {
+  //   const array = [...inputArray];
+  //   let currentIndex = array.length;
+  //   let temporaryValue;
+  //   let randomIndex;
 
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
+  //   while (currentIndex !== 0) {
+  //     randomIndex = Math.floor(Math.random() * currentIndex);
+  //     currentIndex -= 1;
 
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
+  //     temporaryValue = array[currentIndex];
+  //     array[currentIndex] = array[randomIndex];
+  //     array[randomIndex] = temporaryValue;
+  //   }
 
-    return array;
-  };
+  //   return array;
+  // };
 
   useEffect(() => {
     if (!authorsLoading && !authorsError && authorsData) {
@@ -94,18 +94,18 @@ const FrontPage: React.FC = () => {
     }
   }, [projectsLoading, projectsError, projectsData]);
 
-  useEffect(() => {
-    if (typeof window !== `undefined`) {
-      setTimeout(() => {
-        setDirectors(shuffleArray(directors));
-        setAuthors(shuffleArray(authors));
-        setBooks(shuffleArray(books));
-        setMovies(shuffleArray(movies));
-        setProjects(shuffleArray(projects));
-      }, 0);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window !== `undefined`) {
+  //     setTimeout(() => {
+  //       setDirectors(shuffleArray(directors));
+  //       setAuthors(shuffleArray(authors));
+  //       setBooks(shuffleArray(books));
+  //       setMovies(shuffleArray(movies));
+  //       setProjects(shuffleArray(projects));
+  //     }, 0);
+  //   }
+  //   eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <div className="container text-text flex flex-col mb-4">
