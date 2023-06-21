@@ -187,7 +187,7 @@ const MusicPlayer: React.FC = () => {
           </div>
         </button>
         <button
-          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 hover:opacity-50"
+          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 hover:opacity-50"
           onClick={() => dispatch(togglePlay())}
         >
           {isPlaying ? (
@@ -222,7 +222,7 @@ const MusicPlayer: React.FC = () => {
           )}
         </button>
         <button
-          className="text-xs sm:text-sm md:text-base xl:text-lg p-1 sm:p-1 md:p-1 xl:p-3 hover:opacity-50"
+          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-lg p-1 sm:p-1 md:p-1 lg:p-3 hover:opacity-50"
           onClick={handleNext}
         >
           <div className="h-3 w-3 md:h-4 md:w-4">
