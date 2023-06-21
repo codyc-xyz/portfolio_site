@@ -66,46 +66,44 @@ const FrontPage: React.FC = () => {
 
   useEffect(() => {
     if (!authorsLoading && !authorsError && authorsData) {
-      setAuthors(authorsData.allAuthors);
+      const fetchedAuthors = authorsData.allAuthors;
+      const shuffledAuthors = shuffleArray(fetchedAuthors);
+      setAuthors(shuffledAuthors);
     }
-  }, [authorsLoading, authorsError, authorsData, []]);
+  }, [authorsLoading, authorsError, authorsData]);
 
   useEffect(() => {
     if (!moviesLoading && !moviesError && moviesData) {
-      setMovies(moviesData.allMovies);
+      const fetchedMovies = moviesData.allMovies;
+      const shuffledMovies = shuffleArray(fetchedMovies);
+      setMovies(shuffledMovies);
     }
-  }, [moviesLoading, moviesError, moviesData, []]);
+  }, [moviesLoading, moviesError, moviesData]);
 
   useEffect(() => {
     if (!directorsLoading && !directorsError && directorsData) {
-      setDirectors(directorsData.allDirectors);
+      const fetchedDirectors = directorsData.allDirectors;
+      const shuffledDirectors = shuffleArray(fetchedDirectors);
+      setDirectors(shuffledDirectors);
     }
-  }, [directorsLoading, directorsError, directorsData, []]);
+  }, [directorsLoading, directorsError, directorsData]);
 
   useEffect(() => {
     if (!booksLoading && !booksError && booksData) {
-      setBooks(booksData.allBooks);
+      const fetchedBooks = booksData.allBooks;
+      const shuffledBooks = shuffleArray(fetchedBooks);
+      setBooks(shuffledBooks);
     }
-  }, [booksLoading, booksError, booksData, []]);
+  }, [booksLoading, booksError, booksData]);
 
   useEffect(() => {
     if (!projectsLoading && !projectsError && projectsData) {
-      setProjects(projectsData.allProjects);
+      const fetchedProjects = projectsData.allProjects;
+      const shuffledProjects = shuffleArray(fetchedProjects);
+      setProjects(shuffledProjects);
     }
-  }, [projectsLoading, projectsError, projectsData, []]);
+  }, [projectsLoading, projectsError, projectsData]);
 
-  useEffect(() => {
-    if (typeof window !== `undefined`) {
-      setTimeout(() => {
-        setDirectors(shuffleArray(directors));
-        setAuthors(shuffleArray(authors));
-        setBooks(shuffleArray(books));
-        setMovies(shuffleArray(movies));
-        setProjects(shuffleArray(projects));
-      }, 0);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <div className="container text-text flex flex-col mb-4">
       <h1 className="text-center text-lg md:text-xl lg:text-2xl flex-grow flex-shrink-0 mx-auto w-1/2">
