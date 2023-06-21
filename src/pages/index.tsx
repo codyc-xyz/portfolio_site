@@ -68,31 +68,31 @@ const FrontPage: React.FC = () => {
     if (!authorsLoading && !authorsError && authorsData) {
       setAuthors(authorsData.allAuthors);
     }
-  }, [authorsLoading, authorsError, authorsData]);
+  }, [authorsLoading, authorsError, authorsData, []]);
 
   useEffect(() => {
     if (!moviesLoading && !moviesError && moviesData) {
       setMovies(moviesData.allMovies);
     }
-  }, [moviesLoading, moviesError, moviesData]);
+  }, [moviesLoading, moviesError, moviesData, []]);
 
   useEffect(() => {
     if (!directorsLoading && !directorsError && directorsData) {
       setDirectors(directorsData.allDirectors);
     }
-  }, [directorsLoading, directorsError, directorsData]);
+  }, [directorsLoading, directorsError, directorsData, []]);
 
   useEffect(() => {
     if (!booksLoading && !booksError && booksData) {
       setBooks(booksData.allBooks);
     }
-  }, [booksLoading, booksError, booksData]);
+  }, [booksLoading, booksError, booksData, []]);
 
   useEffect(() => {
     if (!projectsLoading && !projectsError && projectsData) {
       setProjects(projectsData.allProjects);
     }
-  }, [projectsLoading, projectsError, projectsData]);
+  }, [projectsLoading, projectsError, projectsData, []]);
 
   useEffect(() => {
     if (typeof window !== `undefined`) {
@@ -106,7 +106,6 @@ const FrontPage: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <div className="container text-text flex flex-col mb-4">
       <h1 className="text-center text-lg md:text-xl lg:text-2xl flex-grow flex-shrink-0 mx-auto w-1/2">
