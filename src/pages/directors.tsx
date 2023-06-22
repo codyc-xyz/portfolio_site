@@ -193,12 +193,12 @@ const Directors: React.FC = () => {
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
               widthClass="w-full h-1/2"
-              paddingClass="mx-5 w-full py-2 px-3"
+              paddingClass="mx-5 w-full py-2 px-2"
             />
           </div>
           <TitleComponent
             text={`Directors I Love`}
-            className="hidden text-2xl lg:block self-center mx-auto"
+            className="hidden lg:block self-center mx-auto"
           />
           <SearchBarComponent
             searchValue={searchValue}

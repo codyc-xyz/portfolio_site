@@ -189,12 +189,12 @@ const Authors: React.FC = () => {
               onButtonClick={() => setSortExpanded(!isSortExpanded)}
               dropdown={dropdown}
               widthClass="w-full h-1/2"
-              paddingClass="mx-5 w-full py-2 px-3"
+              paddingClass="mx-5 w-full py-2 px-2"
             />
           </div>
           <TitleComponent
             text={`Authors I Find Interesting`}
-            className="hidden lg:block mx-auto w-full"
+            className="hidden lg:block self-center mx-auto w-full"
           />
           <SearchBarComponent
             searchValue={searchValue}
