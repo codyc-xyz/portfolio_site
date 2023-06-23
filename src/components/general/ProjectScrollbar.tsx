@@ -59,7 +59,7 @@ const ProjectScrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
         >
           <button
             onClick={handlePrev}
-            className="text-grey-500 hover:opacity-50"
+            className="text-grey-500 text-2xl hover:opacity-50"
           >
             &lt;
           </button>
@@ -89,7 +89,7 @@ const ProjectScrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
         >
           <button
             onClick={handleNext}
-            className="text-grey-500 hover:opacity-50"
+            className="text-grey-500 text-2xl hover:opacity-50"
           >
             &gt;
           </button>
