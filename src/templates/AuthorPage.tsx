@@ -1,6 +1,7 @@
 import Card from '../components/general/Card';
 import { BookAttributes } from '../types/BookAttributes';
 import React from 'react';
+import { sanitizeName } from 'gatsby-node';
 
 interface AuthorPageProps {
   pageContext: {
@@ -62,7 +63,7 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
               key={book.book_uid}
               imageUrl={book.book_cover_image}
               altText={`Book ${book.book_title}`}
-              pageUrl={`/books/${book.book_uid}`}
+              pageUrl={`/books/${sanitizeName(book.book_title)}`}
             />
           ))}
         </div>

@@ -1,6 +1,7 @@
 import Card from '../components/general/Card';
 import { MovieAttributes } from '../types/MovieAttributes';
 import React from 'react';
+import { sanitizeName } from 'gatsby-node';
 
 interface DirectorPageProps {
   pageContext: {
@@ -63,7 +64,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
               key={movie.movie_uid}
               imageUrl={movie.movie_poster}
               altText={`Movie ${movie.movie_title}`}
-              pageUrl={`/movies/${movie.movie_uid}`}
+              pageUrl={`/movies/${sanitizeName(movie.movie_title)}`}
             />
           ))}
         </div>

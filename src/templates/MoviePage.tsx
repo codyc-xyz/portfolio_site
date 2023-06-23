@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
+import { sanitizeName } from 'gatsby-node';
 
 interface MoviePageProps {
   pageContext: {
@@ -20,7 +21,6 @@ interface MoviePageProps {
 
 const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
   const {
-    directorUid,
     movieTitle,
     movieDescription,
     lengthInMinutes,
@@ -54,7 +54,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
             <p className="text-sm">
               <strong>By: </strong>
               <Link
-                to={`/directors/${directorUid}`}
+                to={`/directors/${sanitizeName(directorName)}`}
                 className="hover:opacity-50"
               >
                 {directorName}

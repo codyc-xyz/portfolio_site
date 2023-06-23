@@ -1,6 +1,7 @@
 import { ExcerptAttributes } from '../types/ExcerptAttributes';
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
+import { sanitizeName } from 'gatsby-node';
 
 interface BookPageProps {
   pageContext: {
@@ -29,7 +30,6 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
     coverImage,
     goodreadsLink,
     isbn,
-    authorUid,
     authorName,
     excerpts,
     countryOfOrigin,
@@ -86,7 +86,10 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
 
             <p className="text-sm">
               <strong>By: </strong>
-              <Link to={`/authors/${authorUid}`} className="hover:opacity-50">
+              <Link
+                to={`/authors/${sanitizeName(authorName)}`}
+                className="hover:opacity-50"
+              >
                 {authorName}
               </Link>
             </p>
