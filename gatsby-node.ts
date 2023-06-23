@@ -43,6 +43,13 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
     ],
   });
 };
+export function sanitizeName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, `_`)
+    .replace(/__+/g, `_`)
+    .replace(/^_+|_+$/g, ``);
+}
 
 export const createPages: GatsbyNode['createPages'] = async ({
   actions,
@@ -144,14 +151,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
       `Error while running GraphQL query: ${console.log(result.errors)}`,
     );
     return;
-  }
-
-  function sanitizeName(name: string): string {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, `_`)
-      .replace(/__+/g, `_`)
-      .replace(/^_+|_+$/g, ``);
   }
 
   const movies = result.data.segments.allMovies;

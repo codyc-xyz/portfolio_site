@@ -9,6 +9,7 @@ import { OptionType } from '../components/general/FilterSection';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 import TitleComponent from '../components/general/TitleComponent';
+import { sanitizeName } from 'gatsby-node';
 
 export const GET_BOOKS = gql`
   {
@@ -415,7 +416,7 @@ const Books: React.FC = () => {
     }
   }, [filteredBooks]);
 
-  const randomBook = filteredBooks[randomBookIndex]?.book_uid;
+  const randomBook = sanitizeName(filteredBooks[randomBookIndex]?.book_title);
 
   const sortOptions = [
     `Title (A-Z)`,
@@ -513,7 +514,7 @@ const Books: React.FC = () => {
             return (
               <Card
                 key={book.book_uid}
-                pageUrl={`/books/${book.book_uid}`}
+                pageUrl={`/books/${sanitizeName(book.book_title)}`}
                 altText={book.book_title}
                 title={book.author.author_name}
                 secondaryText={book.country_of_origin}

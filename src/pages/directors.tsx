@@ -8,6 +8,7 @@ import SearchBarComponent from '../components/general/SearchBarComponent';
 import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
+import { sanitizeName } from 'gatsby-node';
 
 export const GET_DIRECTORS = gql`
   {
@@ -149,7 +150,9 @@ const Directors: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSortOption, directors]);
 
-  const randomDirector = filteredDirectors[randomDirectorIndex]?.director_uid;
+  const randomDirector = sanitizeName(
+    filteredDirectors[randomDirectorIndex]?.director_name,
+  );
 
   const sortOptions = [
     `Name (A-Z)`,
@@ -212,7 +215,7 @@ const Directors: React.FC = () => {
             return (
               <Card
                 key={director.director_uid}
-                pageUrl={`/directors/${director.director_uid}`}
+                pageUrl={`/directors/${sanitizeName(director.director_name)}`}
                 altText={director.director_name}
                 title={director.director_name}
                 imageUrl={director.director_image}

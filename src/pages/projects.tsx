@@ -9,6 +9,7 @@ import Card from '../components/general/Card';
 import PageHeader from '../components/general/PageHeader';
 import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '@/components/general/TitleComponent';
+import { sanitizeName } from 'gatsby-node';
 
 export const GET_PROJECTS = gql`
   {
@@ -407,7 +408,9 @@ const Projects: React.FC = () => {
     />
   );
 
-  const randomProject = filteredProjects[randomProjectIndex]?.project_uid;
+  const randomProject = sanitizeName(
+    filteredProjects[randomProjectIndex]?.project_name,
+  );
 
   if (loading || error) {
     return <LoadingOrError loading={loading} error={error}></LoadingOrError>;
@@ -455,7 +458,7 @@ const Projects: React.FC = () => {
               {filteredProjects.map((project) => (
                 <Card
                   key={project.project_uid}
-                  pageUrl={`/projects/${project.project_uid}`}
+                  pageUrl={`/projects/${sanitizeName(project.project_name)}`}
                   altText={project.project_name}
                   title={project.project_name}
                   imageUrl={project.project_image}

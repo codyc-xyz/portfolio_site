@@ -8,6 +8,7 @@ import TitleComponent from '../components/general/TitleComponent';
 import SearchBarComponent from '../components/general/SearchBarComponent';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
+import { sanitizeName } from '../../gatsby-node';
 
 export const GET_AUTHORS = gql`
   {
@@ -145,7 +146,9 @@ const Authors: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSortOption, authors]);
 
-  const randomAuthor = filteredAuthors[randomAuthorIndex]?.author_uid;
+  const randomAuthor = sanitizeName(
+    filteredAuthors[randomAuthorIndex]?.author_name,
+  );
 
   const sortOptions = [
     `Name (A-Z)`,
@@ -208,7 +211,7 @@ const Authors: React.FC = () => {
             return (
               <Card
                 key={author.author_uid}
-                pageUrl={`${author.author_uid}`}
+                pageUrl={`/authors/${sanitizeName(author.author_name)}`}
                 altText={author.author_name}
                 title={author.author_name}
                 secondaryText={author.country_of_birth}

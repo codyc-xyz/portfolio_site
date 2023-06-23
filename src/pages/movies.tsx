@@ -9,6 +9,7 @@ import Filter from '../components/general/Filter';
 import { useQuery, gql } from '@apollo/client';
 import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '../components/general/TitleComponent';
+import { sanitizeName } from '../../gatsby-node';
 
 export const GET_MOVIES = gql`
   {
@@ -417,7 +418,9 @@ const Movies: React.FC = () => {
     }
   }, [filteredMovies]);
 
-  const randomMovie = filteredMovies[randomMovieIndex]?.movie_uid;
+  const randomMovie = sanitizeName(
+    filteredMovies[randomMovieIndex]?.movie_title,
+  );
   const sortOptions = [
     `Title (A-Z)`,
     `Director (A-Z)`,
@@ -511,7 +514,7 @@ const Movies: React.FC = () => {
               {filteredMovies.map((movie) => (
                 <Card
                   key={movie.movie_uid}
-                  pageUrl={`/movies/${movie.movie_uid}`}
+                  pageUrl={`/movies/${sanitizeName(movie.movie_title)}`}
                   altText={movie.movie_title}
                   title={movie.director.director_name}
                   imageUrl={movie.movie_poster}

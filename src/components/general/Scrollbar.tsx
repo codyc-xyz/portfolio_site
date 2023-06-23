@@ -1,5 +1,6 @@
 import { ImageWithLink } from './ImageWithLink';
 import React, { useState, useEffect } from 'react';
+import { sanitizeName } from 'gatsby-node';
 
 interface ScrollbarProps {
   title: string;
@@ -72,7 +73,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   key={item.movie_uid}
                   src={item.movie_poster}
                   alt={item.title}
-                  link={`/movies/${item.movie_uid}`}
+                  link={`/movies/${sanitizeName(item.movie_name)}`}
                 />
               );
             } else if (title === `Directors I Love`) {
@@ -81,7 +82,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   key={item.director_uid}
                   src={item.director_image}
                   alt={item.director_name}
-                  link={`/directors/${item.director_uid}`}
+                  link={`/directors/${sanitizeName(item.director_name)}`}
                 />
               );
             } else if (title === `Authors I Find Interesting`) {
@@ -90,7 +91,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   key={item.author_uid}
                   src={item.author_image}
                   alt={item.author_name}
-                  link={`/authors/${item.author_uid}`}
+                  link={`/authors/${sanitizeName(item.author_name)}`}
                 />
               );
             } else if (title === `Books I Find Interesting`) {
@@ -99,7 +100,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   key={item.book_uid}
                   src={item.book_cover_image}
                   alt={item.book_title}
-                  link={`/books/${item.book_uid}`}
+                  link={`/books/${sanitizeName(item.book_title)}`}
                 />
               );
             } else {
