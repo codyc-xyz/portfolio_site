@@ -73,7 +73,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   key={item.movie_uid}
                   src={item.movie_poster}
                   alt={item.title}
-                  link={`/movies/${sanitizeName(item.movie_name)}`}
+                  link={`/movies/${sanitizeName(item.movie_title)}`}
                 />
               );
             } else if (title === `Directors I Love`) {
