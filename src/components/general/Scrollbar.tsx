@@ -1,6 +1,6 @@
 import { ImageWithLink } from './ImageWithLink';
 import React, { useState, useEffect } from 'react';
-import { sanitizeName } from 'gatsby-node';
+import { sanitizeName } from '../../../functions/sanitizeName';
 
 interface ScrollbarProps {
   title: string;
