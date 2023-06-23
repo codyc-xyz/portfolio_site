@@ -8,7 +8,7 @@ import TitleComponent from '../components/general/TitleComponent';
 import SearchBarComponent from '../components/general/SearchBarComponent';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
-import { sanitizeName } from '../../gatsby-node';
+import { sanitizeName } from '../../functions/sanitizeName';
 
 export const GET_AUTHORS = gql`
   {

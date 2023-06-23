@@ -9,7 +9,7 @@ import Filter from '../components/general/Filter';
 import { useQuery, gql } from '@apollo/client';
 import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '../components/general/TitleComponent';
-import { sanitizeName } from '../../gatsby-node';
+import { sanitizeName } from '../../functions/sanitizeName';
 
 export const GET_MOVIES = gql`
   {

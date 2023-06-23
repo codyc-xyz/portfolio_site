@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
-import { sanitizeName } from 'gatsby-node';
+import { sanitizeName } from '../../functions/sanitizeName';
 
 interface MoviePageProps {
   pageContext: {

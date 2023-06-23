@@ -1,7 +1,7 @@
 import Card from '../components/general/Card';
 import { BookAttributes } from '../types/BookAttributes';
 import React from 'react';
-import { sanitizeName } from 'gatsby-node';
+import { sanitizeName } from '../../functions/sanitizeName';
 
 interface AuthorPageProps {
   pageContext: {

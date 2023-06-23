@@ -6,6 +6,7 @@ import { DirectorAttributes } from './src/types/DirectorAttributes';
 import { BookAttributes } from './src/types/BookAttributes';
 import { AuthorAttributes } from './src/types/AuthorAttributes';
 import { ProjectAttributes } from './src/types/ProjectAttributes';
+import { sanitizeName } from './functions/sanitizeName';
 
 const webpack = require(`webpack`);
 
@@ -43,13 +44,6 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
     ],
   });
 };
-export function sanitizeName(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, `_`)
-    .replace(/__+/g, `_`)
-    .replace(/^_+|_+$/g, ``);
-}
 
 export const createPages: GatsbyNode['createPages'] = async ({
   actions,

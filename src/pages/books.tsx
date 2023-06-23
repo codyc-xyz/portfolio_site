@@ -9,7 +9,7 @@ import { OptionType } from '../components/general/FilterSection';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 import TitleComponent from '../components/general/TitleComponent';
-import { sanitizeName } from 'gatsby-node';
+import { sanitizeName } from '../../functions/sanitizeName';
 
 export const GET_BOOKS = gql`
   {

@@ -9,7 +9,7 @@ import Card from '../components/general/Card';
 import PageHeader from '../components/general/PageHeader';
 import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '@/components/general/TitleComponent';
-import { sanitizeName } from 'gatsby-node';
+import { sanitizeName } from '../../functions/sanitizeName';
 
 export const GET_PROJECTS = gql`
   {
