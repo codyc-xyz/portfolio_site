@@ -145,6 +145,15 @@ export const createPages: GatsbyNode['createPages'] = async ({
     );
     return;
   }
+
+  function sanitizeName(name: string): string {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, `_`)
+      .replace(/__+/g, `_`)
+      .replace(/^_+|_+$/g, ``);
+  }
+
   const movies = result.data.segments.allMovies;
   const directors = result.data.segments.allDirectors;
   const books = result.data.segments.allBooks;
@@ -154,7 +163,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (movies) {
     movies.forEach((movie: MovieAttributes) => {
       createPage({
-        path: `movies/${movie.movie_uid}`,
+        path: `movies/${sanitizeName(movie.movie_title)}`,
         component: path.resolve(`./src/templates/MoviePage.tsx`),
         context: {
           directorUid: movie.director_uid,
@@ -177,7 +186,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (directors) {
     directors.forEach((director: DirectorAttributes) => {
       createPage({
-        path: `directors/${director.director_uid}`,
+        path: `directors/${sanitizeName(director.director_name)}`,
         component: path.resolve(`./src/templates/DirectorPage.tsx`),
         context: {
           directorName: director.director_name,
@@ -199,7 +208,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (books) {
     books.forEach((book: BookAttributes) => {
       createPage({
-        path: `books/${book.book_uid}`,
+        path: `books/${sanitizeName(book.book_title)}`,
         component: path.resolve(`./src/templates/BookPage.tsx`),
         context: {
           bookTitle: book.book_title,
@@ -228,7 +237,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (authors) {
     authors.forEach((author: AuthorAttributes) => {
       createPage({
-        path: `authors/${author.author_uid}`,
+        path: `authors/${sanitizeName(author.author_name)}`,
         component: path.resolve(`./src/templates/AuthorPage.tsx`),
         context: {
           authorUid: author.author_uid,
@@ -251,7 +260,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (projects) {
     projects.forEach((project: ProjectAttributes) => {
       createPage({
-        path: `projects/${project.project_uid}`,
+        path: `projects/${sanitizeName(project.project_name)}`,
         component: path.resolve(`./src/templates/ProjectPage.tsx`),
         context: {
           projectUid: project.project_uid,
