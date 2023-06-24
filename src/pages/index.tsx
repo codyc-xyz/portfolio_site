@@ -108,7 +108,7 @@ const FrontPage: React.FC = () => {
   return (
     <div className="container text-text flex flex-col mb-4">
       <Helmet>
-        <title>Home - codyc</title>
+        <title>Home - CodyC</title>
       </Helmet>
 
       <h1 className="text-center text-lg md:text-xl lg:text-2xl xxl:text-3xl flex-grow flex-shrink-0 mx-auto w-1/2">

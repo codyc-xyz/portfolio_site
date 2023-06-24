@@ -34,7 +34,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
   return (
     <div className="container font-medium text-text mb-7 sm:mb-4">
       <Helmet>
-        <title>{projectName} - codyc</title>
+        <title>{projectName} - CodyC</title>
       </Helmet>
 
       <div className="flex mt-4 items-center">

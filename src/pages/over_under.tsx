@@ -232,7 +232,7 @@ const Game: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-4 px-2 sm:px-4">
       <Helmet>
-        <title>Over Under Game - codyc</title>
+        <title>Over Under Game - CodyC</title>
       </Helmet>
 
       <GuessResultDisplay guessResult={guessResult} />

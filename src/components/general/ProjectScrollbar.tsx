@@ -51,7 +51,9 @@ const ProjectScrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
 
   return (
     <div className="h-full w-full flex flex-col space-y-1 text-text">
-      <h2 className="text-base md:text-lg lg:text-xl font-medium">{title}</h2>
+      <h2 className="text-base md:text-lg lg:text-xl xxl:text-2xl font-medium">
+        {title}
+      </h2>
       <div className="flex">
         <div
           className={`flex ${
