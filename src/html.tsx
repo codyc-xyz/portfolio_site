@@ -19,7 +19,7 @@ const HTML: React.FC<HTMLProps> = (props) => {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>

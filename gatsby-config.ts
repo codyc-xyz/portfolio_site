@@ -43,7 +43,7 @@ const config: GatsbyConfig = {
         background_color: `#ffffff`,
         theme_color: `#0088CC`,
         display: `standalone`,
-        icon: `/favicon.ico`,
+        icon: `/static/favicon.ico`,
       },
     },
   ],
