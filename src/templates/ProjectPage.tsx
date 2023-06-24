@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { Helmet } from 'react-helmet';
 
 interface ProjectPageProps {
   pageContext: {
@@ -32,6 +33,10 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
   } = pageContext;
   return (
     <div className="container font-medium text-text mb-7 sm:mb-4">
+      <Helmet>
+        <title>{projectName}</title>
+      </Helmet>
+
       <div className="flex mt-4 items-center">
         <div className="w-full">
           <h1 className="text-2xl">{projectName}</h1>

@@ -2,6 +2,7 @@ import Card from '../components/general/Card';
 import { BookAttributes } from '../types/BookAttributes';
 import React from 'react';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { Helmet } from 'react-helmet';
 
 interface AuthorPageProps {
   pageContext: {
@@ -28,6 +29,10 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
   } = pageContext;
   return (
     <div className="container font-medium text-text mb-4">
+      <Helmet>
+        <title>{authorName}</title>
+      </Helmet>
+
       <div className="flex mt-4">
         <div className="w-full lg:w-3/5 xl:w-2/3 pr-2 lg:pr-4 ">
           <h1 className="text-2xl">{authorName}</h1>

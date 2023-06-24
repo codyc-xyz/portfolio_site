@@ -12,6 +12,7 @@ import { GET_DIRECTORS } from './directors';
 import { GET_PROJECTS } from './projects';
 import { useQuery } from '@apollo/client';
 import { ProjectAttributes } from '../types/ProjectAttributes';
+import { Helmet } from 'react-helmet';
 
 const FrontPage: React.FC = () => {
   const [directors, setDirectors] = useState<DirectorAttributes[]>([]);
@@ -106,6 +107,10 @@ const FrontPage: React.FC = () => {
 
   return (
     <div className="container text-text flex flex-col mb-4">
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
+
       <h1 className="text-center text-lg md:text-xl lg:text-2xl xxl:text-3xl flex-grow flex-shrink-0 mx-auto w-1/2">
         At a Glance
       </h1>

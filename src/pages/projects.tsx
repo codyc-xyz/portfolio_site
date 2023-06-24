@@ -10,6 +10,7 @@ import PageHeader from '../components/general/PageHeader';
 import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '@/components/general/TitleComponent';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { Helmet } from 'react-helmet';
 
 export const GET_PROJECTS = gql`
   {
@@ -417,6 +418,10 @@ const Projects: React.FC = () => {
   }
   return (
     <div className="container text-text mb-4">
+      <Helmet>
+        <title>Projects</title>
+      </Helmet>
+
       <div className="flex flex-col gap-2">
         <TitleComponent
           text={`Personal Projects`}

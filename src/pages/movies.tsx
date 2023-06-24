@@ -10,6 +10,7 @@ import { useQuery, gql } from '@apollo/client';
 import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '../components/general/TitleComponent';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { Helmet } from 'react-helmet';
 
 export const GET_MOVIES = gql`
   {
@@ -474,6 +475,10 @@ const Movies: React.FC = () => {
 
   return (
     <div className="container text-text mb-4">
+      <Helmet>
+        <title>Movies</title>
+      </Helmet>
+
       <div className="flex flex-col gap-2">
         <TitleComponent
           text={`Movies I Love`}

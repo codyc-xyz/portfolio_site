@@ -10,6 +10,7 @@ import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 import TitleComponent from '../components/general/TitleComponent';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { Helmet } from 'react-helmet';
 
 export const GET_BOOKS = gql`
   {
@@ -471,6 +472,10 @@ const Books: React.FC = () => {
 
   return (
     <div className="container text-text mb-4">
+      <Helmet>
+        <title>Books</title>
+      </Helmet>
+
       <div className="flex flex-col gap-2">
         <TitleComponent
           text={`Books I Find Interesting`}

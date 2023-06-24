@@ -9,6 +9,7 @@ import SearchBarComponent from '../components/general/SearchBarComponent';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { Helmet } from 'react-helmet';
 
 export const GET_AUTHORS = gql`
   {
@@ -173,6 +174,10 @@ const Authors: React.FC = () => {
 
   return (
     <div className="container text-text mb-4">
+      <Helmet>
+        <title>Authors</title>
+      </Helmet>
+
       <div className="flex flex-col gap-2">
         <TitleComponent
           text={`Authors I Find Interesting`}

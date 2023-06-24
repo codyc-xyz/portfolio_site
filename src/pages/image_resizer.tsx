@@ -1,5 +1,6 @@
 import { useState, ChangeEvent } from 'react';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 type ImageData = {
   filename: string;
@@ -178,6 +179,10 @@ const ImageUpload = () => {
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
+      <Helmet>
+        <title>Image Resizer</title>
+      </Helmet>
+
       {error && <div className="text-red-500">{error}</div>}
       {inputFields.map((field, index) => (
         <div

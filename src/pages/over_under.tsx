@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { hashtagsData } from '../../data/hashtagsData';
+import { Helmet } from 'react-helmet';
 
 interface HashtagData {
   Hashtag: string;
@@ -199,6 +200,10 @@ const Game: React.FC = () => {
   if (!gameStarted) {
     return (
       <div className="flex flex-col items-center justify-center py-4 px-2 sm:px-4">
+        <Helmet>
+          <title>Over Under Game</title>
+        </Helmet>
+
         <div className="p-4 sm:p-6 bg-gray-100 rounded-lg shadow-lg flex flex-col space-y-3">
           <p className="text-lg sm:text-xl font-bold text-gray-800 text-center">
             Given two hashtags, guess which one was most popular from a dataset
@@ -226,6 +231,10 @@ const Game: React.FC = () => {
   }
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-4 px-2 sm:px-4">
+      <Helmet>
+        <title>Over Under Game</title>
+      </Helmet>
+
       <GuessResultDisplay guessResult={guessResult} />
 
       <div className="flex flex-col sm:flex-row justify-around w-full sm:w-1/2 my-4 sm:my-6 gap-2 sm:gap-4">
