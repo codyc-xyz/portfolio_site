@@ -39,6 +39,7 @@
     "dotenv": "16.3.1",
     "gatsby": "5.9.0",
     "gatsby-plugin-layout": "4.10.0",
+    "gatsby-plugin-manifest": "5.11.0",
     "gatsby-plugin-offline": "6.9.0",
     "gatsby-plugin-pnpm": "1.2.10",
     "gatsby-plugin-postcss": "6.9.0",
