@@ -1,5 +1,6 @@
 import { ImageWithLink } from './ProjectImageWithLink';
 import React, { useState, useEffect } from 'react';
+import { sanitizeName } from '../../../functions/sanitizeName';
 
 interface ScrollbarProps {
   title: string;
@@ -64,7 +65,7 @@ const ProjectScrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
             &lt;
           </button>
         </div>
-        <div className="overflow-x-scroll hide-scrollbar grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex-grow">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex-grow">
           {dataToDisplay.map((item) => {
             if (title === `Personal Projects`) {
               return (
@@ -72,7 +73,7 @@ const ProjectScrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
                   key={item.project_uid}
                   src={item.project_image}
                   alt={item.project_name}
-                  link={`/projects/${item.project_uid}`}
+                  link={`/projects/${sanitizeName(item.project_name)}`}
                 />
               );
             } else {
