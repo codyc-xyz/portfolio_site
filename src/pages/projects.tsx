@@ -419,7 +419,7 @@ const Projects: React.FC = () => {
   return (
     <div className="container text-text mb-4">
       <Helmet>
-        <title>Projects</title>
+        <title>Projects - codyc</title>
       </Helmet>
 
       <div className="flex flex-col gap-2">

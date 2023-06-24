@@ -29,7 +29,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
   return (
     <div className="container font-medium text-text mb-4">
       <Helmet>
-        <title>{directorName}</title>
+        <title>{directorName} - codyc</title>
       </Helmet>
 
       <div className="flex flex-col lg:flex-row mt-4">

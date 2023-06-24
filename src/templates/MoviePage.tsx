@@ -43,7 +43,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
   return (
     <div className="container font-medium text-text mb-4">
       <Helmet>
-        <title>{movieTitle}</title>
+        <title>{movieTitle} - codyc</title>
       </Helmet>
 
       <div className="flex flex-col lg:flex-row mt-4">

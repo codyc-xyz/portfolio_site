@@ -175,7 +175,7 @@ const Authors: React.FC = () => {
   return (
     <div className="container text-text mb-4">
       <Helmet>
-        <title>Authors</title>
+        <title>Authors - codyc</title>
       </Helmet>
 
       <div className="flex flex-col gap-2">

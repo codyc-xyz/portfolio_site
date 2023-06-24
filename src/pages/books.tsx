@@ -473,7 +473,7 @@ const Books: React.FC = () => {
   return (
     <div className="container text-text mb-4">
       <Helmet>
-        <title>Books</title>
+        <title>Books - codyc</title>
       </Helmet>
 
       <div className="flex flex-col gap-2">

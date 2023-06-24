@@ -40,6 +40,7 @@ const HTML: React.FC<HTMLProps> = (props) => {
         <link rel="manifest" href="/site.webmanifest" />
         <link
           rel="mask-icon"
+          type="image/png"
           href="/android-chrome-512x512.png"
           color="#5bbad5"
         />

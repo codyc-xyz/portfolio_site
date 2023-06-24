@@ -30,7 +30,7 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
   return (
     <div className="container font-medium text-text mb-4">
       <Helmet>
-        <title>{authorName}</title>
+        <title>{authorName} - codyc</title>
       </Helmet>
 
       <div className="flex mt-4">
