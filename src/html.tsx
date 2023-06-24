@@ -40,9 +40,9 @@ const HTML: React.FC<HTMLProps> = (props) => {
         <link rel="manifest" href="/site.webmanifest" />
         <link
           rel="mask-icon"
-          type="image/png"
-          href="/android-chrome-512x512.png"
-          color="#5bbad5"
+          type="image/svg+xml"
+          href="/safari-touch-icon.svg"
+          color="#0088CC"
         />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
