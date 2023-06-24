@@ -33,7 +33,7 @@ const Header = () => {
       </div>
 
       <div
-        className={`fixed transform top-0 left-0 w-1/2 h-full overflow-auto ease-in-out transition-all duration-300 z-30 ${
+        className={`fixed transform top-0 left-0 w-1/2 h-full bg-background overflow-auto ease-in-out transition-all duration-300 z-30 ${
           isOpen ? `translate-x-0` : `-translate-x-full`
         } flex flex-col items-center justify-start`}
       >
