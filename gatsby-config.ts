@@ -34,18 +34,6 @@ const config: GatsbyConfig = {
         url: `${process.env.GATSBY_SERVER_URL}/graphql`,
       },
     },
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `codyc.xyz`,
-        short_name: `codyc`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#0088CC`,
-        display: `standalone`,
-        icon: `/static/favicon.ico`,
-      },
-    },
   ],
 
   flags: { DEV_SSR: true },

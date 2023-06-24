@@ -65,7 +65,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
             &lt;
           </button>
         </div>
-        <div className="overflow-x-scroll hide-scrollbar grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 flex-grow">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 flex-grow">
           {dataToDisplay.map((item) => {
             if (title === `Movies I Love`) {
               return (
