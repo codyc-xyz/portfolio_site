@@ -160,7 +160,7 @@ const MusicPlayer: React.FC = () => {
         <button
           className={`${
             selectedButton === `discoBall` ? `bg-primary rounded-md` : ``
-          } text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 m-1`}
+          } text-xs sm:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 m-1`}
           onClick={() => handleButtonSelect(boogiePlaylist, `discoBall`)}
         >
           🪩
