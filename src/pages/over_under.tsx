@@ -201,14 +201,14 @@ const Game: React.FC = () => {
     return (
       <div className="flex flex-col items-center justify-center py-4 px-2 sm:px-4">
         <Helmet>
-          <title>Over Under Game</title>
+          <title>Over Under Game | CodyC</title>
         </Helmet>
 
         <div className="p-4 sm:p-6 bg-gray-100 rounded-lg shadow-lg flex flex-col space-y-3">
           <p className="text-lg sm:text-xl font-bold text-gray-800 text-center">
             Given two hashtags, guess which one was most popular from a dataset
-            of millions of tweets scraped from the February 9th 2023 to February
-            13th 2023.
+            of millions of tweets scraped from February 9 2023 to February 13
+            2023.
           </p>
           <p className="text-lg sm:text-xl font-bold text-gray-800 text-center">
             Click <span className="text-blue-500">View on Twitter</span>

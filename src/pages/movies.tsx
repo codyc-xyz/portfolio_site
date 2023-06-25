@@ -476,7 +476,7 @@ const Movies: React.FC = () => {
   return (
     <div className="container text-text mb-4">
       <Helmet>
-        <title>Movies - CodyC</title>
+        <title>Movies | CodyC</title>
       </Helmet>
 
       <div className="flex flex-col gap-2">

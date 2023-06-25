@@ -179,7 +179,7 @@ const Directors: React.FC = () => {
   return (
     <div className="container text-text mb-4">
       <Helmet>
-        <title>Directors - CodyC</title>
+        <title>Directors | CodyC</title>
       </Helmet>
 
       <div className="flex flex-col gap-2">
