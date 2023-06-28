@@ -1,3 +1,5 @@
+# Personal Website
+
 ## Overview
 This repository houses the codebase for my personal website built with a modern tech stack. It features over 175 detailed pages, each one dedicated to a specific piece of content, categorized in one of five sections I am passionate about: Movies, Directors, Books, and Authors. In addition to the rich content, the website also boasts dynamic content filtering and sorting capabilities, a responsive design, and project-specific frontends to deliver a seamless user experience.
 
