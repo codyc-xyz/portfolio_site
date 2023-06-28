@@ -1,4 +1,3 @@
-import { Model } from 'sequelize';
 import { MovieAttributes } from './MovieAttributes';
 
 export type DirectorAttributes = {
@@ -11,7 +10,3 @@ export type DirectorAttributes = {
   director_image: string;
   movies: MovieAttributes[];
 };
-
-class DirectorClass extends Model<DirectorAttributes> {}
-
-module.exports = DirectorClass;

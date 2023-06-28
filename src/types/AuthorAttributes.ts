@@ -1,4 +1,3 @@
-import { Model } from 'sequelize';
 import { BookAttributes } from './BookAttributes';
 
 export type AuthorAttributes = {
@@ -11,7 +10,3 @@ export type AuthorAttributes = {
   country_of_birth: string;
   books: BookAttributes[];
 };
-
-class AuthorClass extends Model<AuthorAttributes> {}
-
-module.exports = AuthorClass;

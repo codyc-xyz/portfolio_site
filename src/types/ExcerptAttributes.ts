@@ -1,5 +1,3 @@
-import { Model } from 'sequelize';
-
 export type ExcerptAttributes = {
   excerpt_uid: string;
   text: string;
@@ -8,7 +6,3 @@ export type ExcerptAttributes = {
   section: string;
   book_uid: string;
 };
-
-class ExcerptClass extends Model<ExcerptAttributes> {}
-
-module.exports = ExcerptClass;

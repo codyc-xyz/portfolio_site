@@ -1,5 +1,3 @@
-import { Model } from 'sequelize';
-
 export type MovieAttributes = {
   director: any;
   movie_uid: string;
@@ -15,7 +13,3 @@ export type MovieAttributes = {
   content_warnings: string[];
   director_uid: string;
 };
-
-class MovieClass extends Model<MovieAttributes> {}
-
-module.exports = MovieClass;
