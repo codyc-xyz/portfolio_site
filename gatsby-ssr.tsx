@@ -4,8 +4,13 @@ import { Provider } from 'react-redux';
 import App from './src/app';
 import store from './src/redux/store';
 import Layout from './src/Layout';
+import { ThemeProvider } from './src/contexts/ThemeContext';
 
-export const wrapRootElement = ({ element }) => <App>{element}</App>;
+export const wrapRootElement = ({ element }) => (
+  <App>
+    <ThemeProvider>{element}</ThemeProvider>
+  </App>
+);
 
 export const wrapPageElement = ({ element, props }) => {
   return (
