@@ -8,6 +8,7 @@ import {
   setCurrentPlaylist,
   setSelectedButton,
 } from '../../redux/store';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 export const dreamsPlaylist: Song[] = [
   {
@@ -66,6 +67,7 @@ const boogiePlaylist: Song[] = [
 ];
 
 const MusicPlayer: React.FC = () => {
+  const { theme, toggleTheme } = React.useContext(ThemeContext);
   const isPlaying = useSelector((state: AppState) => state.isPlaying);
   const currentSongIndex = useSelector(
     (state: AppState) => state.currentSongIndex,
@@ -153,7 +155,10 @@ const MusicPlayer: React.FC = () => {
           className={`${
             selectedButton === `starryNight` ? `bg-primary rounded-md` : ``
           } text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 m-1`}
-          onClick={() => handleButtonSelect(dreamsPlaylist, `starryNight`)}
+          onClick={() => {
+            handleButtonSelect(dreamsPlaylist, `starryNight`);
+            if (theme !== `dark`) toggleTheme();
+          }}
         >
           🌙
         </button>
@@ -161,7 +166,10 @@ const MusicPlayer: React.FC = () => {
           className={`${
             selectedButton === `discoBall` ? `bg-primary rounded-md` : ``
           } text-xs sm:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 m-1`}
-          onClick={() => handleButtonSelect(boogiePlaylist, `discoBall`)}
+          onClick={() => {
+            handleButtonSelect(boogiePlaylist, `discoBall`);
+            if (theme !== `light`) toggleTheme();
+          }}
         >
           🪩
         </button>
