@@ -4,6 +4,8 @@ const colors = require(`tailwindcss/colors`);
 module.exports = {
   mode: `jit`,
   content: [`./src/**/*.{js,jsx,ts,tsx}`, `./public/index.html`],
+  darkMode: `class`,
+  jsx: `react`,
   theme: {
     spacing: {
       // Existing values
