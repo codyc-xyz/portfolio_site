@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 
 type Theme = 'light' | 'dark';
 
-interface ThemeContextProps {
+export interface ThemeContextProps {
   theme: Theme;
   toggleTheme: () => void;
 }
@@ -16,10 +16,21 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(`light`);
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== `undefined`) {
+      return (localStorage.getItem(`theme`) as Theme) || `light`;
+    }
+    return `light`;
+  });
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === `light` ? `dark` : `light`));
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === `light` ? `dark` : `light`;
+      if (typeof window !== `undefined`) {
+        localStorage.setItem(`theme`, newTheme);
+      }
+      return newTheme;
+    });
   };
 
   return (

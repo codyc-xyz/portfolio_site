@@ -8,7 +8,7 @@ import {
   setCurrentPlaylist,
   setSelectedButton,
 } from '../../redux/store';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { ThemeContext, ThemeContextProps } from '../../contexts/ThemeContext';
 
 export const dreamsPlaylist: Song[] = [
   {
@@ -38,7 +38,7 @@ export const dreamsPlaylist: Song[] = [
   },
 ];
 
-const boogiePlaylist: Song[] = [
+export const boogiePlaylist: Song[] = [
   {
     title: `Looking Up to You`,
     artist: `Michael Wycoff`,
@@ -67,7 +67,8 @@ const boogiePlaylist: Song[] = [
 ];
 
 const MusicPlayer: React.FC = () => {
-  const { theme, toggleTheme } = React.useContext(ThemeContext);
+  const { theme, toggleTheme }: ThemeContextProps =
+    React.useContext(ThemeContext)!;
   const isPlaying = useSelector((state: AppState) => state.isPlaying);
   const currentSongIndex = useSelector(
     (state: AppState) => state.currentSongIndex,

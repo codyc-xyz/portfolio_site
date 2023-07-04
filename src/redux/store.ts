@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import Song from '../types/Song';
-import { dreamsPlaylist } from '../components/general/MusicPlayer';
+import { boogiePlaylist } from '../components/general/MusicPlayer';
 
 export interface AppState {
   isPlaying: boolean;
@@ -37,8 +37,8 @@ type AppAction =
 const initialState: AppState = {
   isPlaying: false,
   currentSongIndex: 0,
-  currentPlaylist: dreamsPlaylist,
-  selectedButton: `starryNight`,
+  currentPlaylist: boogiePlaylist,
+  selectedButton: `discoBall`,
 };
 
 export const togglePlay = (): TogglePlayAction => ({
