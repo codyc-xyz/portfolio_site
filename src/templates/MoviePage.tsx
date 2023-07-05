@@ -41,7 +41,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
     setShowContentWarnings(!showContentWarnings);
   };
   return (
-    <div className="container font-medium textStyle pb-4">
+    <div className="container font-medium text-text dark:text-white pb-4">
       <Helmet>
         <title>{movieTitle} | CodyC</title>
       </Helmet>
@@ -90,7 +90,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
           {contentWarnings && (
             <div className="mb-2">
               <button
-                className="text-sm underline textStyle"
+                className="text-sm underline  text-text dark:text-white"
                 onClick={toggleContentWarnings}
               >
                 {showContentWarnings

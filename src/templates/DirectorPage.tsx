@@ -27,7 +27,7 @@ const DirectorPage: React.FC<DirectorPageProps> = ({ pageContext }) => {
     movies,
   } = pageContext;
   return (
-    <div className="container font-medium textStyle pb-4">
+    <div className="container font-medium  text-text dark:text-white pb-4">
       <Helmet>
         <title>{directorName} | CodyC</title>
       </Helmet>

@@ -50,7 +50,7 @@ const ProjectScrollbar: React.FC<ScrollbarProps> = ({ title, data }) => {
   const dataToDisplay = data.slice(currentIndex, currentIndex + itemsPerPage);
 
   return (
-    <div className="h-full w-full flex flex-col space-y-1 textStyle">
+    <div className="h-full w-full flex flex-col space-y-1  text-text dark:text-white">
       <h2 className="text-base md:text-lg lg:text-xl xxl:text-2xl font-medium">
         {title}
       </h2>

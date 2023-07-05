@@ -28,7 +28,7 @@ const Card: React.FC<CardProps> = ({
           />
         </div>
       </Link>
-      <div className="font-medium textStyle">
+      <div className="font-medium text-text dark:text-white">
         {title && <p>{title}</p>}
         {secondaryText && <p>{secondaryText}</p>}
       </div>
