@@ -70,7 +70,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
   };
 
   return (
-    <div className="container font-medium  text-text dark:text-white pb-8 sm:pb-4">
+    <div className="container font-medium pb-8 sm:pb-4">
       <Helmet>
         <title>{bookTitle} | CodyC</title>
       </Helmet>

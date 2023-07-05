@@ -28,7 +28,7 @@ const AuthorPage: React.FC<AuthorPageProps> = ({ pageContext }) => {
     books,
   } = pageContext;
   return (
-    <div className="container font-medium text-text dark:text-white pb-4">
+    <div className="container font-medium pb-4">
       <Helmet>
         <title>{authorName} | CodyC</title>
       </Helmet>

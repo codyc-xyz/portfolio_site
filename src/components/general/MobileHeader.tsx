@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className="flex sm:hidden items-center justify-between py-1 px-0 container">
       <div className="flex items-center justify-between w-full sm:w-1/4">
-        <Link className="text-lg text-text hover:text-opacity-50" to="/">
+        <Link className="text-lg hover:text-opacity-50" to="/">
           Home
         </Link>
 
@@ -20,7 +20,7 @@ const Header = () => {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            className="h-6 w-6 text-text"
+            className="h-6 w-6"
           >
             <path
               strokeLinecap="round"
