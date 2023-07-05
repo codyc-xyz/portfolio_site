@@ -471,7 +471,7 @@ const Books: React.FC = () => {
   }
 
   return (
-    <div className="container  text-text dark:text-white pb-4">
+    <div className="container pb-4">
       <Helmet>
         <title>Books | CodyC</title>
       </Helmet>

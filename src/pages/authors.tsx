@@ -173,7 +173,7 @@ const Authors: React.FC = () => {
   }
 
   return (
-    <div className="container  text-text dark:text-white pb-4">
+    <div className="container pb-4">
       <Helmet>
         <title>Authors | CodyC</title>
       </Helmet>

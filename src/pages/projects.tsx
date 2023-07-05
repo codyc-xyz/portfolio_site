@@ -417,7 +417,7 @@ const Projects: React.FC = () => {
     return <LoadingOrError loading={loading} error={error}></LoadingOrError>;
   }
   return (
-    <div className="container text-text dark:text-white pb-4">
+    <div className="container pb-4">
       <Helmet>
         <title>Projects | CodyC</title>
       </Helmet>

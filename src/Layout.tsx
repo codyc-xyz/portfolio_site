@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     setClassName(
-      theme === `dark` ? `dark bg-black min-h-screen text-white` : ``,
+      theme === `dark` ? `dark bg-black min-h-screen text-white` : `text-text`,
     );
   }, [theme]);
 

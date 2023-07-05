@@ -106,7 +106,7 @@ const FrontPage: React.FC = () => {
   }, [projectsLoading, projectsError, projectsData]);
 
   return (
-    <div className="container text-text dark:text-white flex flex-col">
+    <div className="container flex flex-col">
       <Helmet>
         <title>Home | CodyC</title>
       </Helmet>

@@ -177,7 +177,7 @@ const Directors: React.FC = () => {
   }
 
   return (
-    <div className="container  text-text dark:text-white pb-4">
+    <div className="container pb-4">
       <Helmet>
         <title>Directors | CodyC</title>
       </Helmet>
