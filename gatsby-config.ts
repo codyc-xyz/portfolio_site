@@ -23,6 +23,7 @@ const config: GatsbyConfig = {
         printRejected: false,
         develop: false,
         tailwind: true,
+        whitelist: [`linkText`, `textStyle`],
       },
     },
     `gatsby-plugin-typescript`,
