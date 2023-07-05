@@ -32,7 +32,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
     uiGithub,
   } = pageContext;
   return (
-    <div className="container font-medium text-text mb-7 sm:mb-4">
+    <div className="container font-medium textStyle pb-8 sm:pb-4">
       <Helmet>
         <title>{projectName} | CodyC</title>
       </Helmet>

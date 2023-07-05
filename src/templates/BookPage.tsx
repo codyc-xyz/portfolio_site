@@ -70,7 +70,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
   };
 
   return (
-    <div className="container font-medium text-text mb-8 sm:mb-4">
+    <div className="container font-medium textStyle pb-8 sm:pb-4">
       <Helmet>
         <title>{bookTitle} | CodyC</title>
       </Helmet>
@@ -168,7 +168,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
           <div className="col-start-1 col-span-4 flex items-center justify-start my-2 lg:mt-4">
             <form onSubmit={handleSubmit} className="flex items-center">
               <input
-                className="rounded p-2"
+                className="rounded p-2 mr-1 text-text"
                 type="text"
                 value={inputExcerptIndex}
                 onChange={handleChange}
@@ -186,7 +186,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
           </div>
           <div className="hidden lg:flex col-start-5 col-span-5 flex-row items-center justify-center my-2 lg:mt-4">
             <button
-              className="text-2xl text-gray-500"
+              className="text-2xl text-gray-500 hover:opacity-50"
               onClick={handlePreviousExcerpt}
               disabled={currentExcerptIndex === 0}
             >
@@ -212,7 +212,7 @@ const BookPage: React.FC<BookPageProps> = ({ pageContext }) => {
               )}
             </div>
             <button
-              className="text-2xl text-gray-500"
+              className="text-2xl text-gray-500 hover:opacity-50"
               onClick={handleNextExcerpt}
               disabled={currentExcerptIndex === excerpts.length - 1}
             >
