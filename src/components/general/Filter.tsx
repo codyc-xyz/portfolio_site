@@ -19,7 +19,7 @@ const Filter: React.FC<FilterProps> = ({
   filteredItemsLength,
   itemsLength,
 }) => (
-  <div className="w-3/4 relative">
+  <div className="w-3/4 relative text-text">
     <FilterButton isFilterExpanded={isFilterExpanded} onClick={onFilterClick} />
     {isFilterExpanded && (
       <div className="bg-gray-50 p-2 rounded-b-lg border absolute z-10 w-full $">

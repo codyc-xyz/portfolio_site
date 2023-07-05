@@ -474,7 +474,7 @@ const Movies: React.FC = () => {
   }
 
   return (
-    <div className="container text-text mb-4">
+    <div className="container textStyle mb-4">
       <Helmet>
         <title>Movies | CodyC</title>
       </Helmet>

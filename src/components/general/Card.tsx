@@ -19,7 +19,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className="flex flex-col">
       <Link to={pageUrl} className="relative">
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-sm dark:bg-gray-800 dark:shadow-2xl">
           <img
             src={imageUrl}
             alt={altText}
@@ -28,7 +28,7 @@ const Card: React.FC<CardProps> = ({
           />
         </div>
       </Link>
-      <div className="font-medium text-text">
+      <div className="font-medium textStyle">
         {title && <p>{title}</p>}
         {secondaryText && <p>{secondaryText}</p>}
       </div>

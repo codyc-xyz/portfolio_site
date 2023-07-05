@@ -18,7 +18,7 @@ const ButtonWithDropdown: React.FC<ButtonWithDropdownProps> = ({
   paddingClass,
 }) => {
   return (
-    <div className={`${widthClass} relative`}>
+    <div className={`${widthClass} relative text-text`}>
       <button
         className={`${paddingClass} flex justify-between items-center ${
           isExpanded ? `rounded-t-lg` : `rounded-lg`
