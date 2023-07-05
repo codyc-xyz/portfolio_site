@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import MusicPlayer from './components/general/MusicPlayer';
 import Header from './components/general/Header';
 import ScrollArrow from './components/general/ScrollArrow';
@@ -18,13 +18,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }
 
   const { theme } = themeContext;
+  const [className, setClassName] = useState(``);
+
+  useEffect(() => {
+    setClassName(
+      theme === `dark` ? `dark bg-black min-h-screen text-white` : ``,
+    );
+  }, [theme]);
 
   return (
-    <div
-      className={
-        theme === `dark` ? `dark bg-black min-h-screen text-white` : `text-text`
-      }
-    >
+    <div className={className}>
       <Header />
       <MusicPlayer />
       {children}

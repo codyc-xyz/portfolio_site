@@ -16,7 +16,7 @@ const SearchBarComponent: React.FC<SearchBarComponentProps> = ({
   onClear,
 }) => {
   return (
-    <div className="w-3/4 md:w-1/3 xl:w-1/4 flex text-right justify-end text-xs sm:text-sm md:text-base">
+    <div className="w-3/4 md:w-1/3 xl:w-1/4 flex text-right justify-end text-xs sm:text-sm md:text-base text-text">
       <form onSubmit={onSubmit} className="relative">
         <input
           type="text"

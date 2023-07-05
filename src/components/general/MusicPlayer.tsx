@@ -67,7 +67,7 @@ export const boogiePlaylist: Song[] = [
 ];
 
 const MusicPlayer: React.FC = () => {
-  const { theme, toggleTheme }: ThemeContextProps =
+  const { setAppropriateTheme }: ThemeContextProps =
     React.useContext(ThemeContext)!;
   const isPlaying = useSelector((state: AppState) => state.isPlaying);
   const currentSongIndex = useSelector(
@@ -158,7 +158,7 @@ const MusicPlayer: React.FC = () => {
           } text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 m-1`}
           onClick={() => {
             handleButtonSelect(dreamsPlaylist, `starryNight`);
-            if (theme !== `dark`) toggleTheme();
+            setAppropriateTheme(`dark`);
           }}
         >
           🌙
@@ -169,7 +169,7 @@ const MusicPlayer: React.FC = () => {
           } text-xs sm:text-base lg:text-lg xl:text-xl p-1 sm:p-1 md:p-2 lg:p-3 xl:p-3 m-1`}
           onClick={() => {
             handleButtonSelect(boogiePlaylist, `discoBall`);
-            if (theme !== `light`) toggleTheme();
+            setAppropriateTheme(`light`);
           }}
         >
           🪩
