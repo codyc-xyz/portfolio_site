@@ -20,7 +20,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { theme } = themeContext;
 
   return (
-    <div className={theme === `dark` ? `dark` : ``}>
+    <div
+      className={theme === `dark` ? `dark bg-black text-white` : `text-text`}
+    >
       <Header />
       <MusicPlayer />
       {children}

@@ -6,8 +6,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.linkText {
+      @apply font-medium text-text dark:text-white dark:hover:opacity-50 hover:text-opacity-50;
+    }
+
 @layer utilities {
-  .container {
+  
+    .container {
     margin-left: 1rem;
     margin-right: 1rem;
     width: auto;
