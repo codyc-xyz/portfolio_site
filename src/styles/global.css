@@ -7,12 +7,13 @@
 @tailwind utilities;
 
 .linkText {
-    @apply font-medium text-text dark:text-white dark:hover:opacity-50 hover:text-opacity-50;
-  }
+      @apply font-medium text-text dark:text-white dark:hover:opacity-50 hover:text-opacity-50 !important;
+    }
 
 .textStyle {
-  @apply text-text dark:text-white
-}
+    @apply text-text dark:text-white !important;
+  }
+
 
 @layer utilities {
   
