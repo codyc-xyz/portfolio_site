@@ -6,15 +6,16 @@
 @tailwind components;
 @tailwind utilities;
 
-.linkText {
-  @apply font-medium text-text dark:text-white dark:hover:opacity-50 hover:text-opacity-50;
-}
-
-.textStyle {
-  @apply text-text dark:text-white;
-}
 
 @layer utilities {
+  
+  .linkText {
+      @apply font-medium text-text dark: text-white dark:hover:opacity-50 hover:text-opacity-50;
+    }
+  
+  .textStyle {
+      @apply text-text dark: text-white;
+    }
   
     .container {
     margin-left: 1rem;
