@@ -7,9 +7,9 @@ import Layout from './src/Layout';
 import { ThemeProvider } from './src/contexts/ThemeContext';
 
 export const wrapRootElement = ({ element }) => (
-  <App>
-    <ThemeProvider>{element}</ThemeProvider>
-  </App>
+  <ThemeProvider>
+    <App>{element}</App>
+  </ThemeProvider>
 );
 
 export const wrapPageElement = ({ element, props }) => {
