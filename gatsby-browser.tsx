@@ -6,7 +6,7 @@ import store from './src/redux/store';
 import Layout from './src/Layout';
 import { ThemeProvider } from './src/contexts/ThemeContext';
 
-exports.onInitialClientRender = () => {
+export const onInitialClientRender = () => {
   const head = document.head;
 
   const script1 = document.createElement(`script`);
