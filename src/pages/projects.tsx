@@ -82,6 +82,11 @@ const Projects: React.FC = () => {
     [],
   );
   const [searchValue, setSearchValue] = useSessionStorage(`searchValue`, ``);
+  const [selectedSortOption, setSelectedSortOption] = useSessionStorage(
+    `selectedSortOption`,
+    `Project Name (A-Z)`,
+  );
+
   const [randomProjectIndex, setRandomProjectIndex] = useState(0);
 
   const handleSearchInputChange = (
@@ -89,9 +94,6 @@ const Projects: React.FC = () => {
   ) => {
     setSearchValue(event.target.value.toLowerCase());
   };
-
-  const [selectedSortOption, setSelectedSortOption] =
-    useState<string>(`Project Name (A-Z)`);
 
   const { loading, error, data } = useQuery(GET_PROJECTS);
 
