@@ -8,7 +8,8 @@ import { OptionType } from '../components/general/FilterSection';
 import Card from '../components/general/Card';
 import PageHeader from '../components/general/PageHeader';
 import LoadingOrError from '../components/general/LoadingOrError';
-import TitleComponent from '@/components/general/TitleComponent';
+import TitleComponent from '../components/general/TitleComponent';
+import { useSessionStorage } from '../../functions/useSessionStorage';
 import { sanitizeName } from '../../functions/sanitizeName';
 import { Helmet } from 'react-helmet';
 
@@ -31,26 +32,56 @@ export const GET_PROJECTS = gql`
 `;
 
 const Projects: React.FC = () => {
-  const [projects, setProjects] = useState<ProjectAttributes[]>([]);
-  const [filteredProjects, setFilteredProjects] = useState<ProjectAttributes[]>(
+  const [projects, setProjects] = useSessionStorage(`projects`, []);
+  const [filteredProjects, setFilteredProjects] = useSessionStorage(
+    `filteredProjects`,
     [],
   );
-  const [isSortExpanded, setSortExpanded] = useState(false);
-  const [isFilterExpanded, setFilterExpanded] = useState(false);
-  const [isTechnologyExpanded, setTechnologyExpanded] = useState(false);
-  const [isSizeExpanded, setSizeExpanded] = useState(false);
-  const [isStatusExpanded, setStatusExpanded] = useState(false);
-  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
+  const [isSortExpanded, setSortExpanded] = useSessionStorage(
+    `isSortExpanded`,
+    false,
+  );
+  const [isFilterExpanded, setFilterExpanded] = useSessionStorage(
+    `isFilterExpanded`,
+    false,
+  );
+  const [isTechnologyExpanded, setTechnologyExpanded] = useSessionStorage(
+    `isTechnologyExpanded`,
+    false,
+  );
+  const [isSizeExpanded, setSizeExpanded] = useSessionStorage(
+    `isSizeExpanded`,
+    false,
+  );
+  const [isStatusExpanded, setStatusExpanded] = useSessionStorage(
+    `isStatusExpanded`,
+    false,
+  );
+  const [selectedTechnologies, setSelectedTechnologies] = useSessionStorage(
+    `selectedTechnologies`,
     [],
   );
-  const [availableSizes, setAvailableSizes] = useState<string[]>([]);
-  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
-  const [availableTechnologies, setAvailableTechnologies] = useState<string[]>(
+  const [availableSizes, setAvailableSizes] = useSessionStorage(
+    `availableSizes`,
     [],
   );
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [availableStatuses, setAvailableStatuses] = useState<string[]>([]);
-  const [searchValue, setSearchValue] = useState<string>(``);
+  const [selectedStatus, setSelectedStatus] = useSessionStorage(
+    `selectedStatus`,
+    null,
+  );
+  const [availableTechnologies, setAvailableTechnologies] = useSessionStorage(
+    `availableTechnologies`,
+    [],
+  );
+  const [selectedSize, setSelectedSize] = useSessionStorage(
+    `selectedSize`,
+    null,
+  );
+  const [availableStatuses, setAvailableStatuses] = useSessionStorage(
+    `availableStatuses`,
+    [],
+  );
+  const [searchValue, setSearchValue] = useSessionStorage(`searchValue`, ``);
   const [randomProjectIndex, setRandomProjectIndex] = useState(0);
 
   const handleSearchInputChange = (
