@@ -60,3 +60,14 @@ export const shouldUpdateScroll = ({
 
   return false;
 };
+
+export const onRouteUpdate = ({ location }) => {
+  if (typeof window !== `undefined`) {
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const key = sessionStorage.key(i);
+      if (key && key.startsWith(`${location.pathname}`)) {
+        sessionStorage.removeItem(key);
+      }
+    }
+  }
+};

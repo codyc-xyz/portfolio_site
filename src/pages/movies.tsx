@@ -115,7 +115,7 @@ const Movies: React.FC = () => {
       const movieDecade = Math.floor(movieYear / 10) * 10;
       return (
         (selectedGenres.length === 0 ||
-          selectedGenres.every((genre) =>
+          selectedGenres.every((genre: string) =>
             movie.movie_genres.includes(genre),
           )) &&
         (selectedDecade === null || movieDecade === selectedDecade) &&
@@ -139,7 +139,7 @@ const Movies: React.FC = () => {
       const movieDecade = Math.floor(movieYear / 10) * 10;
       return (
         (selectedGenres.length === 0 ||
-          selectedGenres.every((genre) =>
+          selectedGenres.every((genre: string) =>
             movie.movie_genres.includes(genre),
           )) &&
         (selectedDecade === null || movieDecade === selectedDecade) &&
@@ -200,7 +200,7 @@ const Movies: React.FC = () => {
       setFilteredMovies(
         movies.filter((movie) => {
           return (
-            selectedGenres.every((genre) =>
+            selectedGenres.every((genre: string) =>
               movie.movie_genres.includes(genre),
             ) &&
             (selectedLength === null ||
@@ -235,7 +235,7 @@ const Movies: React.FC = () => {
 
           return (
             (selectedDecade === null || movieDecade === selectedDecade) &&
-            selectedGenres.every((genre) =>
+            selectedGenres.every((genre: string) =>
               movie.movie_genres.includes(genre),
             ) &&
             (searchValue === `` ||
@@ -413,10 +413,13 @@ const Movies: React.FC = () => {
       }
       return decades;
     }, []);
-    const decadeToNum = uniqueDecades.reduce((obj, decade) => {
-      obj[decade] = decade;
-      return obj;
-    }, {});
+    const decadeToNum: { [key: number]: number } = uniqueDecades.reduce(
+      (obj: { [key: number]: number }, decade: number) => {
+        obj[decade] = decade;
+        return obj;
+      },
+      {},
+    );
     const sortedDecades = uniqueDecades.sort((a, b) => {
       return decadeToNum[a] - decadeToNum[b];
     });
@@ -426,7 +429,7 @@ const Movies: React.FC = () => {
   useEffect(() => {
     const uniqueLengths = calculateLengths(filteredMovies);
     const lengthToNum: { [key: string]: number } = uniqueLengths.reduce(
-      (obj, length) => {
+      (obj: { [key: string]: number }, length: string) => {
         obj[length] = length === `181+` ? 181 : parseInt(length, 10);
         return obj;
       },
@@ -437,7 +440,6 @@ const Movies: React.FC = () => {
     });
     setAvailableLengths(sortedLengths);
   }, [filteredMovies]);
-
   useEffect(() => {
     if (filteredMovies.length > 0) {
       const newIndex = Math.floor(Math.random() * filteredMovies.length);
@@ -461,7 +463,7 @@ const Movies: React.FC = () => {
         const movieLength = movie.length_in_minutes;
         return (
           (selectedGenres.length === 0 ||
-            selectedGenres.every((genre) =>
+            selectedGenres.every((genre: string) =>
               movie.movie_genres.includes(genre),
             )) &&
           (selectedDecade === null || movieDecade === selectedDecade) &&

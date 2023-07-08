@@ -128,7 +128,7 @@ const Projects: React.FC = () => {
       const projectStatus = project.project_status;
       return (
         (selectedTechnologies.length === 0 ||
-          selectedTechnologies.every((tech) =>
+          selectedTechnologies.every((tech: string) =>
             project.technologies.includes(tech),
           )) &&
         (selectedSize === null || projectSize === selectedSize) &&
@@ -150,7 +150,7 @@ const Projects: React.FC = () => {
       const projectStatus = project.project_status;
       return (
         (selectedTechnologies.length === 0 ||
-          selectedTechnologies.every((tech) =>
+          selectedTechnologies.every((tech: string) =>
             project.technologies.includes(tech),
           )) &&
         (selectedSize === null || projectSize === selectedSize) &&
@@ -237,7 +237,7 @@ const Projects: React.FC = () => {
         projects.filter((project) => {
           const projectStatus = project.project_status;
           return (
-            selectedTechnologies.every((tech) =>
+            selectedTechnologies.every((tech: string) =>
               project.technologies.includes(tech),
             ) &&
             (selectedStatus === null || selectedStatus === projectStatus) &&
@@ -265,7 +265,7 @@ const Projects: React.FC = () => {
         projects.filter((project) => {
           const projectSize = project.project_size;
           return (
-            selectedTechnologies.every((tech) =>
+            selectedTechnologies.every((tech: string) =>
               project.technologies.includes(tech),
             ) &&
             (selectedSize === null || selectedSize === projectSize) &&
@@ -401,7 +401,7 @@ const Projects: React.FC = () => {
         const projectStatus = project.project_status;
         return (
           (selectedTechnologies.length === 0 ||
-            selectedTechnologies.every((tech) =>
+            selectedTechnologies.every((tech: string) =>
               project.technologies.includes(tech),
             )) &&
           (selectedSize === null || projectSize === selectedSize) &&

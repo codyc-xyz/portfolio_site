@@ -10,6 +10,12 @@ export const useSessionStorage = (key: string, defaultValue: any) => {
         setState(JSON.parse(storedValue));
       }
     }
+
+    return () => {
+      if (typeof window !== `undefined`) {
+        sessionStorage.removeItem(key);
+      }
+    };
   }, [key]);
 
   useEffect(() => {
