@@ -392,19 +392,6 @@ const Movies: React.FC = () => {
   }, [loading, error, data]);
 
   useEffect(() => {
-    const sortedMovies = sortMovies([...filteredMovies], selectedSortOption);
-    setFilteredMovies(sortedMovies);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSortOption, selectedDecade, selectedGenres, selectedLength]);
-
-  useEffect(() => {
-    if (movies.length > 0) {
-      setFilteredMovies(movies);
-    }
-  }, [movies]);
-
-  useEffect(() => {
     const genreCounts = countGenres(filteredMovies);
     const uniqueGenres = Object.keys(genreCounts).sort((a, b) => {
       if (selectedGenres.includes(a) && !selectedGenres.includes(b)) {
@@ -426,32 +413,31 @@ const Movies: React.FC = () => {
       }
       return decades;
     }, []);
-    const sortedDecades = uniqueDecades.sort((a, b) => a - b);
+    const decadeToNum = uniqueDecades.reduce((obj, decade) => {
+      obj[decade] = decade;
+      return obj;
+    }, {});
+    const sortedDecades = uniqueDecades.sort((a, b) => {
+      return decadeToNum[a] - decadeToNum[b];
+    });
     setAvailableDecades(sortedDecades);
   }, [filteredMovies]);
 
   useEffect(() => {
     const uniqueLengths = calculateLengths(filteredMovies);
+    const lengthToNum: { [key: string]: number } = uniqueLengths.reduce(
+      (obj, length) => {
+        obj[length] = length === `181+` ? 181 : parseInt(length, 10);
+        return obj;
+      },
+      {},
+    );
     const sortedLengths = uniqueLengths.sort((a, b) => {
-      if (a === `181+`) {
-        return 1;
-      } else if (b === `181+`) {
-        return -1;
-      } else {
-        const aNum = parseInt(a, 10);
-        const bNum = parseInt(b, 10);
-
-        if (aNum < bNum) {
-          return -1;
-        } else if (aNum > bNum) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
+      return lengthToNum[a] - lengthToNum[b];
     });
     setAvailableLengths(sortedLengths);
   }, [filteredMovies]);
+
   useEffect(() => {
     if (filteredMovies.length > 0) {
       const newIndex = Math.floor(Math.random() * filteredMovies.length);
@@ -459,6 +445,45 @@ const Movies: React.FC = () => {
     }
   }, [filteredMovies]);
 
+  useEffect(() => {
+    let filteredResults = movies;
+
+    if (
+      selectedGenres.length > 0 ||
+      selectedDecade ||
+      selectedLength ||
+      searchValue
+    ) {
+      filteredResults = movies.filter((movie) => {
+        const movieDecade =
+          Math.floor(new Date(movie.date_movie_released).getFullYear() / 10) *
+          10;
+        const movieLength = movie.length_in_minutes;
+        return (
+          (selectedGenres.length === 0 ||
+            selectedGenres.every((genre) =>
+              movie.movie_genres.includes(genre),
+            )) &&
+          (selectedDecade === null || movieDecade === selectedDecade) &&
+          (selectedLength === null || movieLength === selectedLength) &&
+          (searchValue === `` ||
+            movie.movie_title.toLowerCase().includes(searchValue))
+        );
+      });
+    }
+    const sortedFilteredResults = sortMovies(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredMovies(sortedFilteredResults);
+  }, [
+    movies,
+    selectedSortOption,
+    selectedGenres,
+    selectedDecade,
+    selectedLength,
+    searchValue,
+  ]);
   const randomMovie = sanitizeName(
     filteredMovies[randomMovieIndex]?.movie_title,
   );
