@@ -71,8 +71,11 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
               </p>
             )}
             <p className="text-sm">
-              <Link to={projectLink} className="underline hover:opacity-50">
-                Project Link
+              <Link
+                to={projectLink}
+                className="underline font-bold hover:opacity-50"
+              >
+                Live Link
               </Link>
             </p>
           </div>

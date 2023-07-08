@@ -32,11 +32,11 @@ export const GET_PROJECTS = gql`
 `;
 
 const Projects: React.FC = () => {
-  const [projects, setProjects] = useSessionStorage(`projects`, []);
-  const [filteredProjects, setFilteredProjects] = useSessionStorage(
-    `filteredProjects`,
+  const [projects, setProjects] = useState<ProjectAttributes[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<ProjectAttributes[]>(
     [],
   );
+
   const [isSortExpanded, setSortExpanded] = useSessionStorage(
     `isSortExpanded`,
     false,
@@ -311,22 +311,6 @@ const Projects: React.FC = () => {
   }, [loading, error, data]);
 
   useEffect(() => {
-    const sortedProjects = sortProjects(
-      [...filteredProjects],
-      selectedSortOption,
-    );
-    setFilteredProjects(sortedProjects);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSortOption, selectedTechnologies, selectedSize, selectedStatus]);
-
-  useEffect(() => {
-    if (projects.length > 0) {
-      setFilteredProjects(projects);
-    }
-  }, [projects]);
-
-  useEffect(() => {
     const techCounts = countTech(filteredProjects);
     const uniqueTech = Object.keys(techCounts).sort((a, b) => {
       if (
@@ -396,6 +380,44 @@ const Projects: React.FC = () => {
       setRandomProjectIndex(newIndex);
     }
   }, [filteredProjects]);
+
+  useEffect(() => {
+    let filteredResults = projects;
+
+    if (
+      selectedTechnologies.length > 0 ||
+      selectedSize ||
+      selectedStatus ||
+      searchValue
+    ) {
+      filteredResults = projects.filter((project) => {
+        const projectSize = project.project_size;
+        const projectStatus = project.project_status;
+        return (
+          (selectedTechnologies.length === 0 ||
+            selectedTechnologies.every((tech) =>
+              project.technologies.includes(tech),
+            )) &&
+          (selectedSize === null || projectSize === selectedSize) &&
+          (selectedStatus === null || selectedStatus === projectStatus) &&
+          (searchValue === `` ||
+            project.project_name.toLowerCase().includes(searchValue))
+        );
+      });
+    }
+    const sortedFilteredResults = sortProjects(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredProjects(sortedFilteredResults);
+  }, [
+    projects,
+    selectedSortOption,
+    selectedTechnologies,
+    selectedSize,
+    selectedStatus,
+    searchValue,
+  ]);
 
   const filterSections = [
     {
