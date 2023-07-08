@@ -40,52 +40,55 @@ const Projects: React.FC = () => {
   );
 
   const [isSortExpanded, setSortExpanded] = useSessionStorage(
-    `isSortExpanded`,
+    `projectIsSortExpanded`,
     false,
   );
   const [isFilterExpanded, setFilterExpanded] = useSessionStorage(
-    `isFilterExpanded`,
+    `projectIsFilterExpanded`,
     false,
   );
   const [isTechnologyExpanded, setTechnologyExpanded] = useSessionStorage(
-    `isTechnologyExpanded`,
+    `projectIsTechnologyExpanded`,
     false,
   );
   const [isSizeExpanded, setSizeExpanded] = useSessionStorage(
-    `isSizeExpanded`,
+    `projectIsSizeExpanded`,
     false,
   );
   const [isStatusExpanded, setStatusExpanded] = useSessionStorage(
-    `isStatusExpanded`,
+    `projectIsStatusExpanded`,
     false,
   );
   const [selectedTechnologies, setSelectedTechnologies] = useSessionStorage(
-    `selectedTechnologies`,
+    `projectSelectedTechnologies`,
     [],
   );
   const [availableSizes, setAvailableSizes] = useSessionStorage(
-    `availableSizes`,
+    `projectAvailableSizes`,
     [],
   );
   const [selectedStatus, setSelectedStatus] = useSessionStorage(
-    `selectedStatus`,
+    `projectSelectedStatus`,
     null,
   );
   const [availableTechnologies, setAvailableTechnologies] = useSessionStorage(
-    `availableTechnologies`,
+    `projectAvailableTechnologies`,
     [],
   );
   const [selectedSize, setSelectedSize] = useSessionStorage(
-    `selectedSize`,
+    `projectSelectedSize`,
     null,
   );
   const [availableStatuses, setAvailableStatuses] = useSessionStorage(
-    `availableStatuses`,
+    `projectAvailableStatuses`,
     [],
   );
-  const [searchValue, setSearchValue] = useSessionStorage(`searchValue`, ``);
+  const [searchValue, setSearchValue] = useSessionStorage(
+    `projectSearchValue`,
+    ``,
+  );
   const [selectedSortOption, setSelectedSortOption] = useSessionStorage(
-    `selectedSortOption`,
+    `projectSelectedSortOption`,
     `Project Name (A-Z)`,
   );
 

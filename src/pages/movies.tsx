@@ -10,6 +10,7 @@ import { useQuery, gql } from '@apollo/client';
 import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '../components/general/TitleComponent';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { useSessionStorage } from '../../functions/useSessionStorage';
 import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
 import { Helmet } from 'react-helmet';
 
@@ -43,23 +44,60 @@ export const GET_MOVIES = gql`
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
-  const [isSortExpanded, setSortExpanded] = useState(false);
-  const [isFilterExpanded, setFilterExpanded] = useState(false);
-  const [isGenreExpanded, setGenreExpanded] = useState(false);
-  const [isDecadeExpanded, setDecadeExpanded] = useState(false);
-  const [isRuntimeExpanded, setRuntimeExpanded] = useState(false);
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  const [availableGenres, setAvailableGenres] = useState<string[]>([]);
-  const [selectedDecade, setSelectedDecade] = useState<number | null>(null);
-  const [availableDecades, setAvailableDecades] = useState<number[]>([]);
-  const [selectedLength, setSelectedLength] = useState<string | null>(null);
-  const [availableLengths, setAvailableLengths] = useState<string[]>([]);
+  const [isSortExpanded, setSortExpanded] = useSessionStorage(
+    `movieIsSortExpanded`,
+    false,
+  );
+  const [isFilterExpanded, setFilterExpanded] = useSessionStorage(
+    `movieIsFilterExpanded`,
+    false,
+  );
+  const [isGenreExpanded, setGenreExpanded] = useSessionStorage(
+    `movieIsGenreExpanded`,
+    false,
+  );
+  const [isDecadeExpanded, setDecadeExpanded] = useSessionStorage(
+    `movieIsDecadeExpanded`,
+    false,
+  );
+  const [isRuntimeExpanded, setRuntimeExpanded] = useSessionStorage(
+    `movieIsRuntimeExpanded`,
+    false,
+  );
+  const [selectedGenres, setSelectedGenres] = useSessionStorage(
+    `movieSelectedGenres`,
+    [],
+  );
+  const [availableGenres, setAvailableGenres] = useSessionStorage(
+    `movieAvailableGenres`,
+    [],
+  );
+  const [selectedDecade, setSelectedDecade] = useSessionStorage(
+    `movieSelectedDecade`,
+    null,
+  );
+  const [availableDecades, setAvailableDecades] = useSessionStorage(
+    `movieAvailableDecades`,
+    [],
+  );
+  const [selectedLength, setSelectedLength] = useSessionStorage(
+    `movieSelectedLength`,
+    null,
+  );
+  const [availableLengths, setAvailableLengths] = useSessionStorage(
+    `movieAvailableLengths`,
+    [],
+  );
   const [randomMovieIndex, setRandomMovieIndex] = useState(0);
-  const [searchValue, setSearchValue] = useState<string>(``);
+  const [searchValue, setSearchValue] = useSessionStorage(
+    `movieSearchValue`,
+    ``,
+  );
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
-  const [selectedSortOption, setSelectedSortOption] =
-    useState<string>(`Title (A-Z)`);
-
+  const [selectedSortOption, setSelectedSortOption] = useSessionStorage(
+    `movieSelectedSortOption`,
+    `Title (A-Z)`,
+  );
   const { loading, error, data } = useQuery(GET_MOVIES);
   useYScrollPositionSessionStorage();
 
