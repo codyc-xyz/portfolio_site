@@ -12,6 +12,7 @@ import { GET_DIRECTORS } from './directors';
 import { GET_PROJECTS } from './projects';
 import { useQuery } from '@apollo/client';
 import { ProjectAttributes } from '../types/ProjectAttributes';
+import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
 import { Helmet } from 'react-helmet';
 
 const FrontPage: React.FC = () => {
@@ -46,6 +47,7 @@ const FrontPage: React.FC = () => {
     error: projectsError,
     data: projectsData,
   } = useQuery(GET_PROJECTS);
+  useYScrollPositionSessionStorage();
 
   const shuffleArray = (inputArray: any[]): any[] => {
     const array = [...inputArray];

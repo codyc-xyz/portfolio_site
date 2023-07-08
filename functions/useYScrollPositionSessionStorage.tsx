@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
+import { useLocation } from '@reach/router';
 
-export const useYScrollPositionSessionStorage = (key: string) => {
+export const useYScrollPositionSessionStorage = () => {
+  const location = useLocation();
+  const key = `${location.pathname}ScrollY`;
+
   useEffect(() => {
     if (typeof window !== `undefined`) {
-      const storedScrollY = sessionStorage.getItem(key);
-      if (storedScrollY !== null) {
-        window.scrollTo(0, parseInt(storedScrollY));
-      }
-
       const saveScrollY = () => {
         sessionStorage.setItem(key, JSON.stringify(window.scrollY));
       };

@@ -10,6 +10,7 @@ import { useQuery, gql } from '@apollo/client';
 import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '../components/general/TitleComponent';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
 import { Helmet } from 'react-helmet';
 
 export const GET_MOVIES = gql`
@@ -60,6 +61,7 @@ const Movies: React.FC = () => {
     useState<string>(`Title (A-Z)`);
 
   const { loading, error, data } = useQuery(GET_MOVIES);
+  useYScrollPositionSessionStorage();
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,

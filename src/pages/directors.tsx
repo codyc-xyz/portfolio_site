@@ -9,6 +9,7 @@ import ButtonWithDropdown from '../components/general/ButtonWithDropdown';
 import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
 import { Helmet } from 'react-helmet';
 
 export const GET_DIRECTORS = gql`
@@ -40,6 +41,7 @@ const Directors: React.FC = () => {
     useState<string>(`Name (A-Z)`);
 
   const { loading, error, data } = useQuery(GET_DIRECTORS);
+  useYScrollPositionSessionStorage();
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,

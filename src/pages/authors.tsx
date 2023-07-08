@@ -10,6 +10,7 @@ import LoadingOrError from '../components/general/LoadingOrError';
 import { useQuery, gql } from '@apollo/client';
 import { sanitizeName } from '../../functions/sanitizeName';
 import { Helmet } from 'react-helmet';
+import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
 
 export const GET_AUTHORS = gql`
   {
@@ -40,6 +41,7 @@ const Authors: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>(``);
 
   const { loading, error, data } = useQuery(GET_AUTHORS);
+  useYScrollPositionSessionStorage();
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,

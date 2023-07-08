@@ -11,6 +11,8 @@ import LoadingOrError from '../components/general/LoadingOrError';
 import TitleComponent from '../components/general/TitleComponent';
 import { useSessionStorage } from '../../functions/useSessionStorage';
 import { sanitizeName } from '../../functions/sanitizeName';
+import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
+
 import { Helmet } from 'react-helmet';
 
 export const GET_PROJECTS = gql`
@@ -96,6 +98,7 @@ const Projects: React.FC = () => {
   };
 
   const { loading, error, data } = useQuery(GET_PROJECTS);
+  useYScrollPositionSessionStorage();
 
   const handleSortOptionClick = (option: string) => {
     setSortExpanded(!isSortExpanded);

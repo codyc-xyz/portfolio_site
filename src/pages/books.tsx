@@ -11,6 +11,7 @@ import { useQuery, gql } from '@apollo/client';
 import TitleComponent from '../components/general/TitleComponent';
 import { sanitizeName } from '../../functions/sanitizeName';
 import { Helmet } from 'react-helmet';
+import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
 
 export const GET_BOOKS = gql`
   {
@@ -53,6 +54,7 @@ const Books: React.FC = () => {
     useState<string>(`Title (A-Z)`);
 
   const { loading, error, data } = useQuery(GET_BOOKS);
+  useYScrollPositionSessionStorage();
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,

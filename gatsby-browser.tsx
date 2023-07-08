@@ -37,3 +37,26 @@ export const wrapPageElement = ({ element, props }) => {
     </Provider>
   );
 };
+
+export const shouldUpdateScroll = ({
+  routerProps: { location },
+  getSavedScrollPosition,
+}) => {
+  const { pathname } = location; // Get current page path
+
+  if (location.action === `PUSH`) {
+    window.setTimeout(() => window.scrollTo(0, 0), 1);
+  } else {
+    const storageKey = `${pathname}ScrollY`;
+
+    const storedScrollY = sessionStorage.getItem(storageKey);
+
+    const savedPosition = storedScrollY
+      ? [0, parseInt(storedScrollY)]
+      : getSavedScrollPosition(location);
+
+    window.setTimeout(() => window.scrollTo(...(savedPosition || [0, 0])), 1);
+  }
+
+  return false;
+};
