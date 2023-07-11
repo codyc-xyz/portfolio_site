@@ -97,7 +97,7 @@ const Projects: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value.toLowerCase());
+    setSearchValue(event.target.value);
   };
 
   const { loading, error, data } = useQuery(GET_PROJECTS);
@@ -111,7 +111,7 @@ const Projects: React.FC = () => {
   const handleFilterClear = () => {
     setFilteredProjects(
       projects.filter((project) =>
-        project.project_name.toLowerCase().includes(searchValue),
+        project.project_name.toLowerCase().includes(searchValue.toLowerCase()),
       ),
     );
 
@@ -133,7 +133,7 @@ const Projects: React.FC = () => {
           )) &&
         (selectedSize === null || projectSize === selectedSize) &&
         (selectedStatus === null || selectedStatus === projectStatus) &&
-        project.project_name.toLowerCase().includes(searchValue)
+        project.project_name.toLowerCase().includes(searchValue.toLowerCase())
       );
     });
     const sortedFilteredResults = sortProjects(
@@ -214,7 +214,9 @@ const Projects: React.FC = () => {
             updatedTech.every((tech) => project.technologies.includes(tech)) &&
             (selectedStatus === null || selectedStatus === projectStatus) &&
             (searchValue === `` ||
-              project.project_name.toLowerCase().includes(searchValue))
+              project.project_name
+                .toLowerCase()
+                .includes(searchValue.toLowerCase()))
           );
         }),
       );
@@ -242,7 +244,9 @@ const Projects: React.FC = () => {
             ) &&
             (selectedStatus === null || selectedStatus === projectStatus) &&
             (searchValue === `` ||
-              project.project_name.toLowerCase().includes(searchValue))
+              project.project_name
+                .toLowerCase()
+                .includes(searchValue.toLowerCase()))
           );
         }),
       );
@@ -270,7 +274,9 @@ const Projects: React.FC = () => {
             ) &&
             (selectedSize === null || selectedSize === projectSize) &&
             (searchValue === `` ||
-              project.project_name.toLowerCase().includes(searchValue))
+              project.project_name
+                .toLowerCase()
+                .includes(searchValue.toLowerCase()))
           );
         }),
       );
@@ -407,7 +413,9 @@ const Projects: React.FC = () => {
           (selectedSize === null || projectSize === selectedSize) &&
           (selectedStatus === null || selectedStatus === projectStatus) &&
           (searchValue === `` ||
-            project.project_name.toLowerCase().includes(searchValue))
+            project.project_name
+              .toLowerCase()
+              .includes(searchValue.toLowerCase()))
         );
       });
     }
