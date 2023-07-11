@@ -11,6 +11,7 @@ import { useQuery, gql } from '@apollo/client';
 import { sanitizeName } from '../../functions/sanitizeName';
 import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
 import { Helmet } from 'react-helmet';
+import { useSessionStorage } from '../../functions/useSessionStorage';
 
 export const GET_DIRECTORS = gql`
   {
@@ -35,10 +36,18 @@ const Directors: React.FC = () => {
     DirectorAttributes[]
   >([]);
   const [randomDirectorIndex, setRandomDirectorIndex] = useState(0);
-  const [searchValue, setSearchValue] = useState<string>(``);
-  const [isSortExpanded, setSortExpanded] = useState(false);
-  const [selectedSortOption, setSelectedSortOption] =
-    useState<string>(`Name (A-Z)`);
+  const [searchValue, setSearchValue] = useSessionStorage(
+    `/directors/searchValue`,
+    ``,
+  );
+  const [isSortExpanded, setSortExpanded] = useSessionStorage(
+    `/directors/isSortExpanded`,
+    false,
+  );
+  const [selectedSortOption, setSelectedSortOption] = useSessionStorage(
+    `/directors/selectedSortOption`,
+    `Name (A-Z)`,
+  );
 
   const { loading, error, data } = useQuery(GET_DIRECTORS);
   useYScrollPositionSessionStorage();
@@ -143,15 +152,24 @@ const Directors: React.FC = () => {
   }, [filteredDirectors]);
 
   useEffect(() => {
-    if (filteredDirectors.length > 0) {
-      const sortedDirectors = sortDirectors(
-        [...filteredDirectors],
-        selectedSortOption,
+    let filteredDirectorsArr = directors;
+    if (searchValue !== null) {
+      filteredDirectorsArr = directors.filter(
+        (director) =>
+          director.director_name.toLowerCase().includes(searchValue) ||
+          director.director_country_of_birth
+            .toLowerCase()
+            .includes(searchValue),
       );
-      setFilteredDirectors(sortedDirectors);
     }
+    const sortedDirectors = sortDirectors(
+      [...filteredDirectorsArr],
+      selectedSortOption,
+    );
+    setFilteredDirectors(sortedDirectors);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSortOption, directors]);
+  }, [selectedSortOption, directors, searchValue]);
 
   const randomDirector = sanitizeName(
     filteredDirectors[randomDirectorIndex]?.director_name,
