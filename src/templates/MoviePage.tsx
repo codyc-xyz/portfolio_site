@@ -90,7 +90,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ pageContext }) => {
           {contentWarnings && (
             <div className="mb-2">
               <button
-                className="text-sm underline"
+                className="text-sm underline hover:opacity-50"
                 onClick={toggleContentWarnings}
               >
                 {showContentWarnings
