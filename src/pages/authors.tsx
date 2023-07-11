@@ -11,6 +11,7 @@ import { useQuery, gql } from '@apollo/client';
 import { sanitizeName } from '../../functions/sanitizeName';
 import { Helmet } from 'react-helmet';
 import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
+import { useSessionStorage } from '../../functions/useSessionStorage';
 
 export const GET_AUTHORS = gql`
   {
@@ -34,11 +35,20 @@ const Authors: React.FC = () => {
   const [filteredAuthors, setFilteredAuthors] = useState<AuthorAttributes[]>(
     [],
   );
+
   const [randomAuthorIndex, setRandomAuthorIndex] = useState(0);
-  const [isSortExpanded, setSortExpanded] = useState(false);
-  const [selectedSortOption, setSelectedSortOption] =
-    useState<string>(`Name (A-Z)`);
-  const [searchValue, setSearchValue] = useState<string>(``);
+  const [isSortExpanded, setSortExpanded] = useSessionStorage(
+    `/authors/isSortExpanded`,
+    false,
+  );
+  const [selectedSortOption, setSelectedSortOption] = useSessionStorage(
+    `/authors/selectedSortOption`,
+    `Name (A-Z)`,
+  );
+  const [searchValue, setSearchValue] = useSessionStorage(
+    `/authors/searchValue`,
+    ``,
+  );
 
   const { loading, error, data } = useQuery(GET_AUTHORS);
   useYScrollPositionSessionStorage();
@@ -139,15 +149,23 @@ const Authors: React.FC = () => {
   }, [filteredAuthors]);
 
   useEffect(() => {
-    if (filteredAuthors.length > 0) {
-      const sortedAuthors = sortAuthors(
-        [...filteredAuthors],
-        selectedSortOption,
+    let filteredAuthorsArr = authors;
+    if (searchValue !== null) {
+      filteredAuthorsArr = authors.filter(
+        (author) =>
+          author.author_name.toLowerCase().includes(searchValue) ||
+          author.country_of_birth.toLowerCase().includes(searchValue),
       );
-      setFilteredAuthors(sortedAuthors);
     }
+
+    const sortedAuthors = sortAuthors(
+      [...filteredAuthorsArr],
+      selectedSortOption,
+    );
+    setFilteredAuthors(sortedAuthors);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSortOption, authors]);
+  }, [selectedSortOption, authors, searchValue]);
 
   const randomAuthor = sanitizeName(
     filteredAuthors[randomAuthorIndex]?.author_name,
