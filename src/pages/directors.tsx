@@ -55,16 +55,18 @@ const Directors: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value.toLowerCase());
+    setSearchValue(event.target.value);
   };
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const currSearchValue = searchValue.toLowerCase();
     const filteredResults = directors.filter((director) => {
       return (
-        director.director_name.toLowerCase().includes(searchValue) ||
-        director.director_country_of_birth.toLowerCase().includes(searchValue)
+        director.director_name.toLowerCase().includes(currSearchValue) ||
+        director.director_country_of_birth
+          .toLowerCase()
+          .includes(currSearchValue)
       );
     });
     const sortedFilteredResults = sortDirectors(
@@ -154,12 +156,13 @@ const Directors: React.FC = () => {
   useEffect(() => {
     let filteredDirectorsArr = directors;
     if (searchValue !== null) {
+      const currSearchValue = searchValue.toLowerCase();
       filteredDirectorsArr = directors.filter(
         (director) =>
-          director.director_name.toLowerCase().includes(searchValue) ||
+          director.director_name.toLowerCase().includes(currSearchValue) ||
           director.director_country_of_birth
             .toLowerCase()
-            .includes(searchValue),
+            .includes(currSearchValue),
       );
     }
     const sortedDirectors = sortDirectors(
