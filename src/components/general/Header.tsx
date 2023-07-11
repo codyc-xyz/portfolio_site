@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <div>
       <MobileHeader />
-      <header className="hidden sm:flex items-center justify-between sm:py-1 md:py-2 lg:py-3 xl:py-3 px-0 container py-2">
+      <header className="hidden sm:flex items-center justify-between sm:py-1 md:py-2 lg:py-3 xl:py-3 px-0 container py-2 hover:opacity-50">
         <div className="ml-0 w-1/6 sm:w-1/6 md:w-1/4 flex items-center justify-start">
           <Link
             className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl"
