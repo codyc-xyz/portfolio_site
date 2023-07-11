@@ -105,7 +105,7 @@ const Movies: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value.toLowerCase());
+    setSearchValue(event.target.value);
   };
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -114,6 +114,8 @@ const Movies: React.FC = () => {
     const filteredResults = movies.filter((movie) => {
       const movieYear = new Date(movie.date_movie_released).getFullYear();
       const movieDecade = Math.floor(movieYear / 10) * 10;
+      const currSearchValue = searchValue.toLowerCase();
+
       return (
         (selectedGenres.length === 0 ||
           selectedGenres.every((genre: string) =>
@@ -121,9 +123,9 @@ const Movies: React.FC = () => {
           )) &&
         (selectedDecade === null || movieDecade === selectedDecade) &&
         (selectedLength === null || checkMovieLength(movie, selectedLength)) &&
-        (movie.movie_title.toLowerCase().includes(searchValue) ||
-          movie.country_of_origin.toLowerCase().includes(searchValue) ||
-          movie.director.director_name.toLowerCase().includes(searchValue))
+        (movie.movie_title.toLowerCase().includes(currSearchValue) ||
+          movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+          movie.director.director_name.toLowerCase().includes(currSearchValue))
       );
     });
     const sortedFilteredResults = sortMovies(
@@ -168,6 +170,7 @@ const Movies: React.FC = () => {
         movies.filter((movie) => {
           const movieYear = new Date(movie.date_movie_released).getFullYear();
           const movieDecade = Math.floor(movieYear / 10) * 10;
+          const currSearchValue = searchValue.toLowerCase();
 
           return (
             (selectedDecade === null || movieDecade === selectedDecade) &&
@@ -177,9 +180,11 @@ const Movies: React.FC = () => {
             (selectedLength === null ||
               checkMovieLength(movie, selectedLength)) &&
             (searchValue === `` ||
-              movie.movie_title.toLowerCase().includes(searchValue) ||
-              movie.country_of_origin.toLowerCase().includes(searchValue) ||
-              movie.director.director_name.toLowerCase().includes(searchValue))
+              movie.movie_title.toLowerCase().includes(currSearchValue) ||
+              movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              movie.director.director_name
+                .toLowerCase()
+                .includes(currSearchValue))
           );
         }),
       );
@@ -197,7 +202,7 @@ const Movies: React.FC = () => {
   const handleDecadeClick = (decade: number) => {
     if (selectedDecade === decade) {
       setSelectedDecade(null);
-
+      const currSearchValue = searchValue.toLowerCase();
       setFilteredMovies(
         movies.filter((movie) => {
           return (
@@ -207,9 +212,11 @@ const Movies: React.FC = () => {
             (selectedLength === null ||
               checkMovieLength(movie, selectedLength)) &&
             (searchValue === `` ||
-              movie.movie_title.toLowerCase().includes(searchValue) ||
-              movie.country_of_origin.toLowerCase().includes(searchValue) ||
-              movie.director.director_name.toLowerCase().includes(searchValue))
+              movie.movie_title.toLowerCase().includes(currSearchValue) ||
+              movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              movie.director.director_name
+                .toLowerCase()
+                .includes(currSearchValue))
           );
         }),
       );
@@ -233,6 +240,7 @@ const Movies: React.FC = () => {
         movies.filter((movie) => {
           const movieYear = new Date(movie.date_movie_released).getFullYear();
           const movieDecade = Math.floor(movieYear / 10) * 10;
+          const currSearchValue = searchValue.toLowerCase();
 
           return (
             (selectedDecade === null || movieDecade === selectedDecade) &&
@@ -240,9 +248,11 @@ const Movies: React.FC = () => {
               movie.movie_genres.includes(genre),
             ) &&
             (searchValue === `` ||
-              movie.movie_title.toLowerCase().includes(searchValue) ||
-              movie.country_of_origin.toLowerCase().includes(searchValue) ||
-              movie.director.director_name.toLowerCase().includes(searchValue))
+              movie.movie_title.toLowerCase().includes(currSearchValue) ||
+              movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              movie.director.director_name
+                .toLowerCase()
+                .includes(currSearchValue))
           );
         }),
       );
@@ -274,12 +284,14 @@ const Movies: React.FC = () => {
     }
   };
   const handleFilterClear = () => {
+    const currSearchValue = searchValue.toLowerCase();
+
     setFilteredMovies(
       movies.filter(
         (movie) =>
-          movie.movie_title.toLowerCase().includes(searchValue) ||
-          movie.country_of_origin.toLowerCase().includes(searchValue) ||
-          movie.director.director_name.toLowerCase().includes(searchValue),
+          movie.movie_title.toLowerCase().includes(currSearchValue) ||
+          movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+          movie.director.director_name.toLowerCase().includes(currSearchValue),
       ),
     );
 
@@ -461,6 +473,8 @@ const Movies: React.FC = () => {
         const movieDecade =
           Math.floor(new Date(movie.date_movie_released).getFullYear() / 10) *
           10;
+        const currSearchValue = searchValue.toLowerCase();
+
         return (
           (selectedGenres.length === 0 ||
             selectedGenres.every((genre: string) =>
@@ -470,7 +484,11 @@ const Movies: React.FC = () => {
           (selectedLength === null ||
             checkMovieLength(movie, selectedLength)) &&
           (searchValue === `` ||
-            movie.movie_title.toLowerCase().includes(searchValue))
+            movie.movie_title.toLowerCase().includes(currSearchValue) ||
+            movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+            movie.director.director_name
+              .toLowerCase()
+              .includes(currSearchValue))
         );
       });
     }
