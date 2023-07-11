@@ -97,7 +97,7 @@ const Books: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value.toLowerCase());
+    setSearchValue(event.target.value);
   };
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -106,6 +106,7 @@ const Books: React.FC = () => {
     const filteredResults = books.filter((book) => {
       const bookYear = new Date(book.date_book_published).getFullYear();
       const bookCentury = Math.floor(bookYear / 100) * 100;
+      const currSearchValue = searchValue.toLowerCase();
       return (
         (selectedSubjects.length === 0 ||
           selectedSubjects.every((subject) =>
@@ -113,9 +114,9 @@ const Books: React.FC = () => {
           )) &&
         (selectedCentury === null || bookCentury === selectedCentury) &&
         (selectedLength === null || checkBookLength(book, selectedLength)) &&
-        (book.book_title.toLowerCase().includes(searchValue) ||
-          book.country_of_origin.toLowerCase().includes(searchValue) ||
-          book.author.author_name.toLowerCase().includes(searchValue))
+        (book.book_title.toLowerCase().includes(currSearchValue) ||
+          book.country_of_origin.toLowerCase().includes(currSearchValue) ||
+          book.author.author_name.toLowerCase().includes(currSearchValue))
       );
     });
     const sortedFilteredResults = sortBooks(
@@ -151,12 +152,13 @@ const Books: React.FC = () => {
     setSelectedSortOption(option);
   };
   const handleFilterClear = () => {
+    const currSearchValue = searchValue.toLowerCase();
     setFilteredBooks(
       books.filter(
         (book) =>
-          book.book_title.toLowerCase().includes(searchValue) ||
-          book.country_of_origin.toLowerCase().includes(searchValue) ||
-          book.author.author_name.toLowerCase().includes(searchValue),
+          book.book_title.toLowerCase().includes(currSearchValue) ||
+          book.country_of_origin.toLowerCase().includes(currSearchValue) ||
+          book.author.author_name.toLowerCase().includes(currSearchValue),
       ),
     );
 
@@ -192,6 +194,7 @@ const Books: React.FC = () => {
         books.filter((book) => {
           const bookYear = new Date(book.date_book_published).getFullYear();
           const bookCentury = Math.floor(bookYear / 100) * 100;
+          const currSearchValue = searchValue.toLowerCase();
 
           return (
             (selectedCentury === null || bookCentury === selectedCentury) &&
@@ -201,9 +204,9 @@ const Books: React.FC = () => {
             (selectedLength === null ||
               checkBookLength(book, selectedLength)) &&
             (searchValue === `` ||
-              book.book_title.toLowerCase().includes(searchValue) ||
-              book.country_of_origin.toLowerCase().includes(searchValue) ||
-              book.author.author_name.toLowerCase().includes(searchValue))
+              book.book_title.toLowerCase().includes(currSearchValue) ||
+              book.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              book.author.author_name.toLowerCase().includes(currSearchValue))
           );
         }),
       );
@@ -223,7 +226,7 @@ const Books: React.FC = () => {
   const handleCenturyClick = (century: number) => {
     if (selectedCentury === century) {
       setSelectedCentury(null);
-
+      const currSearchValue = searchValue.toLowerCase();
       setFilteredBooks(
         books.filter((book) => {
           return (
@@ -233,9 +236,9 @@ const Books: React.FC = () => {
             (selectedLength === null ||
               checkBookLength(book, selectedLength)) &&
             (searchValue === `` ||
-              book.book_title.toLowerCase().includes(searchValue) ||
-              book.country_of_origin.toLowerCase().includes(searchValue) ||
-              book.author.author_name.toLowerCase().includes(searchValue))
+              book.book_title.toLowerCase().includes(currSearchValue) ||
+              book.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              book.author.author_name.toLowerCase().includes(currSearchValue))
           );
         }),
       );
@@ -265,6 +268,7 @@ const Books: React.FC = () => {
         books.filter((book) => {
           const bookYear = new Date(book.date_book_published).getFullYear();
           const bookCentury = Math.floor(bookYear / 100) * 100;
+          const currSearchValue = searchValue.toLowerCase();
 
           return (
             (selectedCentury === null || bookCentury === selectedCentury) &&
@@ -272,9 +276,9 @@ const Books: React.FC = () => {
               book.book_subjects.includes(subject),
             ) &&
             (searchValue === `` ||
-              book.book_title.toLowerCase().includes(searchValue) ||
-              book.country_of_origin.toLowerCase().includes(searchValue) ||
-              book.author.author_name.toLowerCase().includes(searchValue))
+              book.book_title.toLowerCase().includes(currSearchValue) ||
+              book.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              book.author.author_name.toLowerCase().includes(currSearchValue))
           );
         }),
       );
@@ -461,6 +465,7 @@ const Books: React.FC = () => {
         const bookCentury =
           Math.floor(new Date(book.date_book_published).getFullYear() / 100) *
           100;
+        const currSearchValue = searchValue.toLowerCase();
         return (
           (selectedSubjects.length === 0 ||
             selectedSubjects.every((subject) =>
@@ -469,7 +474,7 @@ const Books: React.FC = () => {
           (selectedCentury === null || bookCentury === selectedCentury) &&
           (selectedLength === null || checkBookLength(book, selectedLength)) &&
           (searchValue === `` ||
-            book.book_title.toLowerCase().includes(searchValue))
+            book.book_title.toLowerCase().includes(currSearchValue))
         );
       });
     }
