@@ -56,16 +56,16 @@ const Authors: React.FC = () => {
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchValue(event.target.value.toLowerCase());
+    setSearchValue(event.target.value);
   };
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const currSearchValue = searchValue.toLowerCase();
     const filteredResults = authors.filter((author) => {
       return (
-        author.author_name.toLowerCase().includes(searchValue) ||
-        author.country_of_birth.toLowerCase().includes(searchValue)
+        author.author_name.toLowerCase().includes(currSearchValue) ||
+        author.country_of_birth.toLowerCase().includes(currSearchValue)
       );
     });
     const sortedFilteredResults = sortAuthors(
@@ -151,10 +151,11 @@ const Authors: React.FC = () => {
   useEffect(() => {
     let filteredAuthorsArr = authors;
     if (searchValue !== null) {
+      const currSearchValue = searchValue.toLowerCase();
       filteredAuthorsArr = authors.filter(
         (author) =>
-          author.author_name.toLowerCase().includes(searchValue) ||
-          author.country_of_birth.toLowerCase().includes(searchValue),
+          author.author_name.toLowerCase().includes(currSearchValue) ||
+          author.country_of_birth.toLowerCase().includes(currSearchValue),
       );
     }
 
