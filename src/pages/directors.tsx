@@ -229,7 +229,7 @@ const Directors: React.FC = () => {
           </div>
           <TitleComponent
             text={`Directors I Love`}
-            className="hidden lg:block self-center mx-auto"
+            className="hidden lg:block mx-auto w-1/3 lg:ml-7 lg:mr--3"
           />
           <SearchBarComponent
             searchValue={searchValue}

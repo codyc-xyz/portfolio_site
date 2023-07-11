@@ -26,7 +26,7 @@ const SubmitButton: React.FC = () => {
   return (
     <button
       type="submit"
-      className="ml-0.5 md:ml-2 text-primary text-base lg:text-lg hover:text-opacity-50"
+      className="ml-0.5 xl:ml-2 text-primary text-base lg:text-lg hover:text-opacity-50"
     >
       <Search size={iconSize} />
     </button>

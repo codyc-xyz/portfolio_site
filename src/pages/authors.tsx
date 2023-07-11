@@ -223,7 +223,7 @@ const Authors: React.FC = () => {
           </div>
           <TitleComponent
             text={`Authors I Find Interesting`}
-            className="hidden lg:block self-center mx-auto w-full"
+            className="hidden lg:block self-center mx-auto w-1/3 lg:ml-7"
           />
           <SearchBarComponent
             searchValue={searchValue}
