@@ -45,61 +45,62 @@ export const GET_MOVIES = gql`
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<MovieAttributes[]>([]);
   const [isSortExpanded, setSortExpanded] = useSessionStorage(
-    `movieIsSortExpanded`,
+    `/movies/IsSortExpanded`,
     false,
   );
   const [isFilterExpanded, setFilterExpanded] = useSessionStorage(
-    `movieIsFilterExpanded`,
+    `/movies/IsFilterExpanded`,
     false,
   );
   const [isGenreExpanded, setGenreExpanded] = useSessionStorage(
-    `movieIsGenreExpanded`,
+    `/movies/IsGenreExpanded`,
     false,
   );
   const [isDecadeExpanded, setDecadeExpanded] = useSessionStorage(
-    `movieIsDecadeExpanded`,
+    `/movies/IsDecadeExpanded`,
     false,
   );
   const [isRuntimeExpanded, setRuntimeExpanded] = useSessionStorage(
-    `movieIsRuntimeExpanded`,
+    `/movies/IsRuntimeExpanded`,
     false,
   );
   const [selectedGenres, setSelectedGenres] = useSessionStorage(
-    `movieSelectedGenres`,
+    `/movies/SelectedGenres`,
     [],
   );
   const [availableGenres, setAvailableGenres] = useSessionStorage(
-    `movieAvailableGenres`,
+    `/movies/AvailableGenres`,
     [],
   );
   const [selectedDecade, setSelectedDecade] = useSessionStorage(
-    `movieSelectedDecade`,
+    `/movies/SelectedDecade`,
     null,
   );
   const [availableDecades, setAvailableDecades] = useSessionStorage(
-    `movieAvailableDecades`,
+    `/movies/AvailableDecades`,
     [],
   );
   const [selectedLength, setSelectedLength] = useSessionStorage(
-    `movieSelectedLength`,
+    `/movies/SelectedLength`,
     null,
   );
   const [availableLengths, setAvailableLengths] = useSessionStorage(
-    `movieAvailableLengths`,
+    `/movies/AvailableLengths`,
     [],
   );
   const [randomMovieIndex, setRandomMovieIndex] = useState(0);
   const [searchValue, setSearchValue] = useSessionStorage(
-    `movieSearchValue`,
+    `/movies/SearchValue`,
     ``,
   );
   const [filteredMovies, setFilteredMovies] = useState<MovieAttributes[]>([]);
   const [selectedSortOption, setSelectedSortOption] = useSessionStorage(
-    `movieSelectedSortOption`,
+    `/movies/SelectedSortOption`,
     `Title (A-Z)`,
   );
   const { loading, error, data } = useQuery(GET_MOVIES);
   useYScrollPositionSessionStorage();
+  console.log(selectedGenres);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -460,14 +461,14 @@ const Movies: React.FC = () => {
         const movieDecade =
           Math.floor(new Date(movie.date_movie_released).getFullYear() / 10) *
           10;
-        const movieLength = movie.length_in_minutes;
         return (
           (selectedGenres.length === 0 ||
             selectedGenres.every((genre: string) =>
               movie.movie_genres.includes(genre),
             )) &&
           (selectedDecade === null || movieDecade === selectedDecade) &&
-          (selectedLength === null || movieLength === selectedLength) &&
+          (selectedLength === null ||
+            checkMovieLength(movie, selectedLength)) &&
           (searchValue === `` ||
             movie.movie_title.toLowerCase().includes(searchValue))
         );

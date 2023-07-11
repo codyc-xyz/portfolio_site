@@ -42,7 +42,7 @@ export const shouldUpdateScroll = ({
   routerProps: { location },
   getSavedScrollPosition,
 }) => {
-  const { pathname } = location; // Get current page path
+  const { pathname } = location;
 
   if (location.action === `PUSH`) {
     window.setTimeout(() => window.scrollTo(0, 0), 1);
@@ -63,9 +63,11 @@ export const shouldUpdateScroll = ({
 
 export const onRouteUpdate = ({ location }) => {
   if (typeof window !== `undefined`) {
-    for (let i = 0; i < sessionStorage.length; i++) {
+    const rootPath = `/${location.pathname.split(`/`)[1]}/`;
+    for (let i = sessionStorage.length - 1; i >= 0; i--) {
       const key = sessionStorage.key(i);
-      if (key && key.startsWith(`${location.pathname}`)) {
+      if (key && !key.startsWith(rootPath)) {
+        console.log(key);
         sessionStorage.removeItem(key);
       }
     }

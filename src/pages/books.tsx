@@ -12,6 +12,7 @@ import TitleComponent from '../components/general/TitleComponent';
 import { sanitizeName } from '../../functions/sanitizeName';
 import { Helmet } from 'react-helmet';
 import { useYScrollPositionSessionStorage } from '../../functions/useYScrollPositionSessionStorage';
+import { useSessionStorage } from '../../functions/useSessionStorage';
 
 export const GET_BOOKS = gql`
   {
@@ -36,23 +37,60 @@ export const GET_BOOKS = gql`
 
 const Books: React.FC = () => {
   const [books, setBooks] = useState<BookAttributes[]>([]);
-  const [isSortExpanded, setSortExpanded] = useState(false);
-  const [isFilterExpanded, setFilterExpanded] = useState(false);
-  const [isSubjectExpanded, setSubjectExpanded] = useState(false);
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
-  const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
-  const [isCenturyExpanded, setCenturyExpanded] = useState(false);
-  const [selectedCentury, setSelectedCentury] = useState<number | null>(null);
-  const [availableCenturies, setAvailableCenturies] = useState<number[]>([]);
-  const [isLengthExpanded, setLengthExpanded] = useState(false);
-  const [selectedLength, setSelectedLength] = useState<string | null>(null);
-  const [availableLengths, setAvailableLengths] = useState<string[]>([]);
-  const [searchValue, setSearchValue] = useState<string>(``);
+  const [isSortExpanded, setSortExpanded] = useSessionStorage(
+    `/books/IsSortExpanded`,
+    false,
+  );
+  const [isFilterExpanded, setFilterExpanded] = useSessionStorage(
+    `/books/IsFilterExpanded`,
+    false,
+  );
+  const [isSubjectExpanded, setSubjectExpanded] = useSessionStorage(
+    `/books/IsSubjectExpanded`,
+    false,
+  );
+  const [selectedSubjects, setSelectedSubjects] = useSessionStorage(
+    `/books/SelectedSubjects`,
+    [],
+  );
+  const [availableSubjects, setAvailableSubjects] = useSessionStorage(
+    `/books/AvailableSubjects`,
+    [],
+  );
+  const [isCenturyExpanded, setCenturyExpanded] = useSessionStorage(
+    `/books/IsCenturyExpanded`,
+    false,
+  );
+  const [selectedCentury, setSelectedCentury] = useSessionStorage(
+    `/books/SelectedCentury`,
+    null,
+  );
+  const [availableCenturies, setAvailableCenturies] = useSessionStorage(
+    `/books/AvailableCenturies`,
+    [],
+  );
+  const [isLengthExpanded, setLengthExpanded] = useSessionStorage(
+    `/books/IsLengthExpanded`,
+    false,
+  );
+  const [selectedLength, setSelectedLength] = useSessionStorage(
+    `/books/SelectedLength`,
+    null,
+  );
+  const [availableLengths, setAvailableLengths] = useSessionStorage(
+    `/books/AvailableLengths`,
+    [],
+  );
+  const [searchValue, setSearchValue] = useSessionStorage(
+    `/books/SearchValue`,
+    ``,
+  );
   const [filteredBooks, setFilteredBooks] = useState<BookAttributes[]>([]);
   const [randomBookIndex, setRandomBookIndex] = useState(0);
-  const [selectedSortOption, setSelectedSortOption] =
-    useState<string>(`Title (A-Z)`);
-
+  const [selectedSortOption, setSelectedSortOption] = useSessionStorage(
+    `/books/SelectedSortOption`,
+    `Title (A-Z)`,
+  );
   const { loading, error, data } = useQuery(GET_BOOKS);
   useYScrollPositionSessionStorage();
 
@@ -346,19 +384,6 @@ const Books: React.FC = () => {
   }, [loading, error, data]);
 
   useEffect(() => {
-    const sortedBooks = sortBooks([...filteredBooks], selectedSortOption);
-    setFilteredBooks(sortedBooks);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSortOption, selectedCentury, selectedSubjects, selectedLength]);
-
-  useEffect(() => {
-    if (books.length > 0) {
-      setFilteredBooks(books);
-    }
-  }, [books]);
-
-  useEffect(() => {
     const subjectCounts = countSubjects(filteredBooks);
     const uniqueSubjects = Object.keys(subjectCounts).sort((a, b) => {
       if (selectedSubjects.includes(a) && !selectedSubjects.includes(b)) {
@@ -386,38 +411,82 @@ const Books: React.FC = () => {
       },
       [],
     );
-    const sortedCenturies = uniqueCenturies.sort((a, b) => a - b);
+
+    const centuryToNum = uniqueCenturies.reduce((obj, century) => {
+      obj[century] = century;
+      return obj;
+    }, {});
+
+    const sortedCenturies = uniqueCenturies.sort((a, b) => {
+      return centuryToNum[a] - centuryToNum[b];
+    });
+
     setAvailableCenturies(sortedCenturies);
   }, [filteredBooks]);
 
   useEffect(() => {
     const uniqueLengths = calculateLengths(filteredBooks);
-    const sortedLengths = uniqueLengths.sort((a, b) => {
-      if (a === `601+`) {
-        return 1;
-      } else if (b === `601+`) {
-        return -1;
-      } else {
-        const aNum = parseInt(a, 10);
-        const bNum = parseInt(b, 10);
+    const lengthToNum: { [key: string]: number } = uniqueLengths.reduce(
+      (obj, length) => {
+        obj[length] = length === `601+` ? 601 : parseInt(length, 10);
+        return obj;
+      },
+      {},
+    );
 
-        if (aNum < bNum) {
-          return -1;
-        } else if (aNum > bNum) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
+    const sortedLengths = uniqueLengths.sort((a, b) => {
+      return lengthToNum[a] - lengthToNum[b];
     });
+
     setAvailableLengths(sortedLengths);
   }, [filteredBooks]);
+
   useEffect(() => {
     if (filteredBooks.length > 0) {
       const newIndex = Math.floor(Math.random() * filteredBooks.length);
       setRandomBookIndex(newIndex);
     }
   }, [filteredBooks]);
+
+  useEffect(() => {
+    let filteredResults = books;
+
+    if (
+      selectedSubjects.length > 0 ||
+      selectedCentury ||
+      selectedLength ||
+      searchValue
+    ) {
+      filteredResults = books.filter((book) => {
+        const bookCentury =
+          Math.floor(new Date(book.date_book_published).getFullYear() / 100) *
+          100;
+        return (
+          (selectedSubjects.length === 0 ||
+            selectedSubjects.every((subject) =>
+              book.book_subjects.includes(subject),
+            )) &&
+          (selectedCentury === null || bookCentury === selectedCentury) &&
+          (selectedLength === null || checkBookLength(book, selectedLength)) &&
+          (searchValue === `` ||
+            book.book_title.toLowerCase().includes(searchValue))
+        );
+      });
+    }
+
+    const sortedFilteredResults = sortBooks(
+      filteredResults,
+      selectedSortOption,
+    );
+    setFilteredBooks(sortedFilteredResults);
+  }, [
+    books,
+    selectedSortOption,
+    selectedSubjects,
+    selectedCentury,
+    selectedLength,
+    searchValue,
+  ]);
 
   const randomBook = sanitizeName(filteredBooks[randomBookIndex]?.book_title);
 
