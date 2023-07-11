@@ -63,10 +63,10 @@ const Directors: React.FC = () => {
     const currSearchValue = searchValue.toLowerCase();
     const filteredResults = directors.filter((director) => {
       return (
-        director.director_name.toLowerCase().includes(currSearchValue) ||
+        director.director_name.toLowerCase().startsWith(currSearchValue) ||
         director.director_country_of_birth
           .toLowerCase()
-          .includes(currSearchValue)
+          .startsWith(currSearchValue)
       );
     });
     const sortedFilteredResults = sortDirectors(
@@ -159,10 +159,10 @@ const Directors: React.FC = () => {
       const currSearchValue = searchValue.toLowerCase();
       filteredDirectorsArr = directors.filter(
         (director) =>
-          director.director_name.toLowerCase().includes(currSearchValue) ||
+          director.director_name.toLowerCase().startsWith(currSearchValue) ||
           director.director_country_of_birth
             .toLowerCase()
-            .includes(currSearchValue),
+            .startsWith(currSearchValue),
       );
     }
     const sortedDirectors = sortDirectors(

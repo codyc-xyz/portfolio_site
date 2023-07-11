@@ -64,8 +64,8 @@ const Authors: React.FC = () => {
     const currSearchValue = searchValue.toLowerCase();
     const filteredResults = authors.filter((author) => {
       return (
-        author.author_name.toLowerCase().includes(currSearchValue) ||
-        author.country_of_birth.toLowerCase().includes(currSearchValue)
+        author.author_name.toLowerCase().startsWith(currSearchValue) ||
+        author.country_of_birth.toLowerCase().startsWith(currSearchValue)
       );
     });
     const sortedFilteredResults = sortAuthors(
@@ -154,8 +154,8 @@ const Authors: React.FC = () => {
       const currSearchValue = searchValue.toLowerCase();
       filteredAuthorsArr = authors.filter(
         (author) =>
-          author.author_name.toLowerCase().includes(currSearchValue) ||
-          author.country_of_birth.toLowerCase().includes(currSearchValue),
+          author.author_name.toLowerCase().startsWith(currSearchValue) ||
+          author.country_of_birth.toLowerCase().startsWith(currSearchValue),
       );
     }
 

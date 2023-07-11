@@ -123,9 +123,11 @@ const Movies: React.FC = () => {
           )) &&
         (selectedDecade === null || movieDecade === selectedDecade) &&
         (selectedLength === null || checkMovieLength(movie, selectedLength)) &&
-        (movie.movie_title.toLowerCase().includes(currSearchValue) ||
-          movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
-          movie.director.director_name.toLowerCase().includes(currSearchValue))
+        (movie.movie_title.toLowerCase().startsWith(currSearchValue) ||
+          movie.country_of_origin.toLowerCase().startsWith(currSearchValue) ||
+          movie.director.director_name
+            .toLowerCase()
+            .startsWith(currSearchValue))
       );
     });
     const sortedFilteredResults = sortMovies(
@@ -180,11 +182,13 @@ const Movies: React.FC = () => {
             (selectedLength === null ||
               checkMovieLength(movie, selectedLength)) &&
             (searchValue === `` ||
-              movie.movie_title.toLowerCase().includes(currSearchValue) ||
-              movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              movie.movie_title.toLowerCase().startsWith(currSearchValue) ||
+              movie.country_of_origin
+                .toLowerCase()
+                .startsWith(currSearchValue) ||
               movie.director.director_name
                 .toLowerCase()
-                .includes(currSearchValue))
+                .startsWith(currSearchValue))
           );
         }),
       );
@@ -212,11 +216,13 @@ const Movies: React.FC = () => {
             (selectedLength === null ||
               checkMovieLength(movie, selectedLength)) &&
             (searchValue === `` ||
-              movie.movie_title.toLowerCase().includes(currSearchValue) ||
-              movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              movie.movie_title.toLowerCase().startsWith(currSearchValue) ||
+              movie.country_of_origin
+                .toLowerCase()
+                .startsWith(currSearchValue) ||
               movie.director.director_name
                 .toLowerCase()
-                .includes(currSearchValue))
+                .startsWith(currSearchValue))
           );
         }),
       );
@@ -248,11 +254,13 @@ const Movies: React.FC = () => {
               movie.movie_genres.includes(genre),
             ) &&
             (searchValue === `` ||
-              movie.movie_title.toLowerCase().includes(currSearchValue) ||
-              movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+              movie.movie_title.toLowerCase().startsWith(currSearchValue) ||
+              movie.country_of_origin
+                .toLowerCase()
+                .startsWith(currSearchValue) ||
               movie.director.director_name
                 .toLowerCase()
-                .includes(currSearchValue))
+                .startsWith(currSearchValue))
           );
         }),
       );
@@ -289,9 +297,11 @@ const Movies: React.FC = () => {
     setFilteredMovies(
       movies.filter(
         (movie) =>
-          movie.movie_title.toLowerCase().includes(currSearchValue) ||
-          movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
-          movie.director.director_name.toLowerCase().includes(currSearchValue),
+          movie.movie_title.toLowerCase().startsWith(currSearchValue) ||
+          movie.country_of_origin.toLowerCase().startsWith(currSearchValue) ||
+          movie.director.director_name
+            .toLowerCase()
+            .startsWith(currSearchValue),
       ),
     );
 
@@ -484,11 +494,11 @@ const Movies: React.FC = () => {
           (selectedLength === null ||
             checkMovieLength(movie, selectedLength)) &&
           (searchValue === `` ||
-            movie.movie_title.toLowerCase().includes(currSearchValue) ||
-            movie.country_of_origin.toLowerCase().includes(currSearchValue) ||
+            movie.movie_title.toLowerCase().startsWith(currSearchValue) ||
+            movie.country_of_origin.toLowerCase().startsWith(currSearchValue) ||
             movie.director.director_name
               .toLowerCase()
-              .includes(currSearchValue))
+              .startsWith(currSearchValue))
         );
       });
     }

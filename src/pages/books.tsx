@@ -114,9 +114,9 @@ const Books: React.FC = () => {
           )) &&
         (selectedCentury === null || bookCentury === selectedCentury) &&
         (selectedLength === null || checkBookLength(book, selectedLength)) &&
-        (book.book_title.toLowerCase().includes(currSearchValue) ||
-          book.country_of_origin.toLowerCase().includes(currSearchValue) ||
-          book.author.author_name.toLowerCase().includes(currSearchValue))
+        (book.book_title.toLowerCase().startsWith(currSearchValue) ||
+          book.country_of_origin.toLowerCase().startsWith(currSearchValue) ||
+          book.author.author_name.toLowerCase().startsWith(currSearchValue))
       );
     });
     const sortedFilteredResults = sortBooks(
@@ -156,9 +156,9 @@ const Books: React.FC = () => {
     setFilteredBooks(
       books.filter(
         (book) =>
-          book.book_title.toLowerCase().includes(currSearchValue) ||
-          book.country_of_origin.toLowerCase().includes(currSearchValue) ||
-          book.author.author_name.toLowerCase().includes(currSearchValue),
+          book.book_title.toLowerCase().startsWith(currSearchValue) ||
+          book.country_of_origin.toLowerCase().startsWith(currSearchValue) ||
+          book.author.author_name.toLowerCase().startsWith(currSearchValue),
       ),
     );
 
@@ -204,9 +204,11 @@ const Books: React.FC = () => {
             (selectedLength === null ||
               checkBookLength(book, selectedLength)) &&
             (searchValue === `` ||
-              book.book_title.toLowerCase().includes(currSearchValue) ||
-              book.country_of_origin.toLowerCase().includes(currSearchValue) ||
-              book.author.author_name.toLowerCase().includes(currSearchValue))
+              book.book_title.toLowerCase().startsWith(currSearchValue) ||
+              book.country_of_origin
+                .toLowerCase()
+                .startsWith(currSearchValue) ||
+              book.author.author_name.toLowerCase().startsWith(currSearchValue))
           );
         }),
       );
@@ -236,9 +238,11 @@ const Books: React.FC = () => {
             (selectedLength === null ||
               checkBookLength(book, selectedLength)) &&
             (searchValue === `` ||
-              book.book_title.toLowerCase().includes(currSearchValue) ||
-              book.country_of_origin.toLowerCase().includes(currSearchValue) ||
-              book.author.author_name.toLowerCase().includes(currSearchValue))
+              book.book_title.toLowerCase().startsWith(currSearchValue) ||
+              book.country_of_origin
+                .toLowerCase()
+                .startsWith(currSearchValue) ||
+              book.author.author_name.toLowerCase().startsWith(currSearchValue))
           );
         }),
       );
@@ -276,9 +280,11 @@ const Books: React.FC = () => {
               book.book_subjects.includes(subject),
             ) &&
             (searchValue === `` ||
-              book.book_title.toLowerCase().includes(currSearchValue) ||
-              book.country_of_origin.toLowerCase().includes(currSearchValue) ||
-              book.author.author_name.toLowerCase().includes(currSearchValue))
+              book.book_title.toLowerCase().startsWith(currSearchValue) ||
+              book.country_of_origin
+                .toLowerCase()
+                .startsWith(currSearchValue) ||
+              book.author.author_name.toLowerCase().startsWith(currSearchValue))
           );
         }),
       );
@@ -474,7 +480,7 @@ const Books: React.FC = () => {
           (selectedCentury === null || bookCentury === selectedCentury) &&
           (selectedLength === null || checkBookLength(book, selectedLength)) &&
           (searchValue === `` ||
-            book.book_title.toLowerCase().includes(currSearchValue))
+            book.book_title.toLowerCase().startsWith(currSearchValue))
         );
       });
     }
