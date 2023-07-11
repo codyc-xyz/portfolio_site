@@ -40,55 +40,55 @@ const Projects: React.FC = () => {
   );
 
   const [isSortExpanded, setSortExpanded] = useSessionStorage(
-    `projectIsSortExpanded`,
+    `/projects/IsSortExpanded`,
     false,
   );
   const [isFilterExpanded, setFilterExpanded] = useSessionStorage(
-    `projectIsFilterExpanded`,
+    `/projects/IsFilterExpanded`,
     false,
   );
   const [isTechnologyExpanded, setTechnologyExpanded] = useSessionStorage(
-    `projectIsTechnologyExpanded`,
+    `/projects/IsTechnologyExpanded`,
     false,
   );
   const [isSizeExpanded, setSizeExpanded] = useSessionStorage(
-    `projectIsSizeExpanded`,
+    `/projects/IsSizeExpanded`,
     false,
   );
   const [isStatusExpanded, setStatusExpanded] = useSessionStorage(
-    `projectIsStatusExpanded`,
+    `/projects/IsStatusExpanded`,
     false,
   );
   const [selectedTechnologies, setSelectedTechnologies] = useSessionStorage(
-    `projectSelectedTechnologies`,
+    `/projects/SelectedTechnologies`,
     [],
   );
   const [availableSizes, setAvailableSizes] = useSessionStorage(
-    `projectAvailableSizes`,
+    `/projects/AvailableSizes`,
     [],
   );
   const [selectedStatus, setSelectedStatus] = useSessionStorage(
-    `projectSelectedStatus`,
+    `/projects/SelectedStatus`,
     null,
   );
   const [availableTechnologies, setAvailableTechnologies] = useSessionStorage(
-    `projectAvailableTechnologies`,
+    `/projects/AvailableTechnologies`,
     [],
   );
   const [selectedSize, setSelectedSize] = useSessionStorage(
-    `projectSelectedSize`,
+    `/projects/SelectedSize`,
     null,
   );
   const [availableStatuses, setAvailableStatuses] = useSessionStorage(
-    `projectAvailableStatuses`,
+    `/projects/AvailableStatuses`,
     [],
   );
   const [searchValue, setSearchValue] = useSessionStorage(
-    `projectSearchValue`,
+    `/projects/SearchValue`,
     ``,
   );
   const [selectedSortOption, setSelectedSortOption] = useSessionStorage(
-    `projectSelectedSortOption`,
+    `/projects/SelectedSortOption`,
     `Project Name (A-Z)`,
   );
 
