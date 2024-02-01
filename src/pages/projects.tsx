@@ -339,6 +339,7 @@ const Projects: React.FC = () => {
       return techCounts[b] - techCounts[a];
     });
     setAvailableTechnologies(uniqueTech);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredProjects, selectedTechnologies]);
 
   useEffect(() => {
@@ -384,6 +385,7 @@ const Projects: React.FC = () => {
     });
 
     setAvailableStatuses(sortedStatuses);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredProjects]);
 
   useEffect(() => {

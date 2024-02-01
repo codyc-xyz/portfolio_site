@@ -53,16 +53,18 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ pageContext }) => {
             <p className="text-sm">
               <strong>Technologies:</strong> {technologies.join(`, `)}
             </p>
-            <p className="text-sm">
-              <a
-                href={projectGithub}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:opacity-50"
-              >
-                Project Github
-              </a>
-            </p>
+            {projectGithub && (
+              <p className="text-sm">
+                <a
+                  href={projectGithub}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-50"
+                >
+                  Project Github
+                </a>
+              </p>
+            )}
             {uiGithub && (
               <p className="text-sm">
                 <Link to={uiGithub} className="underline hover:opacity-50">
